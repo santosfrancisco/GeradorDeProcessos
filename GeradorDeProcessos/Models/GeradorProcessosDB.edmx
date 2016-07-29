@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GeradorDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdUnidade" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cpf" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Sexo" Type="varchar" MaxLength="50" />
+          <Property Name="DataNascimento" Type="date" Nullable="false" />
+          <Property Name="Profissao" Type="varchar" MaxLength="50" />
+          <Property Name="Renda" Type="real" Nullable="false" />
+          <Property Name="EstadoCivil" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegimeCasamento" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empreendimentos">
+          <Key>
+            <PropertyRef Name="IdEmpreendimento" />
+          </Key>
+          <Property Name="IdEmpreendimento" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdEmpresa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Unidades">
+          <Key>
+            <PropertyRef Name="IdUnidade" />
+          </Key>
+          <Property Name="IdUnidade" Type="int" Nullable="false" />
+          <Property Name="IdEmpreendimento" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="ValorTotal" Type="real" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'GeradorDB.dbo.Usuarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Senha" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Senha" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Clientes_Unidades">
+          <End Role="Unidades" Type="Self.Unidades" Multiplicity="1" />
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Unidades">
+              <PropertyRef Name="IdUnidade" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_Empreendimentos">
+          <End Role="Empresas" Type="Self.Empresas" Multiplicity="1" />
+          <End Role="Empreendimentos" Type="Self.Empreendimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Empreendimentos">
+              <PropertyRef Name="IdEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidades_Empreendimentos">
+          <End Role="Empreendimentos" Type="Self.Empreendimentos" Multiplicity="1" />
+          <End Role="Unidades" Type="Self.Unidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empreendimentos">
+              <PropertyRef Name="IdEmpreendimento" />
+            </Principal>
+            <Dependent Role="Unidades">
+              <PropertyRef Name="IdEmpreendimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GeradorDBModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empreendimentos" EntityType="Self.Empreendimentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Unidades" EntityType="Self.Unidades" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Usuarios].[IdUsuario] AS [IdUsuario], 
+    [Usuarios].[Nome] AS [Nome], 
+    [Usuarios].[Email] AS [Email], 
+    [Usuarios].[Senha] AS [Senha]
+    FROM [dbo].[Usuarios] AS [Usuarios]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Clientes_Unidades" Association="Self.FK_Clientes_Unidades">
+            <End Role="Unidades" EntitySet="Unidades" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_Empreendimentos" Association="Self.FK_Empresas_Empreendimentos">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Empreendimentos" EntitySet="Empreendimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidades_Empreendimentos" Association="Self.FK_Unidades_Empreendimentos">
+            <End Role="Empreendimentos" EntitySet="Empreendimentos" />
+            <End Role="Unidades" EntitySet="Unidades" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GeradorDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GeradorDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="GeradorDBModel.Clientes" />
+          <EntitySet Name="Empreendimentos" EntityType="GeradorDBModel.Empreendimentos" />
+          <EntitySet Name="Empresas" EntityType="GeradorDBModel.Empresas" />
+          <EntitySet Name="Unidades" EntityType="GeradorDBModel.Unidades" />
+          <EntitySet Name="Usuarios" EntityType="GeradorDBModel.Usuarios" />
+          <AssociationSet Name="FK_Clientes_Unidades" Association="GeradorDBModel.FK_Clientes_Unidades">
+            <End Role="Unidades" EntitySet="Unidades" />
+            <End Role="Clientes" EntitySet="Clientes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresas_Empreendimentos" Association="GeradorDBModel.FK_Empresas_Empreendimentos">
+            <End Role="Empresas" EntitySet="Empresas" />
+            <End Role="Empreendimentos" EntitySet="Empreendimentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unidades_Empreendimentos" Association="GeradorDBModel.FK_Unidades_Empreendimentos">
+            <End Role="Empreendimentos" EntitySet="Empreendimentos" />
+            <End Role="Unidades" EntitySet="Unidades" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdUnidade" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Cpf" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DataNascimento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Profissao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Renda" Type="Single" Nullable="false" />
+          <Property Name="EstadoCivil" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="RegimeCasamento" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Unidades" Relationship="GeradorDBModel.FK_Clientes_Unidades" FromRole="Clientes" ToRole="Unidades" />
+        </EntityType>
+        <EntityType Name="Empreendimentos">
+          <Key>
+            <PropertyRef Name="IdEmpreendimento" />
+          </Key>
+          <Property Name="IdEmpreendimento" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Empresas" Relationship="GeradorDBModel.FK_Empresas_Empreendimentos" FromRole="Empreendimentos" ToRole="Empresas" />
+          <NavigationProperty Name="Unidades" Relationship="GeradorDBModel.FK_Unidades_Empreendimentos" FromRole="Empreendimentos" ToRole="Unidades" />
+        </EntityType>
+        <EntityType Name="Empresas">
+          <Key>
+            <PropertyRef Name="IdEmpresa" />
+          </Key>
+          <Property Name="IdEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Empreendimentos" Relationship="GeradorDBModel.FK_Empresas_Empreendimentos" FromRole="Empresas" ToRole="Empreendimentos" />
+        </EntityType>
+        <EntityType Name="Unidades">
+          <Key>
+            <PropertyRef Name="IdUnidade" />
+          </Key>
+          <Property Name="IdUnidade" Type="Int32" Nullable="false" />
+          <Property Name="IdEmpreendimento" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ValorTotal" Type="Single" Nullable="false" />
+          <NavigationProperty Name="Clientes" Relationship="GeradorDBModel.FK_Clientes_Unidades" FromRole="Unidades" ToRole="Clientes" />
+          <NavigationProperty Name="Empreendimentos" Relationship="GeradorDBModel.FK_Unidades_Empreendimentos" FromRole="Unidades" ToRole="Empreendimentos" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+            <PropertyRef Name="Nome" />
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="Senha" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Clientes_Unidades">
+          <End Type="GeradorDBModel.Unidades" Role="Unidades" Multiplicity="1" />
+          <End Type="GeradorDBModel.Clientes" Role="Clientes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Unidades">
+              <PropertyRef Name="IdUnidade" />
+            </Principal>
+            <Dependent Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresas_Empreendimentos">
+          <End Type="GeradorDBModel.Empresas" Role="Empresas" Multiplicity="1" />
+          <End Type="GeradorDBModel.Empreendimentos" Role="Empreendimentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresas">
+              <PropertyRef Name="IdEmpresa" />
+            </Principal>
+            <Dependent Role="Empreendimentos">
+              <PropertyRef Name="IdEmpresa" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unidades_Empreendimentos">
+          <End Type="GeradorDBModel.Empreendimentos" Role="Empreendimentos" Multiplicity="1" />
+          <End Type="GeradorDBModel.Unidades" Role="Unidades" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empreendimentos">
+              <PropertyRef Name="IdEmpreendimento" />
+            </Principal>
+            <Dependent Role="Unidades">
+              <PropertyRef Name="IdEmpreendimento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GeradorDBModelStoreContainer" CdmEntityContainer="GeradorDBEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="GeradorDBModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="RegimeCasamento" ColumnName="RegimeCasamento" />
+                <ScalarProperty Name="EstadoCivil" ColumnName="EstadoCivil" />
+                <ScalarProperty Name="Renda" ColumnName="Renda" />
+                <ScalarProperty Name="Profissao" ColumnName="Profissao" />
+                <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="Cpf" ColumnName="Cpf" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdUnidade" ColumnName="IdUnidade" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empreendimentos">
+            <EntityTypeMapping TypeName="GeradorDBModel.Empreendimentos">
+              <MappingFragment StoreEntitySet="Empreendimentos">
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdEmpreendimento" ColumnName="IdEmpreendimento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="GeradorDBModel.Empresas">
+              <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdEmpresa" ColumnName="IdEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Unidades">
+            <EntityTypeMapping TypeName="GeradorDBModel.Unidades">
+              <MappingFragment StoreEntitySet="Unidades">
+                <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdEmpreendimento" ColumnName="IdEmpreendimento" />
+                <ScalarProperty Name="IdUnidade" ColumnName="IdUnidade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="GeradorDBModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

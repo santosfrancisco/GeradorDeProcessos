@@ -1,0 +1,41 @@
+﻿
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+	<title>@ViewBag.Title</title>
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header"> <a class="navbar-brand" href="#">IsiBr</a> </div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Home</a></li>
+					<li id="menuEmpreendimentos">
+						@Html.ActionLink("Empreendimentos", "Index", "Empreendimentos")
+					</li>
+					<li id="menuConfiguracoes">
+						@Html.ActionLink("Configurações", "Index", "Configuracoes")
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		@RenderBody()
+	</div>
+
+	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+
+	@RenderSection("scripts", required: false)
+</body>
+</html>
