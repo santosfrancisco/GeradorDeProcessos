@@ -107,24 +107,24 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\GeradorProcessosDB.Context.tt">
+    <Content Include="Models\ModeloDeDados.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeradorProcessosDB.edmx</DependentUpon>
-      <LastGenOutput>GeradorProcessosDB.Context.cs</LastGenOutput>
+      <DependentUpon>ModeloDeDados.edmx</DependentUpon>
+      <LastGenOutput>ModeloDeDados.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\GeradorProcessosDB.tt">
+    <Content Include="Models\ModeloDeDados.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>GeradorProcessosDB.edmx</DependentUpon>
-      <LastGenOutput>GeradorProcessosDB.cs</LastGenOutput>
+      <DependentUpon>ModeloDeDados.edmx</DependentUpon>
+      <LastGenOutput>ModeloDeDados.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\GeradorProcessosDB.edmx">
+    <EntityDeploy Include="Models\ModeloDeDados.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>GeradorProcessosDB.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModeloDeDados.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\GeradorProcessosDB.edmx.diagram">
-      <DependentUpon>GeradorProcessosDB.edmx</DependentUpon>
+    <Content Include="Models\ModeloDeDados.edmx.diagram">
+      <DependentUpon>ModeloDeDados.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.0.js" />
@@ -144,34 +144,34 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Clientes.cs">
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empreendimentos.cs">
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Empresas.cs">
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeradorProcessosDB.Context.cs">
+    <Compile Include="Models\ModeloDeDados.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeradorProcessosDB.Context.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeradorProcessosDB.cs">
+    <Compile Include="Models\ModeloDeDados.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\GeradorProcessosDB.Designer.cs">
+    <Compile Include="Models\ModeloDeDados.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>GeradorProcessosDB.edmx</DependentUpon>
+      <DependentUpon>ModeloDeDados.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Unidades.cs">
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Usuarios.cs">
-      <DependentUpon>GeradorProcessosDB.tt</DependentUpon>
+      <DependentUpon>ModeloDeDados.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -187,7 +187,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="Views\Empreendimentos\Index.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />

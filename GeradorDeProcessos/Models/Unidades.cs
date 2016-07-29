@@ -14,12 +14,19 @@ namespace GeradorDeProcessos.Models
     
     public partial class Unidades
     {
-        public int IdUnidade { get; set; }
-        public int IdEmpreendimento { get; set; }
-        public string Nome { get; set; }
-        public float ValorTotal { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Unidades()
+        {
+            this.Clientes = new HashSet<Clientes>();
+        }
     
-        public virtual Clientes Clientes { get; set; }
+        public int IDUnidade { get; set; }
+        public string Nome { get; set; }
+        public string ValorTotal { get; set; }
+        public int IDEmpreendimento { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Clientes> Clientes { get; set; }
         public virtual Empreendimentos Empreendimentos { get; set; }
     }
 }

@@ -14,16 +14,16 @@ namespace GeradorDeProcessos.Models
     
     public partial class Clientes
     {
-        public int IdCliente { get; set; }
-        public int IdUnidade { get; set; }
+        public long IDCliente { get; set; }
+        public string CpfCnpj { get; set; }
         public string Nome { get; set; }
-        public string Cpf { get; set; }
         public string Sexo { get; set; }
-        public System.DateTime DataNascimento { get; set; }
         public string Profissao { get; set; }
-        public float Renda { get; set; }
+        public Nullable<System.DateTime> DataNascimento { get; set; }
+        public string Renda { get; set; }
         public string EstadoCivil { get; set; }
         public string RegimeCasamento { get; set; }
+        public int IDUnidade { get; set; }
     
         public virtual Unidades Unidades { get; set; }
     }

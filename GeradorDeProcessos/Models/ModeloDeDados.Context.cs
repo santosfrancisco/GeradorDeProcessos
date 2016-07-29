@@ -13,10 +13,10 @@ namespace GeradorDeProcessos.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class GeradorDBEntities : DbContext
+    public partial class GeradorDeProcessosEntities : DbContext
     {
-        public GeradorDBEntities()
-            : base("name=GeradorDBEntities")
+        public GeradorDeProcessosEntities()
+            : base("name=GeradorDeProcessosEntities")
         {
         }
     

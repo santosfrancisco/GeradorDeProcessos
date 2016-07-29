@@ -14,9 +14,13 @@ namespace GeradorDeProcessos.Models
     
     public partial class Usuarios
     {
-        public int IdUsuario { get; set; }
+        public long IDUsuario { get; set; }
         public string Nome { get; set; }
-        public string Email { get; set; }
+        public string Login { get; set; }
         public string Senha { get; set; }
+        public string Email { get; set; }
+        public int IDEmpresa { get; set; }
+    
+        public virtual Empresas Empresas { get; set; }
     }
 }

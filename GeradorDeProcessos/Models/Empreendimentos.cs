@@ -20,9 +20,9 @@ namespace GeradorDeProcessos.Models
             this.Unidades = new HashSet<Unidades>();
         }
     
-        public int IdEmpreendimento { get; set; }
+        public int IDEmpreendimento { get; set; }
         public string Nome { get; set; }
-        public int IdEmpresa { get; set; }
+        public int IDEmpresa { get; set; }
     
         public virtual Empresas Empresas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
