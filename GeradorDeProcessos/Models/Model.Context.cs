@@ -30,5 +30,6 @@ namespace GeradorDeProcessos.Models
         public virtual DbSet<Empresas> Empresas { get; set; }
         public virtual DbSet<Unidades> Unidades { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Vendas> Vendas { get; set; }
     }
 }
