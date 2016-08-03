@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Novo empreendimento", "Create", null, htmlAttributes: new { @class = "btn btn-default" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Empreendimento")
+        </th>
+        <th>
+            @Html.Label("Empresa")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Empresas.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.IDEmpreendimento }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IDEmpreendimento }) |
+			
+			@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { EmpreendimentoID = item.IDEmpreendimento }, null) |
+
+			@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = item.IDEmpreendimento }, null) |
+            @Html.ActionLink("Remover", "Delete", new { id=item.IDEmpreendimento })
+        </td>
+    </tr>
+}
+
+</table>

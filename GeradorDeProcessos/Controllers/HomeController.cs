@@ -13,5 +13,10 @@ namespace GeradorDeProcessos.Controllers
         {
             return View();
         }
+
+		public ActionResult Configuracoes()
+		{
+			return View();
+		}
     }
 }
