@@ -17,10 +17,12 @@ namespace GeradorDeProcessos.Controllers
 
         // GET: Empreendimentos
         public async Task<ActionResult> Index()
-        {
-            var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
-            return View(await empreendimentos.ToListAsync());
+        {	
+				var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+				return View(await empreendimentos.ToListAsync());
         }
+		
+		
 
         // GET: Empreendimentos/Details/5
         public async Task<ActionResult> Details(int? id)

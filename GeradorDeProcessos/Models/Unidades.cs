@@ -23,6 +23,8 @@ namespace GeradorDeProcessos.Models
         public int IDUnidade { get; set; }
         public string Numero { get; set; }
         public int IDEmpreendimento { get; set; }
+        public bool Vendida { get; set; }
+        public string UnidadeObservacao { get; set; }
     
         public virtual Empreendimentos Empreendimentos { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

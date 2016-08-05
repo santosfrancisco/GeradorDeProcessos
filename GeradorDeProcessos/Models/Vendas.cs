@@ -20,6 +20,7 @@ namespace GeradorDeProcessos.Models
         public decimal ValorTotal { get; set; }
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
+        public string VendaObservacao { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Unidades Unidades1 { get; set; }
