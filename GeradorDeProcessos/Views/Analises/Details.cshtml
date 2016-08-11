@@ -1,0 +1,66 @@
+﻿@model GeradorDeProcessos.Models.Analises
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Analises</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidades)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unidades)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorFinanciamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorFinanciamento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnaliseObservacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnaliseObservacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Clientes.CpfCnpj)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Clientes.CpfCnpj)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unidades1.Numero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unidades1.Numero)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDAnalise }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

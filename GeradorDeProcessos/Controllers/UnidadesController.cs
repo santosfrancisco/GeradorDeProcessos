@@ -45,15 +45,15 @@ namespace GeradorDeProcessos.Controllers
 			return View(unidades);
 		}
 
-		public async Task<ActionResult> ListarUnidades(int? EmpreendimentoID)
+		public async Task<ActionResult> ListarUnidades(int? id)
 		{
-			if (EmpreendimentoID == null)
+			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 
-			var unidadesEmpreendimento = db.Unidades.Where(u => u.IDEmpreendimento == EmpreendimentoID);
-			if (EmpreendimentoID == null)
+			var unidadesEmpreendimento = db.Unidades.Where(u => u.IDEmpreendimento == id);
+			if (id == null)
 			{
 				return HttpNotFound();
 			}

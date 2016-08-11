@@ -1,0 +1,45 @@
+﻿@model IEnumerable<GeradorDeProcessos.Models.Clientes>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+		<th>
+			@Html.Label("Nome")
+		</th>
+		<th>
+			@Html.Label("CPF/CNPJ")
+		</th>
+        <th>
+            @Html.Label("Quem cadastrou?")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+		<td>
+			@Html.DisplayFor(modelItem => item.Nome)
+		</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CpfCnpj)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Usuarios.Nome)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDCliente }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDCliente }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDCliente })
+        </td>
+    </tr>
+}
+
+</table>

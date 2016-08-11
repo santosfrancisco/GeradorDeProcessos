@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Empreendmentos";
 }
 
-<h2>Index</h2>
+<h2>Administração</h2>
+
+<h4>Empreendimentos</h4>
 
 <p>
     @Html.ActionLink("Novo empreendimento", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
@@ -29,13 +31,13 @@
             @Html.DisplayFor(modelItem => item.Empresas.Nome)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.IDEmpreendimento }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.IDEmpreendimento }) |
+            @Html.ActionLink("Editar", "Edit", new { id=item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
 			
-			@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { EmpreendimentoID = item.IDEmpreendimento }, null) |
+			@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { EmpreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
 
-			@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = item.IDEmpreendimento }, null) |
-            @Html.ActionLink("Remover", "Delete", new { id=item.IDEmpreendimento })
+			@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
+            @Html.ActionLink("Remover", "Delete", new { id=item.IDEmpreendimento }, new { @class = "btn btn-danger btn-sm" })
         </td>
     </tr>
 }

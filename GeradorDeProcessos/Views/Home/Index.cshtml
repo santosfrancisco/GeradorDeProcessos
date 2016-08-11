@@ -22,7 +22,9 @@
 			{
 		<tr>
 			<td>
-				<h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
+				<h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
+					@Html.Label("Total de unidades: " + @Html.Action("QtdUnidades", "Empreendimentos", new { id = item.IDEmpreendimento }))
+
 			</td>
 			<td>
 				@*@Html.DisplayFor(modelItem => item.Empresas.Nome)*@
@@ -30,6 +32,7 @@
 			<td>
 				@Html.ActionLink("Listar unidades", "ListaConsulta", "Unidades", new { empreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
 				@Html.ActionLink("Detalhes", "Details", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
+				@Html.ActionLink("Gerenciar", "Gerenciar", "Empreendimentos", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
 			</td>
 		</tr>
 			}

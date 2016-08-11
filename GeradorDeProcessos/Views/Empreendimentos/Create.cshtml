@@ -1,43 +1,71 @@
 ﻿@model GeradorDeProcessos.Models.Empreendimentos
 
 @{
-    ViewBag.Title = "Create";
+	ViewBag.Title = "Adicionar";
 }
 
-<h2>Create</h2>
+<h2>Administração</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Empreendimentos</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	@Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDEmpresa, "IDEmpresa", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDEmpresa", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDEmpresa, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<div class="form-horizontal">
+		<h4>Novo empreendimento</h4>
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			@Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+			</div>
+		</div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+		<div class="form-group">
+			@Html.Label("Empresa", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownList("IDEmpresa", null, htmlAttributes: new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.IDEmpresa, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@*@Html.DropDownList("ListaTipos", null, htmlAttributes: new { @class = "form-control" })*@
+				
+					<fieldset>
+						<select id="TipoUnidades" name="Tipo" class="form-control">
+
+							<option value="0">Residencial</option>
+
+							<option value="1">Comercial</option>
+
+						</select>
+
+					</fieldset>
+
+				@Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.Label("Data de entrega", htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.DataEntrega, "{0:d/mm/yyyy}", new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.DataEntrega, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Adicionar" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Voltar", "Index", null, htmlAttributes: new { @class = "btn btn-primary btn-sm" })
 </div>

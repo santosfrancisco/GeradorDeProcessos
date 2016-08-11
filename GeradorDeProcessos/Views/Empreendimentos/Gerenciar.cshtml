@@ -1,0 +1,15 @@
+﻿@model GeradorDeProcessos.Models.Empreendimentos
+
+@{
+    ViewBag.Title = "Gerenciar";
+}
+
+<h2>Gerenciar - @ViewBag.Empreendimento</h2>
+
+
+@Html.ActionLink("Editar", "Edit", new { id = Model.IDEmpreendimento })<br />
+@Html.ActionLink("Detalhes", "Details", new { id = Model.IDEmpreendimento })<br />
+@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { id = Model.IDEmpreendimento }, null)<br />
+@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = Model.IDEmpreendimento }, null)<br />
+@Html.ActionLink("Deletar", "Delete", new { id = Model.IDEmpreendimento })
+

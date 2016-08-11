@@ -17,7 +17,7 @@ namespace GeradorDeProcessos.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
         {
-            this.Vendas = new HashSet<Vendas>();
+            this.Analises = new HashSet<Analises>();
         }
     
         public int IDCliente { get; set; }
@@ -31,8 +31,8 @@ namespace GeradorDeProcessos.Models
         public string RegimeCasamento { get; set; }
         public int IDUsuario { get; set; }
     
-        public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vendas> Vendas { get; set; }
+        public virtual ICollection<Analises> Analises { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }
