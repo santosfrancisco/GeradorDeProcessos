@@ -56,6 +56,8 @@ CREATE TABLE Unidades
 	IDUnidade INT IDENTITY(1,1) NOT NULL,
 	Numero VARCHAR(100) NOT NULL,
 	IDEmpreendimento INT NOT NULL,
+	Vendida BIT DEFAULT 0,
+	UnidadeObservacao VARCHAR(100),
 
 	PRIMARY KEY(IDUnidade)
 );
