@@ -1,40 +1,54 @@
 ﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
+	@using PagedList.Mvc;
 @{
 	ViewBag.Title = "Index";
 }
 
-<h2>Lista de empreendimentos</h2>
+<h3>Lista de empreendimentos</h3>
+<div class="well well-sm form-inline">
+		@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+		{
+				<div class="form-group">
+						<input type="text" name="filtro" class="form-control" />
+					<button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+				</div>
+				}
 
-<form class="navbar-form navbar-left" role="search">
-	@using (Html.BeginForm("Index", "Home", FormMethod.Post))
-	{
-
-		<div class="form-group">
-			<input type="text" name="filtro" class="form-control" />
-		</div>
-		<button type="submit" class="btn btn-primary">Filtrar</button>
-	}
-</form>
+				@*<form class="navbar-form navbar-left" role="search"></form>*@
+			</div>
 <br /><br />
 <table class="table">
 
 	@foreach (var item in Model)
 			{
-		<tr>
+		
+		<tr class="row">
 			<td>
 				<h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
-					@Html.Label("Total de unidades: " + @Html.Action("QtdUnidades", "Empreendimentos", new { id = item.IDEmpreendimento }))
+				@Html.Label("Habite-se: ") <span class="label label-primary"> @Html.Action("Habitese", "Empreendimentos", new { id = item.IDEmpreendimento })</span>
+
+				@Html.Label("Total de unidades:") <span class="badge">@Html.Action("QtdUnidades", "Empreendimentos", new { id = item.IDEmpreendimento })</span>
 
 			</td>
 			<td>
-				@*@Html.DisplayFor(modelItem => item.Empresas.Nome)*@
+					
 			</td>
-			<td>
-				@Html.ActionLink("Listar unidades", "ListaConsulta", "Unidades", new { empreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
-				@Html.ActionLink("Detalhes", "Details", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
-				@Html.ActionLink("Gerenciar", "Gerenciar", "Empreendimentos", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
+			<td><br />
+				@Html.ActionLink("Listar unidades", "ListaConsulta", "Unidades", new { empreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary" })
+				@*@Html.ActionLink("Detalhes", "Details", "Empreendimentos", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary" })*@
+				@Html.ActionLink("Gerenciar", "Gerenciar", "Empreendimentos", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary" })
 			</td>
 		</tr>
 			}
+	<tfoot>
+		<tr>
+			<td colspan="3">
+				@Html.PagedListPager(Model, page => Url.Action("Listar",
+					new { pagina = page }))
+			</td>
+		</tr>
+	</tfoot>
+
+
 
 </table>

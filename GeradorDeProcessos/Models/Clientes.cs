@@ -29,6 +29,8 @@ namespace GeradorDeProcessos.Models
         public string Renda { get; set; }
         public string EstadoCivil { get; set; }
         public string RegimeCasamento { get; set; }
+        public string Conjuge_Cpf { get; set; }
+        public string Conjuge_Nome { get; set; }
         public int IDUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

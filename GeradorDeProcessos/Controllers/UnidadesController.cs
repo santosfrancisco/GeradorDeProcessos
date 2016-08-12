@@ -92,7 +92,7 @@ namespace GeradorDeProcessos.Controllers
 
 
 					await db.SaveChangesAsync();
-					return RedirectToAction("ListarUnidades", "Unidades", new { empreendimentoID = id });
+					return RedirectToAction("ListarUnidades", "Unidades", new { id = id });
 				}
 			}
 

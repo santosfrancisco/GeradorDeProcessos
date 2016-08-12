@@ -9,10 +9,11 @@
 
 namespace GeradorDeProcessos.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Empresas
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+
+	public partial class Empresas
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empresas()
@@ -20,8 +21,9 @@ namespace GeradorDeProcessos.Models
             this.Empreendimentos = new HashSet<Empreendimentos>();
             this.Usuarios = new HashSet<Usuarios>();
         }
-    
-        public int IDEmpresa { get; set; }
+		[DisplayName("Empresa")]
+		public int IDEmpresa { get; set; }
+		[DisplayName("Empresa")]
         public string Nome { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

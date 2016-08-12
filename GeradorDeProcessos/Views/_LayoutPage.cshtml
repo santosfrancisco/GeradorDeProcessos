@@ -10,6 +10,7 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+	<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" />
 	<title>@ViewBag.Title</title>
 </head>
 <body>
@@ -38,12 +39,19 @@
 		</div>
 	</nav>
 	<div class="container" style="margin-top:50px">
-		@RenderBody()
+		<div class="panel panel-body" style="margin-top:10px; padding:10px">
+			@RenderBody()
+		</div>
+		<div class="panel panel-collapse"  style="text-align:center">
+			<img src="~/Content/logo.jpg" /><br />
+			<span class="text-info"><b>Caso tenha dúvidas, ligue 11-50817969</b></span>
+		</div>
 	</div>
 	@*<script src="http://code.jquery.com/jquery-1.9.1.js"></script>*@
 	@*<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>*@
 	<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/jquery.maskedinput.min.js")"></script>
 
 	@RenderSection("scripts", required: false)
 </body>

@@ -27,6 +27,8 @@ CREATE TABLE Clientes
 	Renda VARCHAR(80) NULL,
     EstadoCivil VARCHAR(80) NULL,
     RegimeCasamento VARCHAR(80) NULL,
+    Conjuge_Cpf VARCHAR(30) NOT NULL,
+	Conjuge_Nome VARCHAR(80) NOT NULL,
 	IDUsuario INT NOT NULL,
 
 	PRIMARY KEY(IDCliente)
@@ -46,6 +48,8 @@ CREATE TABLE Empreendimentos
 (
 	IDEmpreendimento INT IDENTITY(1,1) NOT NULL,
 	Nome VARCHAR(100) NOT NULL,
+    DataEntrega DATE NOT NULL,
+    Tipo VARCHAR(50) NOT NULL,
     IDEmpresa INT NOT NULL,
 
 	PRIMARY KEY(IDEmpreendimento)
@@ -63,16 +67,18 @@ CREATE TABLE Unidades
 );
 GO
 
-CREATE TABLE Vendas
+CREATE TABLE Analises
 (
-	IDVenda INT IDENTITY(1,1) NOT NULL,
+	IDAnalise INT IDENTITY(1,1) NOT NULL,
 	Unidades varchar(50) NOT NULL,
+    DataEntrega DATE NOT NULL,
 	ValorFinanciamento DECIMAL NOT NULL,
     ValorTotal DECIMAL NOT NULL,
+    Observacao VARCHAR(300) NULL,
     IDCliente INT NOT NULL,
     IDUnidade INT NOT NULL,
 
-	PRIMARY KEY(IDVenda)
+	PRIMARY KEY(IDAnalise)
 );
 GO
 
@@ -94,8 +100,8 @@ FOREIGN KEY(IDEmpresa)
 REFERENCES Empresas(IDEmpresa)
 GO
 
-ALTER TABLE Vendas
-ADD CONSTRAINT fk_vendas_clientes
+ALTER TABLE Analises
+ADD CONSTRAINT fk_analises_clientes
 FOREIGN KEY(IDCliente)
 REFERENCES Clientes(IDCliente)
 GO
@@ -105,8 +111,8 @@ FOREIGN KEY(IDUsuario)
 REFERENCES Usuarios(IDUsuario)
 GO
 
-ALTER TABLE Vendas
-ADD CONSTRAINT fk_vendas_unidades
+ALTER TABLE Analises
+ADD CONSTRAINT fk_Analises_unidades
 FOREIGN KEY(IDUnidade)
 REFERENCES Unidades(IDUnidade)
 GO

@@ -1,15 +1,46 @@
 ﻿@model GeradorDeProcessos.Models.Empreendimentos
 
 @{
-    ViewBag.Title = "Gerenciar";
+	ViewBag.Title = "Gerenciar";
 }
 
-<h2>Gerenciar - @ViewBag.Empreendimento</h2>
-
-
-@Html.ActionLink("Editar", "Edit", new { id = Model.IDEmpreendimento })<br />
-@Html.ActionLink("Detalhes", "Details", new { id = Model.IDEmpreendimento })<br />
-@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { id = Model.IDEmpreendimento }, null)<br />
-@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = Model.IDEmpreendimento }, null)<br />
-@Html.ActionLink("Deletar", "Delete", new { id = Model.IDEmpreendimento })
+<h3>Gerenciar - @ViewBag.Empreendimento</h3>
+<br />
+<div class="container-fluid">
+		<p>
+			<button class="btn btn-primary" title="Editar informações do empreendimento">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true">
+					@Html.ActionLink(" ", "Edit", new { id = Model.IDEmpreendimento })
+				</span> Editar empreendimento
+			</button>
+		</p>
+		<p>
+			<button class="btn btn-primary" title="Visualizar informações sobre o empreendimento">
+				<span class="glyphicon glyphicon-info-sign" aria-hidden="true">
+					@Html.ActionLink(" ", "Details", new { id = Model.IDEmpreendimento })
+				</span> Detalhes do empreendimento
+			</button>
+		</p>
+		<p>
+			<button class="btn btn-primary" title="Listar todas as unidades do empreendimento">
+				<span class="glyphicon glyphicon-list" aria-hidden="true">
+					@Html.ActionLink(" ", "ListarUnidades", "Unidades", new { id = Model.IDEmpreendimento }, null)
+				</span> Listar unidades
+			</button>
+		</p>
+		<p>
+			<button class="btn btn-primary" title="Adicionar novas unidades ao empreendimento">
+				<span class="glyphicon glyphicon-plus-sign" aria-hidden="true">
+					@Html.ActionLink(" ", "Create", "Unidades", new { id = Model.IDEmpreendimento }, null)
+				</span> Adicionar unidades
+			</button>
+		</p>
+		<p>
+			<button class="btn btn-danger" title="Este precedimento remove o empreendimento. Tome cuidado.">
+				<span class="glyphicon glyphicon-remove-sign" aria-hidden="true">
+					@Html.ActionLink(" ", "Delete", new { id = Model.IDEmpreendimento })
+				</span> Deletar empreendimento
+			</button>
+		</p>
+</div>
 

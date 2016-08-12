@@ -11,6 +11,7 @@ namespace GeradorDeProcessos.Models
 {
 	using System;
 	using System.Collections.Generic;
+	using System.ComponentModel;
 	using System.ComponentModel.DataAnnotations;
 
 	public partial class Empreendimentos
@@ -23,12 +24,12 @@ namespace GeradorDeProcessos.Models
     
         public int IDEmpreendimento { get; set; }
         public string Nome { get; set; }
-        public int IDEmpresa { get; set; }
 
-		[DataType(DataType.Date)]
-		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+		[DisplayName("Data de Entrega")]
+		[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
 		public System.DateTime DataEntrega { get; set; }
         public string Tipo { get; set; }
+        public int IDEmpresa { get; set; }
     
         public virtual Empresas Empresas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

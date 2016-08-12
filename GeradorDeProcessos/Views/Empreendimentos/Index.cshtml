@@ -1,20 +1,25 @@
 ﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
 
 @{
-    ViewBag.Title = "Empreendmentos";
+    ViewBag.Title = "Index";
 }
 
-<h2>Administração</h2>
-
-<h4>Empreendimentos</h4>
+<h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Novo empreendimento", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
+    @Html.ActionLink("Novo empreendimento", "Create", null, new { @class = "btn btn-primary btn-xs" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.Label("Empreendimento")
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @*@Html.Label("Data de Entrega")*@
+			@Html.DisplayNameFor(model => model.DataEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
         </th>
         <th>
             @Html.Label("Empresa")
@@ -28,16 +33,18 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.DataEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tipo)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Empresas.Nome)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
-			
-			@Html.ActionLink("Listar Unidades", "ListarUnidades", "Unidades", new { EmpreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
-
-			@Html.ActionLink("Adicionar unidades", "Create", "Unidades", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" }) |
-            @Html.ActionLink("Remover", "Delete", new { id=item.IDEmpreendimento }, new { @class = "btn btn-danger btn-sm" })
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDEmpreendimento }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDEmpreendimento }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDEmpreendimento })
         </td>
     </tr>
 }
