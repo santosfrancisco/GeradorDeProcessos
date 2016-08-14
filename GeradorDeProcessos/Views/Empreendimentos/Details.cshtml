@@ -26,14 +26,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tipo)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Empresas.Nome)
         </dt>
 
@@ -53,5 +45,5 @@
 <p>
     @Html.ActionLink("Editar", "Edit", new { id = Model.IDEmpreendimento },htmlAttributes: new { @class = "btn btn-primary btn-sm" }) 
 
-    @Html.ActionLink("Voltar", "Index", null, htmlAttributes: new { @class = "btn btn-default btn-sm" })
+    @Html.ActionLink("Voltar", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-default btn-sm" })
 </p>

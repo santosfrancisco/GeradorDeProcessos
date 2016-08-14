@@ -42,7 +42,6 @@
           <Property Name="IDEmpreendimento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DataEntrega" Type="date" Nullable="false" />
-          <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDEmpresa" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Empresas">
@@ -59,7 +58,8 @@
           <Property Name="IDUnidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Numero" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IDEmpreendimento" Type="int" Nullable="false" />
-          <Property Name="Vendida" Type="bit" />
+          <Property Name="UnidadeStatus" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UnidadeObservacao" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -253,7 +253,6 @@
           <Property Name="IDEmpreendimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DataEntrega" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Empresas" Relationship="GeradorDeProcessosModel.fk_empreendimentos_empresas" FromRole="Empreendimentos" ToRole="Empresas" />
           <NavigationProperty Name="Unidades" Relationship="GeradorDeProcessosModel.fk_unidades_empreendimentos" FromRole="Empreendimentos" ToRole="Unidades" />
@@ -274,7 +273,8 @@
           <Property Name="IDUnidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Numero" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpreendimento" Type="Int32" Nullable="false" />
-          <Property Name="Vendida" Type="Boolean" />
+          <Property Name="UnidadeStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UnidadeObservacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Analises" Relationship="GeradorDeProcessosModel.fk_Analises_unidades" FromRole="Unidades" ToRole="Analises" />
           <NavigationProperty Name="Empreendimentos" Relationship="GeradorDeProcessosModel.fk_unidades_empreendimentos" FromRole="Unidades" ToRole="Empreendimentos" />
@@ -405,7 +405,6 @@
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Empreendimentos">
               <MappingFragment StoreEntitySet="Empreendimentos">
                 <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="DataEntrega" ColumnName="DataEntrega" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="IDEmpreendimento" ColumnName="IDEmpreendimento" />
@@ -424,7 +423,8 @@
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Unidades">
               <MappingFragment StoreEntitySet="Unidades">
                 <ScalarProperty Name="UnidadeObservacao" ColumnName="UnidadeObservacao" />
-                <ScalarProperty Name="Vendida" ColumnName="Vendida" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="UnidadeStatus" ColumnName="UnidadeStatus" />
                 <ScalarProperty Name="IDEmpreendimento" ColumnName="IDEmpreendimento" />
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="IDUnidade" ColumnName="IDUnidade" />

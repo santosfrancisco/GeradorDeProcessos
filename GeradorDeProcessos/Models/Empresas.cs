@@ -21,8 +21,8 @@ namespace GeradorDeProcessos.Models
             this.Empreendimentos = new HashSet<Empreendimentos>();
             this.Usuarios = new HashSet<Usuarios>();
         }
-		[DisplayName("Empresa")]
-		public int IDEmpresa { get; set; }
+    
+        public int IDEmpresa { get; set; }
 		[DisplayName("Empresa")]
         public string Nome { get; set; }
     

@@ -31,14 +31,14 @@ namespace GeradorDeProcessos.Controllers
 			ViewBag.Empreendimento = empreendimento.Nome.ToString();
 			return View(empreendimento);
 		}
-
+		// GET: Quantidade deunidades
 		public string QtdUnidades(int id)
 		{
 			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == id).ToArray();
 			string totalUnidades = unidades.Length.ToString();
 			return totalUnidades;
 		}
-
+		// GET: data do habite-se
 		public string Habitese(int id)
 		{
 			var empreendimento = db.Empreendimentos.Find(id);
@@ -83,7 +83,7 @@ namespace GeradorDeProcessos.Controllers
             {
                 db.Empreendimentos.Add(empreendimentos);
                 await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
 
             ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", empreendimentos.IDEmpresa);

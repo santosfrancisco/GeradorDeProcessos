@@ -15,14 +15,10 @@
             @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
-            @*@Html.Label("Data de Entrega")*@
 			@Html.DisplayNameFor(model => model.DataEntrega)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.Label("Empresa")
+            @Html.DisplayNameFor(model => model.IDEmpresa)
         </th>
         <th></th>
     </tr>
@@ -34,9 +30,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.DataEntrega)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Empresas.Nome)

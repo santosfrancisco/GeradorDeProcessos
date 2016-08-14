@@ -8,6 +8,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GeradorDeProcessos.Models;
+using PagedList;
+using PagedList.Mvc;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -20,6 +22,53 @@ namespace GeradorDeProcessos.Controllers
 		{
 			//var unidades = db.Unidades.Include(u => u.Empreendimentos);
 			return RedirectToAction("Index", "Empreendimentos");
+		}
+		// GET: Unidades/Consulta/5
+		public ActionResult Consulta(int? id, int? page, string sortOrder, string currentFilter, string searchString)
+		{
+			ViewBag.CurrentSort = sortOrder;
+			ViewBag.NomeParam = String.IsNullOrEmpty(sortOrder) ? "Numero_Desc" : "";
+
+			if (id == null)
+			{
+				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+			}
+
+			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == id);
+			//if(unidades.ToArray().Length == 0)
+			//{
+			//	return RedirectToAction("Index", "Home", null);
+			//}
+
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				unidades = unidades.Where(u => u.Numero.ToUpper().Contains(searchString.ToUpper()));
+			}
+
+			switch (sortOrder)
+			{
+				case "Numero_desc":
+					unidades = unidades.OrderByDescending(u => u.Numero);
+					break;
+				default:
+					unidades = unidades.OrderBy(u => u.Numero);
+					break;
+			}
+			ViewBag.IdEmpreendimento = id;
+			int pageSize = 4;
+			int pageNumber = (page ?? 1);
+			return View(unidades.ToPagedList(pageNumber, pageSize));
 		}
 
 		// GET: Unidades/Details/5
@@ -34,14 +83,7 @@ namespace GeradorDeProcessos.Controllers
 			{
 				return HttpNotFound();
 			}
-			if( unidades.Vendida == true)
-			{
-				ViewBag.Status = "Vendida";
-			}
-			else
-			{
-				ViewBag.Status = "Disponível";
-			}
+			ViewBag.Status = unidades.UnidadeStatus.ToString();
 			return View(unidades);
 		}
 
@@ -57,7 +99,8 @@ namespace GeradorDeProcessos.Controllers
 			{
 				return HttpNotFound();
 			}
-			return View(await unidadesEmpreendimento.ToListAsync());
+			await unidadesEmpreendimento.ToListAsync();
+			return RedirectToAction("Consulta");
 		}
 
 		// GET: Unidades/Create
@@ -87,12 +130,15 @@ namespace GeradorDeProcessos.Controllers
 						Unidades unidade = new Unidades();
 						unidade.Numero = u;
 						unidade.IDEmpreendimento = id;
+						unidade.Tipo = form["Tipo"].ToString();
+						unidade.UnidadeStatus = form["UnidadeStatus"].ToString();
+						unidade.UnidadeObservacao = form["UnidadeObservacao"].ToString();
 						db.Unidades.Add(unidade);
 					}
 
 
 					await db.SaveChangesAsync();
-					return RedirectToAction("ListarUnidades", "Unidades", new { id = id });
+					return RedirectToAction("Consulta", "Unidades", new { id = id });
 				}
 			}
 

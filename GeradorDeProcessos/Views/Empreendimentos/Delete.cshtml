@@ -1,15 +1,14 @@
 ﻿@model GeradorDeProcessos.Models.Empreendimentos
 
 @{
-    ViewBag.Title = "Delete";
+	ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>Empreendimentos</h4>
+    <h4>Deletar</h4>
     <hr />
+
+	<h3>Tem certeza que deseja deletar o empreendimento @ViewBag.Empreendimento</h3>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Nome)
@@ -28,20 +27,20 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Tipo)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Empresas.Nome)
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Empresas.Nome)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Empresas.Nome)
+		</dd>
+
+		<dt>
+			@Html.Label("Total de unidades")
+		</dt>
+
+		<dd>
+			@Html.Action("QtdUnidades", "Empreendimentos", new { id = Model.IDEmpreendimento })
+		</dd>
 
     </dl>
 
@@ -49,8 +48,8 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Deletar" class="btn btn-danger" /> 
+            @Html.ActionLink("Voltar", "Index", "Home", new {@class="btn btn-default"})
         </div>
     }
 </div>

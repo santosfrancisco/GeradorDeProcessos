@@ -9,22 +9,20 @@ using System.Web.Mvc;
 
 namespace GeradorDeProcessos.Controllers
 {
-    public class HomeController : Controller
-    {
+	public class HomeController : Controller
+	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
-		public async Task<ActionResult> Index(string filtro = "")
+		public async Task<ActionResult> Index(string searchString)
 		{
-			if (filtro != "")
+			var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+
+			if (!String.IsNullOrEmpty(searchString))
 			{
-				var empreendimentos = db.Empreendimentos.Where(e => e.Nome.Contains(filtro));
-				return View(await empreendimentos.ToListAsync());
+				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper()));
 			}
-			else
-			{
-				var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
-				return View(await empreendimentos.ToListAsync());
-			}
+
+			return View(await empreendimentos.ToListAsync());
 		}
 		// GET: Home/Configuracoes
 		public ActionResult Configuracoes()
@@ -39,5 +37,5 @@ namespace GeradorDeProcessos.Controllers
 		//						  select new ResultadoListagem { Empreendimento = e.Nome };
 		//	return Json(empreendimentos, JsonRequestBehavior.AllowGet);
 		//}
-    }
+	}
 }
