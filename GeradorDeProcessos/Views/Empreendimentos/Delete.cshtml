@@ -35,6 +35,22 @@
 		</dd>
 
 		<dt>
+			@Html.DisplayNameFor(model => model.Produto)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Produto)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Campanha)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Campanha)
+		</dd>
+
+		<dt>
 			@Html.Label("Total de unidades")
 		</dt>
 
@@ -49,7 +65,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Deletar" class="btn btn-danger" /> 
-            @Html.ActionLink("Voltar", "Index", "Home", new {@class="btn btn-default"})
+            @Html.ActionLink("Voltar", "Index", "Home",null, new {@class="btn btn-default"})
         </div>
     }
 </div>

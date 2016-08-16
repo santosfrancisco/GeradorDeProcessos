@@ -1,4 +1,7 @@
-﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<GeradorDeProcessos.Models.Empreendimentos>
+
+@*@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>*@
 @{
 	ViewBag.Title = "Index";
 }
@@ -61,5 +64,12 @@
 			</td>
 		</tr>
 	}
-
+	<tfoot>
+		<tr>
+			<td colspan="4" class="pagination-sm">
+				@*Page @( Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+				@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
+			</td>
+		</tr>
+	</tfoot>
 </table>

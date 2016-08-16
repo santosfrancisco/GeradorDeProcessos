@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.Label("Número:")
+            @Html.LabelFor(model => model.Numero)
         </dt>
 
         <dd>
@@ -19,21 +19,28 @@
         </dd>
 
         <dt>
-            @Html.Label("Empreendimento:")
+            @Html.LabelFor(model => model.Empreendimentos.Nome)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Empreendimentos.Nome)
         </dd>
 		<dt>
-			@Html.Label("Status:")
+			@Html.LabelFor(model => model.UnidadeStatus)
 		</dt>
 
 		<dd>
-			<span>@ViewBag.Status</span>
+			@Html.DisplayFor(model => model.UnidadeStatus)
 		</dd>
 		<dt>
-			@Html.Label("Observação:")
+			@Html.LabelFor(model => model.Tipo)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Tipo)
+		</dd>
+		<dt>
+			@Html.LabelFor(model => model.UnidadeObservacao)
 		</dt>
 
 		<dd>
@@ -43,6 +50,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDUnidade }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDUnidade }, new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Voltar", "Consulta", new { id = Model.IDEmpreendimento }, new { @class = "btn btn-default" })
 </p>

@@ -20,14 +20,16 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades
 		public ActionResult Index()
 		{
-			//var unidades = db.Unidades.Include(u => u.Empreendimentos);
-			return RedirectToAction("Index", "Empreendimentos");
+			var unidades = db.Unidades.Include(u => u.Empreendimentos);
+			//return RedirectToAction("Index", "Empreendimentos");
+			return View(unidades);
 		}
 		// GET: Unidades/Consulta/5
 		public ActionResult Consulta(int? id, int? page, string sortOrder, string currentFilter, string searchString)
 		{
 			ViewBag.CurrentSort = sortOrder;
-			ViewBag.NomeParam = String.IsNullOrEmpty(sortOrder) ? "Numero_Desc" : "";
+			ViewBag.NumeroParam = String.IsNullOrEmpty(sortOrder) ? "Numero_Desc" : "";
+			ViewBag.StatusParam = sortOrder == "Status" ? "Status_Desc" : "Status";
 
 			if (id == null)
 			{
@@ -35,10 +37,6 @@ namespace GeradorDeProcessos.Controllers
 			}
 
 			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == id);
-			//if(unidades.ToArray().Length == 0)
-			//{
-			//	return RedirectToAction("Index", "Home", null);
-			//}
 
 			if (searchString != null)
 			{
@@ -58,15 +56,21 @@ namespace GeradorDeProcessos.Controllers
 
 			switch (sortOrder)
 			{
-				case "Numero_desc":
+				case "Numero_Desc":
 					unidades = unidades.OrderByDescending(u => u.Numero);
+					break;
+				case "Status":
+					unidades = unidades.OrderBy(u => u.UnidadeStatus);
+					break;
+				case "Status_Desc":
+					unidades = unidades.OrderByDescending(u => u.UnidadeStatus);
 					break;
 				default:
 					unidades = unidades.OrderBy(u => u.Numero);
 					break;
 			}
 			ViewBag.IdEmpreendimento = id;
-			int pageSize = 4;
+			int pageSize = 10;
 			int pageNumber = (page ?? 1);
 			return View(unidades.ToPagedList(pageNumber, pageSize));
 		}
@@ -155,11 +159,13 @@ namespace GeradorDeProcessos.Controllers
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 			}
 			Unidades unidades = await db.Unidades.FindAsync(id);
+
+			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidades.IDEmpreendimento);
 			if (unidades == null)
 			{
 				return HttpNotFound();
 			}
-			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidades.IDEmpreendimento);
+
 			return View(unidades);
 		}
 
@@ -168,7 +174,7 @@ namespace GeradorDeProcessos.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit([Bind(Include = "IDUnidade,Numero,IDEmpreendimento")] Unidades unidades)
+		public async Task<ActionResult> Edit([Bind(Include = "IDUnidade,Numero,Tipo,UnidadeStatus,UnidadeObservacao,IDEmpreendimento")] Unidades unidades)
 		{
 			if (ModelState.IsValid)
 			{

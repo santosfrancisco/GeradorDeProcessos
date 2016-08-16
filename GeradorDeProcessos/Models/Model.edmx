@@ -14,7 +14,9 @@
           <Property Name="DataEntrega" Type="date" Nullable="false" />
           <Property Name="ValorFinanciamento" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="ValorTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SaldeDevedor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Observacao" Type="varchar" MaxLength="300" />
+          <Property Name="TipoAnalise" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDCliente" Type="int" Nullable="false" />
           <Property Name="IDUnidade" Type="int" Nullable="false" />
         </EntityType>
@@ -42,6 +44,8 @@
           <Property Name="IDEmpreendimento" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="DataEntrega" Type="date" Nullable="false" />
+          <Property Name="Produto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Campanha" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDEmpresa" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Empresas">
@@ -221,7 +225,9 @@
           <Property Name="DataEntrega" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ValorFinanciamento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ValorTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SaldeDevedor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Observacao" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="TipoAnalise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDCliente" Type="Int32" Nullable="false" />
           <Property Name="IDUnidade" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="GeradorDeProcessosModel.fk_analises_clientes" FromRole="Analises" ToRole="Clientes" />
@@ -253,6 +259,8 @@
           <Property Name="IDEmpreendimento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="DataEntrega" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Produto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Campanha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Empresas" Relationship="GeradorDeProcessosModel.fk_empreendimentos_empresas" FromRole="Empreendimentos" ToRole="Empresas" />
           <NavigationProperty Name="Unidades" Relationship="GeradorDeProcessosModel.fk_unidades_empreendimentos" FromRole="Empreendimentos" ToRole="Unidades" />
@@ -374,7 +382,9 @@
               <MappingFragment StoreEntitySet="Analises">
                 <ScalarProperty Name="IDUnidade" ColumnName="IDUnidade" />
                 <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
+                <ScalarProperty Name="TipoAnalise" ColumnName="TipoAnalise" />
                 <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="SaldeDevedor" ColumnName="SaldeDevedor" />
                 <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
                 <ScalarProperty Name="ValorFinanciamento" ColumnName="ValorFinanciamento" />
                 <ScalarProperty Name="DataEntrega" ColumnName="DataEntrega" />
@@ -405,6 +415,8 @@
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Empreendimentos">
               <MappingFragment StoreEntitySet="Empreendimentos">
                 <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
+                <ScalarProperty Name="Campanha" ColumnName="Campanha" />
+                <ScalarProperty Name="Produto" ColumnName="Produto" />
                 <ScalarProperty Name="DataEntrega" ColumnName="DataEntrega" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="IDEmpreendimento" ColumnName="IDEmpreendimento" />

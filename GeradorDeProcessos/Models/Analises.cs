@@ -19,7 +19,9 @@ namespace GeradorDeProcessos.Models
         public System.DateTime DataEntrega { get; set; }
         public decimal ValorFinanciamento { get; set; }
         public decimal ValorTotal { get; set; }
+        public decimal SaldeDevedor { get; set; }
         public string Observacao { get; set; }
+        public string TipoAnalise { get; set; }
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
     

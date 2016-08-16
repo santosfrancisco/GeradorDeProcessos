@@ -25,21 +25,61 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IDEmpreendimento, "IDEmpreendimento", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IDEmpreendimento, "Empreendimento", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IDEmpreendimento", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("IDEmpreendimento", null, htmlAttributes: new { @class = "form-control", @readonly = "true" , @disabled = "disabled"})
                 @Html.ValidationMessageFor(model => model.IDEmpreendimento, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.UnidadeStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@{
+					List<SelectListItem> listaStatus = new List<SelectListItem>();
+					var status = new[]{
+				 new SelectListItem{ Value="Disponível",Text="Disponível"},
+				 new SelectListItem{ Value="Vendida",Text="Vendida"},
+			 };
+					listaStatus = status.ToList();
+				}
+				@Html.DropDownListFor(model => model.UnidadeStatus, listaStatus, htmlAttributes: new { @class = "form-control", @name = "listaStatus" })
+				@Html.ValidationMessageFor(model => model.UnidadeStatus, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@{
+					List<SelectListItem> listaTipos = new List<SelectListItem>();
+					var tipos = new[]{
+				 new SelectListItem{ Value="Residencial",Text="Residencial"},
+				 new SelectListItem{ Value="Comercial",Text="Comercial"},
+			 };
+					listaTipos = tipos.ToList();
+				}
+				@Html.DropDownListFor(model => model.Tipo, listaTipos, htmlAttributes: new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnidadeObservacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.UnidadeObservacao, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.UnidadeObservacao, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar", "Consulta", new { id = Model.IDEmpreendimento }, new { @class = "btn btn-default" })
 </div>

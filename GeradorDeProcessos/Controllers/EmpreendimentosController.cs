@@ -17,12 +17,35 @@ namespace GeradorDeProcessos.Controllers
         private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 
         // GET: Empreendimentos
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
         {
-            var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+            //var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+			List<Empreendimentos> empreendimentos = await db.Empreendimentos.ToListAsync();
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
+			}
 
-            return View(await empreendimentos.ToListAsync());
-        }
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				empreendimentos = empreendimentos.Where(u => u.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
+			}
+
+			int pageSize = 10;
+			int pageNumber = (page ?? 1);
+			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
+		}
 
 		// GET: Empreendimentos
 		public async Task<ActionResult> Gerenciar(int id)
@@ -77,7 +100,7 @@ namespace GeradorDeProcessos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IDEmpreendimento,Nome,DataEntrega,Tipo,IDEmpresa")] Empreendimentos empreendimentos)
+        public async Task<ActionResult> Create([Bind(Include = "IDEmpreendimento,Nome,DataEntrega,Produto,Campanha,IDEmpresa")] Empreendimentos empreendimentos)
         {
             if (ModelState.IsValid)
             {
@@ -87,11 +110,12 @@ namespace GeradorDeProcessos.Controllers
             }
 
             ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", empreendimentos.IDEmpresa);
+
 			return View(empreendimentos);
         }
 
-        // GET: Empreendimentos/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+		// GET: Empreendimentos/Edit/5
+		public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
@@ -113,7 +137,7 @@ namespace GeradorDeProcessos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IDEmpreendimento,Nome,DataEntrega,Tipo,IDEmpresa")] Empreendimentos empreendimentos)
+        public async Task<ActionResult> Edit([Bind(Include = "IDEmpreendimento,Nome,DataEntrega,Produto,Campanha,IDEmpresa")] Empreendimentos empreendimentos)
         {
             if (ModelState.IsValid)
             {

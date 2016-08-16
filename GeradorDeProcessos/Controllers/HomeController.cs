@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -13,17 +14,36 @@ namespace GeradorDeProcessos.Controllers
 	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
-		public async Task<ActionResult> Index(string searchString)
+		public ActionResult Index(int? page, string searchString, string currentFilter)
 		{
-			var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+			var empreendimentos = db.Empreendimentos.ToList();
 
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper()));
+				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
 			}
 
-			return View(await empreendimentos.ToListAsync());
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				empreendimentos = empreendimentos.Where(u => u.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
+			}
+			
+			int pageSize = 5;
+			int pageNumber = (page ?? 1);
+			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
 		}
+
 		// GET: Home/Configuracoes
 		public ActionResult Configuracoes()
 		{

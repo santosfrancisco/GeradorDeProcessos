@@ -25,8 +25,11 @@ namespace GeradorDeProcessos.Models
         public int IDEmpreendimento { get; set; }
         public string Nome { get; set; }
 		[DisplayName("Habite-se")]
+		//[DataType(DataType.Date)]
 		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
 		public System.DateTime DataEntrega { get; set; }
+        public string Produto { get; set; }
+        public string Campanha { get; set; }
 		[DisplayName("Empresa")]
         public int IDEmpresa { get; set; }
     

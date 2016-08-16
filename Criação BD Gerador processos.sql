@@ -49,6 +49,8 @@ CREATE TABLE Empreendimentos
 	IDEmpreendimento INT IDENTITY(1,1) NOT NULL,
 	Nome VARCHAR(100) NOT NULL,
     DataEntrega DATE NOT NULL,
+	Produto VARCHAR(50) NOT NULL,
+	Campanha VARCHAR(50) NOT NULL,
     IDEmpresa INT NOT NULL,
 
 	PRIMARY KEY(IDEmpreendimento)
@@ -74,7 +76,9 @@ CREATE TABLE Analises
     DataEntrega DATE NOT NULL,
 	ValorFinanciamento DECIMAL NOT NULL,
     ValorTotal DECIMAL NOT NULL,
+	SaldeDevedor DECIMAL NOT NULL,
     Observacao VARCHAR(300) NULL,
+	TipoAnalise VARCHAR(50) NOT NULL,
     IDCliente INT NOT NULL,
     IDUnidade INT NOT NULL,
 
