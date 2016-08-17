@@ -162,7 +162,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AnalisesController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EmpreendimentosController.cs" />
     <Compile Include="Controllers\EmpresasController.cs" />
@@ -234,16 +233,6 @@
     <Content Include="Views\Unidades\ListarUnidades.cshtml" />
     <Content Include="Views\Home\Configuracoes.cshtml" />
     <Content Include="Views\Unidades\ListaConsulta.cshtml" />
-    <Content Include="Views\Clientes\Create.cshtml" />
-    <Content Include="Views\Clientes\Delete.cshtml" />
-    <Content Include="Views\Clientes\Details.cshtml" />
-    <Content Include="Views\Clientes\Edit.cshtml" />
-    <Content Include="Views\Clientes\Index.cshtml" />
-    <Content Include="Views\Analises\Create.cshtml" />
-    <Content Include="Views\Analises\Delete.cshtml" />
-    <Content Include="Views\Analises\Details.cshtml" />
-    <Content Include="Views\Analises\Edit.cshtml" />
-    <Content Include="Views\Analises\Index.cshtml" />
     <Content Include="Views\Empreendimentos\Create.cshtml" />
     <Content Include="Views\Empreendimentos\Delete.cshtml" />
     <Content Include="Views\Empreendimentos\Details.cshtml" />
@@ -255,6 +244,11 @@
     <Content Include="Views\Empresas\Edit.cshtml" />
     <Content Include="Views\Empresas\Index.cshtml" />
     <Content Include="Views\Unidades\Edit.cshtml" />
+    <Content Include="Views\Clientes\Create.cshtml" />
+    <Content Include="Views\Clientes\Delete.cshtml" />
+    <Content Include="Views\Clientes\Details.cshtml" />
+    <Content Include="Views\Clientes\Edit.cshtml" />
+    <Content Include="Views\Clientes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

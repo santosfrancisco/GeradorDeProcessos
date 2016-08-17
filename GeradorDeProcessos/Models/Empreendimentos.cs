@@ -9,12 +9,10 @@
 
 namespace GeradorDeProcessos.Models
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.ComponentModel.DataAnnotations;
-
-	public partial class Empreendimentos
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Empreendimentos
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Empreendimentos()
@@ -24,13 +22,9 @@ namespace GeradorDeProcessos.Models
     
         public int IDEmpreendimento { get; set; }
         public string Nome { get; set; }
-		[DisplayName("Habite-se")]
-		//[DataType(DataType.Date)]
-		[DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-		public System.DateTime DataEntrega { get; set; }
+        public System.DateTime DataEntrega { get; set; }
         public string Produto { get; set; }
         public string Campanha { get; set; }
-		[DisplayName("Empresa")]
         public int IDEmpresa { get; set; }
     
         public virtual Empresas Empresas { get; set; }

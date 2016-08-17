@@ -4,13 +4,26 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h3>Informações do cliente</h3>
 
 <div>
-    <h4>Clientes</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.TipoPessoa)
+		</dt>
+
+		<dd>
+			@if (Model.TipoPessoa.ToString() == "0")
+			{
+				<span>Física</span>
+			}
+			else
+			{
+				<span>Jurídica</span>
+			}
+		</dd>
+		<dt>
             @Html.DisplayNameFor(model => model.CpfCnpj)
         </dt>
 
@@ -75,6 +88,22 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.Conjuge_Cpf)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conjuge_Cpf)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Conjuge_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Conjuge_Nome)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Usuarios.Nome)
         </dt>
 
@@ -85,6 +114,59 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDCliente }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDCliente }, htmlAttributes: new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Voltar", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
 </p>
+@section scripts
+{
+	<script>
+		jQuery(function ($) {
+			$("#DataNascimento").mask("99/99/9999")
+			$("#CpfCnpj").mask("999.999.999-99")
+			if ($("#TipoPessoa").val() === "0")
+			{
+				$("#Registro").text("CPF")
+				$("#CpfCnpj").mask("999.999.999-99")
+				$("#Sexo").show()
+				$("#Profissao").show()
+				$("#DataNascimento").show()
+				$("#EstadoCivil").show()
+				$("#RegimeCasamento").show()
+				$("#Conjuge_Cpf").show()
+				$("#Conjuge_Nome").show()
+			} else {
+				$("#Registro").text("CNPJ")
+				$("#Sexo").hide()
+				$("#Profissao").hide()
+				$("#DataNascimento").hide()
+				$("#EstadoCivil").hide()
+				$("#RegimeCasamento").hide()
+				$("#Conjuge_Cpf").hide()
+				$("#Conjuge_Nome").hide()
+			}
+		});
+		$('#TipoPessoa').change(function () {
+			if ($("#TipoPessoa").val() === "0") {
+				$("#Registro").text("CPF")
+				$("#CpfCnpj").mask("999.999.999-99")
+				$("#Sexo").show()
+				$("#Profissao").show()
+				$("#DataNascimento").show()
+				$("#EstadoCivil").show()
+				$("#RegimeCasamento").show()
+				$("#Conjuge_Cpf").show()
+				$("#Conjuge_Nome").show()
+			} else {
+				$("#CpfCnpj").mask("99.999.999/9999-99")
+				$("#Registro").text("CNPJ")
+				$("#Sexo").hide()
+				$("#Profissao").hide()
+				$("#DataNascimento").hide()
+				$("#EstadoCivil").hide()
+				$("#RegimeCasamento").hide()
+				$("#Conjuge_Cpf").hide()
+				$("#Conjuge_Nome").hide()
+			}
+		});
+	</script>
+}

@@ -19,16 +19,17 @@ GO
 CREATE TABLE Clientes
 (
 	IDCliente INT IDENTITY(1,1) NOT NULL,
-	CpfCnpj VARCHAR(30) NOT NULL,
+	TipoPessoa INT NOT NULL,
+	CpfCnpj VARCHAR(20) NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
-	Sexo VARCHAR(100) NOT NULL,
+	Sexo VARCHAR(20) NOT NULL,
 	Profissao VARCHAR(60) NOT NULL,
 	DataNascimento DATE NULL,
-	Renda VARCHAR(80) NULL,
+	Renda VARCHAR(20) NULL,
     EstadoCivil VARCHAR(80) NULL,
     RegimeCasamento VARCHAR(80) NULL,
-    Conjuge_Cpf VARCHAR(30) NOT NULL,
-	Conjuge_Nome VARCHAR(80) NOT NULL,
+    Conjuge_Cpf VARCHAR(30) NULL,
+	Conjuge_Nome VARCHAR(80) NULL,
 	IDUsuario INT NOT NULL,
 
 	PRIMARY KEY(IDCliente)

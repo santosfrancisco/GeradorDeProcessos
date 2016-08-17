@@ -26,10 +26,10 @@ namespace GeradorDeProcessos.Models
         }
     
         public virtual DbSet<Analises> Analises { get; set; }
-        public virtual DbSet<Clientes> Clientes { get; set; }
         public virtual DbSet<Empreendimentos> Empreendimentos { get; set; }
         public virtual DbSet<Empresas> Empresas { get; set; }
         public virtual DbSet<Unidades> Unidades { get; set; }
         public virtual DbSet<Usuarios> Usuarios { get; set; }
+        public virtual DbSet<Clientes> Clientes { get; set; }
     }
 }

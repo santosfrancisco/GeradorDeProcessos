@@ -9,10 +9,11 @@
 
 namespace GeradorDeProcessos.Models
 {
-    using System;
-    using System.Collections.Generic;
-    
-    public partial class Usuarios
+	using System;
+	using System.Collections.Generic;
+	using System.ComponentModel;
+
+	public partial class Usuarios
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
@@ -21,13 +22,14 @@ namespace GeradorDeProcessos.Models
         }
     
         public int IDUsuario { get; set; }
+		[DisplayName("Usuário")]
         public string Nome { get; set; }
         public string Email { get; set; }
         public string Senha { get; set; }
         public int IDEmpresa { get; set; }
     
+        public virtual Empresas Empresas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Clientes> Clientes { get; set; }
-        public virtual Empresas Empresas { get; set; }
     }
 }
