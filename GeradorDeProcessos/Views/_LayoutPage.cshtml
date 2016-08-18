@@ -11,6 +11,11 @@
 	<meta name="viewport" content="width=device-width" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 	<title>@ViewBag.Title</title>
+    <style>
+        body {
+            padding-top: 60px;
+        }
+    </style>
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -20,6 +25,7 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
+<<<<<<< HEAD
 					<li id="menuHome"><a href="@Url.Action("Index", "Home")">Empreendimentos</a></li>
 					<li class="dropdown" id="menuAdministracao">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administração <span class="caret"></span></a>
@@ -32,7 +38,16 @@
 							<li class="divider"></li>
 							<li><a href="#">One more separated link</a></li>
 						</ul>
+=======
+					<li class="active"><a href="#">Home</a></li>
+                    <li id="menuEmpreendimentos">
+                        @Html.ActionLink("Empreendimentos", "Index", "Empreendimentos")
+                    </li>
+					<li id="menuConfiguracoes">
+						@Html.ActionLink("Configurações", "Configuracoes", "Home")
+>>>>>>> origin/master
 					</li>
+                   
 				</ul>
 			</div>
 		</div>

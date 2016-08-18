@@ -5,12 +5,15 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+
 using System.Web.Mvc;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+<<<<<<< HEAD
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
 		public async Task<ActionResult> Index(string filtro = "")
@@ -28,6 +31,38 @@ namespace GeradorDeProcessos.Controllers
 		}
 		// GET: Home/Configuracoes
 		public ActionResult Configuracoes()
+=======
+        // GET: Login
+        public ActionResult Login()
+        {
+            ViewBag.Title = "Seja Bem Vindo(a)";
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult AutenticarLogin(string Login, string Senha)
+        {
+            if (RepositorioUsuarios.AutenticarUsuario(Login, Senha))
+            {
+                return Json(new
+                {
+                    OK = true,
+                    Mensagem = "Autenticado, redirecionando..."
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    OK = false,
+                    Mensagem = "Usuário não encontrato. Tente novamente."
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult Configuracoes()
+>>>>>>> origin/master
 		{
 			return View();
 		}
