@@ -87,7 +87,12 @@ namespace GeradorDeProcessos.Controllers
 			{
 				return HttpNotFound();
 			}
-			ViewBag.Status = unidades.UnidadeStatus.ToString();
+			//ViewBag.Status = unidades.UnidadeStatus.ToString();
+			IList<SelectListItem> status = new List<SelectListItem>();
+			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
+			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
+
+			ViewBag.UnidadeStatus = status.ToList();
 			return View(unidades);
 		}
 
@@ -110,8 +115,17 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades/Create
 		public ActionResult Create(int? id)
 		{
-			//ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", id);
-			ViewBag.IDEmpreendimento = db.Empreendimentos.Find(id).Nome.ToString();
+			IList<SelectListItem> status = new List<SelectListItem>();
+			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
+			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
+			ViewBag.UnidadeStatus = status.ToList();
+
+			IList<SelectListItem> tipo = new List<SelectListItem>();
+			tipo.Add(new SelectListItem() { Text = "Residencial", Value = "Residencial" });
+			tipo.Add(new SelectListItem() { Text = "Comercial", Value = "Comercial" });
+			ViewBag.Tipo = tipo.ToList();
+
+			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome");
 			return View();
 		}
 
@@ -124,7 +138,7 @@ namespace GeradorDeProcessos.Controllers
 		public async Task<ActionResult> Create(FormCollection form, int id)
 		{
 			string[] novasUnidades = form["unidades"].Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-
+			
 			if (novasUnidades != null)
 			{
 				if (ModelState.IsValid)
@@ -154,6 +168,15 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades/Edit/5
 		public async Task<ActionResult> Edit(int? id)
 		{
+			IList<SelectListItem> status = new List<SelectListItem>();
+			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
+			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
+			ViewBag.UnidadeStatus = status.ToList();
+
+			IList<SelectListItem> tipo = new List<SelectListItem>();
+			tipo.Add(new SelectListItem() { Text = "Residencial", Value = "Residencial" });
+			tipo.Add(new SelectListItem() { Text = "Comercial", Value = "Comercial" });
+			ViewBag.Tipo = tipo.ToList();
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

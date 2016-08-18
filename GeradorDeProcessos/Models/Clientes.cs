@@ -9,12 +9,10 @@
 
 namespace GeradorDeProcessos.Models
 {
-	using System;
-	using System.Collections.Generic;
-	using System.ComponentModel;
-	using System.ComponentModel.DataAnnotations;
-
-	public partial class Clientes
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Clientes
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
@@ -23,27 +21,17 @@ namespace GeradorDeProcessos.Models
         }
     
         public int IDCliente { get; set; }
-		[DisplayName("Tipo de cliente")]
         public int TipoPessoa { get; set; }
-		[DisplayName("CPF/CNPJ")]
         public string CpfCnpj { get; set; }
         public string Nome { get; set; }
         public string Sexo { get; set; }
-		[DisplayName("Profissão")]
         public string Profissao { get; set; }
-		[DisplayName("Data de nascimento")]
-		[DisplayFormat(DataFormatString = "{0:d/MM/yyyy}", ApplyFormatInEditMode = true)]
-		public Nullable<System.DateTime> DataNascimento { get; set; }
+        public Nullable<System.DateTime> DataNascimento { get; set; }
         public string Renda { get; set; }
-		[DisplayName("Estado civil")]
         public string EstadoCivil { get; set; }
-		[DisplayName("Regime de casamento")]
         public string RegimeCasamento { get; set; }
-		[DisplayName("Nome cônjuge")]
-		public string Conjuge_Nome { get; set; }
-		[DisplayName("CPF Cônjuge")]
         public string Conjuge_Cpf { get; set; }
-		[DisplayName("Usuário")]
+        public string Conjuge_Nome { get; set; }
         public int IDUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

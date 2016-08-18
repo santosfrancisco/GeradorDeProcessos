@@ -25,7 +25,7 @@ namespace GeradorDeProcessos.Models
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
     
-        public virtual Unidades Unidades1 { get; set; }
         public virtual Clientes Clientes { get; set; }
+        public virtual Unidades Unidades1 { get; set; }
     }
 }

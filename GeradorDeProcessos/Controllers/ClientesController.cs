@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GeradorDeProcessos.Models;
+using PagedList;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -16,10 +17,13 @@ namespace GeradorDeProcessos.Controllers
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 
 		// GET: Clientes
-		public async Task<ActionResult> Index()
+		public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
 		{
-			var clientes = db.Clientes.Include(c => c.Usuarios);
-			return View(await clientes.ToListAsync());
+			var clientes = await db.Clientes.Include(c => c.Usuarios).ToListAsync();
+			int pageSize = 5;
+			int pageNumber = (page ?? 1);
+
+			return View(clientes.ToPagedList(pageNumber, pageSize));
 		}
 
 		// GET: Clientes/Details/5
@@ -110,6 +114,10 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Clientes/Delete/5
 		public async Task<ActionResult> Delete(int? id)
 		{
+			List<SelectListItem> tipo = new List<SelectListItem>();
+			tipo.Add(new SelectListItem() { Text = "Física", Value = "0" });
+			tipo.Add(new SelectListItem() { Text = "Jurídica", Value = "1" });
+			ViewBag.TipoPessoa = tipo.ToList();
 			if (id == null)
 			{
 				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -127,6 +135,7 @@ namespace GeradorDeProcessos.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteConfirmed(int id)
 		{
+			
 			Clientes clientes = await db.Clientes.FindAsync(id);
 			db.Clientes.Remove(clientes);
 			await db.SaveChangesAsync();

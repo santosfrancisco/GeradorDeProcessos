@@ -1,123 +1,133 @@
-﻿@model IEnumerable<GeradorDeProcessos.Models.Clientes>
+﻿@using PagedList.Mvc;
+@*@model IEnumerable<GeradorDeProcessos.Models.Clientes>*@
+@model PagedList.IPagedList<GeradorDeProcessos.Models.Clientes>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h3>Clientes</h3>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Incluir novo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-xs" })
 </p>
-<table class="table">
-    <tr>
-		<th>
-			@Html.DisplayNameFor(model => model.TipoPessoa)
-		</th>
-        <th>
-            @Html.DisplayNameFor(model => model.CpfCnpj)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.Sexo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Profissao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataNascimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Renda)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EstadoCivil)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RegimeCasamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Conjuge_Cpf)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Conjuge_Nome)
-        </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.Usuarios.Nome)
-        </th>
-        <th></th>
-    </tr>
+<div class="panel panel-default">
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.First().Nome)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.First().CpfCnpj)
+			</th>
+			@*<th>
+					@Html.DisplayNameFor(model => model.Sexo)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Profissao)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.DataNascimento)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Renda)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.EstadoCivil)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.RegimeCasamento)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Conjuge_Cpf)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Conjuge_Nome)
+				</th>*@
+			<th>
+				@Html.DisplayNameFor(model => model.First().Usuarios.Nome)
+			</th>
+			<th>
+				@Html.Label("Ações")
+			</th>
+		</tr>
 
-@foreach (var item in Model) {
-    <tr>
-		<td>
-			@*@Html.DisplayFor(modelItem => item.TipoPessoa)*@
-			@if(item.TipoPessoa.ToString() == "0")
+		@if (Model.Count != 0)
+		{
+			foreach (var item in Model)
 			{
-				<span>Física</span>
-			} else
-			{
-				<span>Jurídica</span>
+			<tr>
+				<td>
+					@if (item.TipoPessoa.ToString() == "0")
+					{
+						<span class="badge">PF</span>
+					}
+					else
+					{
+						<span class="badge">PJ</span>
+					}
+					@Html.DisplayFor(modelItem => item.Nome)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.CpfCnpj)
+				</td>
+				@*<td>
+						@Html.DisplayFor(modelItem => item.Sexo)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Profissao)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.DataNascimento)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Renda)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EstadoCivil)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.RegimeCasamento)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Conjuge_Cpf)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Conjuge_Nome)
+					</td>*@
+				<td>
+					@Html.DisplayFor(modelItem => item.Usuarios.Nome)
+				</td>
+				<td>
+					@Html.ActionLink("Editar cadastro", "Edit", new { id = item.IDCliente }, htmlAttributes: new { @class = "btn btn-default btn-sm" })
+					@*@Html.ActionLink("Details", "Details", new { id=item.IDCliente }) |*@
+					@Html.ActionLink("Deletar", "Delete", new { id = item.IDCliente }, htmlAttributes: new { @class = "btn btn-danger btn-sm" })
+				</td>
+			</tr>
 			}
-		</td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CpfCnpj)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Sexo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Profissao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataNascimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Renda)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EstadoCivil)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RegimeCasamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conjuge_Cpf)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Conjuge_Nome)
-        </td>*@
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuarios.Nome)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IDCliente }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IDCliente }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IDCliente })
-        </td>
-    </tr>
-}
+		}
+		else
+		{
+			<tr><td colspan="4">Não encontramos nenhum cliente <b>:(</b></td></tr>
+		}
 
-</table>
+	</table>
+	</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, currentFilter = ViewBag.CurrentFilter }))
 
-@section scripts
+	@section scripts
 {
-	<script>
-		jQuery(function ($) {
-			$("#DataNascimento").mask("99/99/9999")
-			$("#CpfCnpj").mask("999.999.999-99")
-		});
-		$('#TipoPessoa').change(function () {
-			if ($("#TipoPessoa").val() === "0") {
+		<script>
+			jQuery(function ($) {
+				$("#DataNascimento").mask("99/99/9999")
 				$("#CpfCnpj").mask("999.999.999-99")
-			} else {
-				$("#CpfCnpj").mask("99.999.999/9999-99")
-			}
-		});
-	</script>
-}
+			});
+			$('#TipoPessoa').change(function () {
+				if ($("#TipoPessoa").val() === "0") {
+					$("#CpfCnpj").mask("999.999.999-99")
+				} else {
+					$("#CpfCnpj").mask("99.999.999/9999-99")
+				}
+			});
+		</script>
+	}
