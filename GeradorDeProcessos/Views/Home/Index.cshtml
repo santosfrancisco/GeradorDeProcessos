@@ -1,7 +1,37 @@
-﻿
+﻿@model IEnumerable<GeradorDeProcessos.Models.Empreendimentos>
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de empreendimentos</h2>
 
+<form class="navbar-form navbar-left" role="search">
+	@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+	{
+
+		<div class="form-group">
+			<input type="text" name="filtro" class="form-control" />
+		</div>
+		<button type="submit" class="btn btn-primary">Filtrar</button>
+	}
+</form>
+<br /><br />
+<table class="table">
+
+	@foreach (var item in Model)
+			{
+		<tr>
+			<td>
+				<h4>@Html.DisplayFor(modelItem => item.Nome)</h4>
+			</td>
+			<td>
+				@*@Html.DisplayFor(modelItem => item.Empresas.Nome)*@
+			</td>
+			<td>
+				@Html.ActionLink("Listar unidades", "ListaConsulta", "Unidades", new { empreendimentoID = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
+				@Html.ActionLink("Detalhes", "Details", new { id = item.IDEmpreendimento }, new { @class = "btn btn-primary btn-sm" })
+			</td>
+		</tr>
+			}
+
+</table>

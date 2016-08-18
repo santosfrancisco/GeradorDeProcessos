@@ -11,7 +11,7 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Numero)
+            @Html.Label("Número:")
         </dt>
 
         <dd>
@@ -19,12 +19,26 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Empreendimentos.Nome)
+            @Html.Label("Empreendimento:")
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Empreendimentos.Nome)
         </dd>
+		<dt>
+			@Html.Label("Status:")
+		</dt>
+
+		<dd>
+			<span>@ViewBag.Status</span>
+		</dd>
+		<dt>
+			@Html.Label("Observação:")
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.UnidadeObservacao)
+		</dd>
 
     </dl>
 </div>
