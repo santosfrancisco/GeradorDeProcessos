@@ -74,7 +74,7 @@ namespace GeradorDeProcessos.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home", null);
             }
 			Empreendimentos empreendimento = await db.Empreendimentos.FindAsync(id);
 			ViewBag.Empreendimento = empreendimento.Nome.ToString();
@@ -119,7 +119,7 @@ namespace GeradorDeProcessos.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home", null);
             }
             Empreendimentos empreendimento = await db.Empreendimentos.FindAsync(id);
 			ViewBag.Empreendimento = empreendimento.Nome.ToString();
@@ -154,7 +154,7 @@ namespace GeradorDeProcessos.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Index", "Home", null);
             }
             Empreendimentos empreendimento = await db.Empreendimentos.FindAsync(id);
 			ViewBag.Empreendimento = empreendimento.Nome.ToString();

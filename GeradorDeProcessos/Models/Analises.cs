@@ -15,17 +15,16 @@ namespace GeradorDeProcessos.Models
     public partial class Analises
     {
         public int IDAnalise { get; set; }
-        public string Unidades { get; set; }
         public System.DateTime DataEntrega { get; set; }
         public decimal ValorFinanciamento { get; set; }
         public decimal ValorTotal { get; set; }
-        public decimal SaldeDevedor { get; set; }
+        public decimal SaldoDevedor { get; set; }
         public string Observacao { get; set; }
         public string TipoAnalise { get; set; }
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
     
         public virtual Clientes Clientes { get; set; }
-        public virtual Unidades Unidades1 { get; set; }
+        public virtual Unidades Unidades { get; set; }
     }
 }

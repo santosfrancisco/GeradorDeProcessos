@@ -20,6 +20,23 @@ namespace GeradorDeProcessos.Controllers
 		public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
 		{
 			var clientes = await db.Clientes.Include(c => c.Usuarios).ToListAsync();
+
+			if (searchString != null)
+			{
+				page = 1;
+			}
+			else
+			{
+				searchString = currentFilter;
+			}
+
+			ViewBag.CurrentFilter = searchString;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				clientes = clientes.Where(c => c.Nome.ToUpper().Contains(searchString.ToUpper()) || c.CpfCnpj.Contains(searchString)).ToList();
+			}
+
 			int pageSize = 5;
 			int pageNumber = (page ?? 1);
 
@@ -31,7 +48,7 @@ namespace GeradorDeProcessos.Controllers
 		{
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Clientes clientes = await db.Clientes.FindAsync(id);
 			if (clientes == null)
@@ -44,11 +61,34 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Clientes/Create
 		public ActionResult Create()
 		{
+			// lista de tipo de pessoa
 			IList<SelectListItem> tipo = new List<SelectListItem>();
 			tipo.Add(new SelectListItem() { Text = "Física", Value = "0" });
 			tipo.Add(new SelectListItem() { Text = "Jurídica", Value = "1" });
-
 			ViewBag.TipoPessoa = tipo.ToList();
+			// lista sexos
+			IList<SelectListItem> sexos = new List<SelectListItem>();
+			sexos.Add(new SelectListItem() { Text = "Masculino", Value = "Masculino" });
+			sexos.Add(new SelectListItem() { Text = "Feminino", Value = "Feminino" });
+			ViewBag.Sexo = sexos.ToList();
+			// lista de estados civis
+			IList<SelectListItem> estadosCivis = new List<SelectListItem>();
+			estadosCivis.Add(new SelectListItem() { Text = "Solteiro(a)", Value = "Solteiro(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Casado(a)", Value = "Casado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Divorciado(a)", Value = "Divorciado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Separado(a) judicialmente", Value = "Separado(a) judicialmente" });
+			estadosCivis.Add(new SelectListItem() { Text = "Viúvo(a)", Value = "Viúvo(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "União Estável", Value = "União Estável" });
+			ViewBag.EstadoCivil = estadosCivis.ToList();
+			// lista de regimes de casamento
+			IList<SelectListItem> regimesCasamento = new List<SelectListItem>();
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão universal de bens", Value = "Comunhão universal de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão parcial de bens", Value = "Comunhão parcial de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação total de bens", Value = "Separação total de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Participação final nos aquestos", Value = "Participação final nos aquestos" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação obrigatória de bens", Value = "Separação obrigatória de bens" });
+			ViewBag.RegimeCasamento = regimesCasamento.ToList();
+
 			ViewBag.IDUsuario = new SelectList(db.Usuarios, "IDUsuario", "Nome");
 			return View();
 		}
@@ -75,17 +115,40 @@ namespace GeradorDeProcessos.Controllers
 		{
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Clientes clientes = await db.Clientes.FindAsync(id);
 			if (clientes == null)
 			{
 				return HttpNotFound();
 			}
-			List<SelectListItem> tipo = new List<SelectListItem>();
+			// lista de tipo de pessoa
+			IList<SelectListItem> tipo = new List<SelectListItem>();
 			tipo.Add(new SelectListItem() { Text = "Física", Value = "0" });
 			tipo.Add(new SelectListItem() { Text = "Jurídica", Value = "1" });
 			ViewBag.TipoPessoa = tipo.ToList();
+			// lista sexos
+			IList<SelectListItem> sexos = new List<SelectListItem>();
+			sexos.Add(new SelectListItem() { Text = "Masculino", Value = "Masculino" });
+			sexos.Add(new SelectListItem() { Text = "Feminino", Value = "Feminino" });
+			ViewBag.Sexo = sexos.ToList();
+			// lista de estados civis
+			IList<SelectListItem> estadosCivis = new List<SelectListItem>();
+			estadosCivis.Add(new SelectListItem() { Text = "Solteiro(a)", Value = "Solteiro(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Casado(a)", Value = "Casado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Divorciado(a)", Value = "Divorciado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Separado(a) judicialmente", Value = "Separado(a) judicialmente" });
+			estadosCivis.Add(new SelectListItem() { Text = "Viúvo(a)", Value = "Viúvo(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "União Estável", Value = "União Estável" });
+			ViewBag.EstadoCivil = estadosCivis.ToList();
+			// lista de regimes de casamento
+			IList<SelectListItem> regimesCasamento = new List<SelectListItem>();
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão universal de bens", Value = "Comunhão universal de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão parcial de bens", Value = "Comunhão parcial de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação total de bens", Value = "Separação total de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Participação final nos aquestos", Value = "Participação final nos aquestos" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação obrigatória de bens", Value = "Separação obrigatória de bens" });
+			ViewBag.RegimeCasamento = regimesCasamento.ToList();
 			ViewBag.IDUsuario = new SelectList(db.Usuarios, "IDUsuario", "Nome", clientes.IDUsuario);
 			return View(clientes);
 		}
@@ -103,10 +166,33 @@ namespace GeradorDeProcessos.Controllers
 				await db.SaveChangesAsync();
 				return RedirectToAction("Index");
 			}
-			List<SelectListItem> tipo = new List<SelectListItem>();
+			// lista de tipo de pessoa
+			IList<SelectListItem> tipo = new List<SelectListItem>();
 			tipo.Add(new SelectListItem() { Text = "Física", Value = "0" });
 			tipo.Add(new SelectListItem() { Text = "Jurídica", Value = "1" });
 			ViewBag.TipoPessoa = tipo.ToList();
+			// lista sexos
+			IList<SelectListItem> sexos = new List<SelectListItem>();
+			sexos.Add(new SelectListItem() { Text = "Masculino", Value = "Masculino" });
+			sexos.Add(new SelectListItem() { Text = "Feminino", Value = "Feminino" });
+			ViewBag.Sexo = sexos.ToList();
+			// lista de estados civis
+			IList<SelectListItem> estadosCivis = new List<SelectListItem>();
+			estadosCivis.Add(new SelectListItem() { Text = "Solteiro(a)", Value = "Solteiro(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Casado(a)", Value = "Casado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Divorciado(a)", Value = "Divorciado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Separado(a) judicialmente", Value = "Separado(a) judicialmente" });
+			estadosCivis.Add(new SelectListItem() { Text = "Viúvo(a)", Value = "Viúvo(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "União Estável", Value = "União Estável" });
+			ViewBag.EstadoCivil = estadosCivis.ToList();
+			// lista de regimes de casamento
+			IList<SelectListItem> regimesCasamento = new List<SelectListItem>();
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão universal de bens", Value = "Comunhão universal de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão parcial de bens", Value = "Comunhão parcial de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação total de bens", Value = "Separação total de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Participação final nos aquestos", Value = "Participação final nos aquestos" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação obrigatória de bens", Value = "Separação obrigatória de bens" });
+			ViewBag.RegimeCasamento = regimesCasamento.ToList();
 			ViewBag.IDUsuario = new SelectList(db.Usuarios, "IDUsuario", "Nome", clientes.IDUsuario);
 			return View(clientes);
 		}
@@ -114,13 +200,37 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Clientes/Delete/5
 		public async Task<ActionResult> Delete(int? id)
 		{
-			List<SelectListItem> tipo = new List<SelectListItem>();
+			// lista de tipo de pessoa
+			IList<SelectListItem> tipo = new List<SelectListItem>();
 			tipo.Add(new SelectListItem() { Text = "Física", Value = "0" });
 			tipo.Add(new SelectListItem() { Text = "Jurídica", Value = "1" });
 			ViewBag.TipoPessoa = tipo.ToList();
+			// lista sexos
+			IList<SelectListItem> sexos = new List<SelectListItem>();
+			sexos.Add(new SelectListItem() { Text = "Masculino", Value = "Masculino" });
+			sexos.Add(new SelectListItem() { Text = "Feminino", Value = "Feminino" });
+			ViewBag.Sexo = sexos.ToList();
+			// lista de estados civis
+			IList<SelectListItem> estadosCivis = new List<SelectListItem>();
+			estadosCivis.Add(new SelectListItem() { Text = "Solteiro(a)", Value = "Solteiro(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Casado(a)", Value = "Casado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Divorciado(a)", Value = "Divorciado(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "Separado(a) judicialmente", Value = "Separado(a) judicialmente" });
+			estadosCivis.Add(new SelectListItem() { Text = "Viúvo(a)", Value = "Viúvo(a)" });
+			estadosCivis.Add(new SelectListItem() { Text = "União Estável", Value = "União Estável" });
+			ViewBag.EstadoCivil = estadosCivis.ToList();
+			// lista de regimes de casamento
+			IList<SelectListItem> regimesCasamento = new List<SelectListItem>();
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão universal de bens", Value = "Comunhão universal de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Comunhão parcial de bens", Value = "Comunhão parcial de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação total de bens", Value = "Separação total de bens" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Participação final nos aquestos", Value = "Participação final nos aquestos" });
+			regimesCasamento.Add(new SelectListItem() { Text = "Separação obrigatória de bens", Value = "Separação obrigatória de bens" });
+			ViewBag.RegimeCasamento = regimesCasamento.ToList();
+
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Clientes clientes = await db.Clientes.FindAsync(id);
 			if (clientes == null)

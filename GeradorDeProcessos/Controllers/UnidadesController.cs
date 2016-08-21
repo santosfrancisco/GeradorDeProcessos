@@ -33,7 +33,7 @@ namespace GeradorDeProcessos.Controllers
 
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 
 			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == id);
@@ -80,12 +80,13 @@ namespace GeradorDeProcessos.Controllers
 		{
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Unidades unidades = await db.Unidades.FindAsync(id);
 			if (unidades == null)
 			{
-				return HttpNotFound();
+				//return HttpNotFound();
+				return RedirectToAction("Consulta");
 			}
 			//ViewBag.Status = unidades.UnidadeStatus.ToString();
 			IList<SelectListItem> status = new List<SelectListItem>();
@@ -100,7 +101,7 @@ namespace GeradorDeProcessos.Controllers
 		{
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 
 			var unidadesEmpreendimento = db.Unidades.Where(u => u.IDEmpreendimento == id);
@@ -179,7 +180,7 @@ namespace GeradorDeProcessos.Controllers
 			ViewBag.Tipo = tipo.ToList();
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Unidades unidades = await db.Unidades.FindAsync(id);
 
@@ -197,13 +198,13 @@ namespace GeradorDeProcessos.Controllers
 		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit([Bind(Include = "IDUnidade,Numero,Tipo,UnidadeStatus,UnidadeObservacao,IDEmpreendimento")] Unidades unidades)
+		public async Task<ActionResult> Edit([Bind(Include = "IDEmpreendimento,IDUnidade,Numero,Tipo,UnidadeStatus,UnidadeObservacao")] Unidades unidades)
 		{
 			if (ModelState.IsValid)
 			{
 				db.Entry(unidades).State = EntityState.Modified;
 				await db.SaveChangesAsync();
-				return RedirectToAction("Index");
+				return RedirectToAction("Consulta");
 			}
 			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidades.IDEmpreendimento);
 			return View(unidades);
@@ -214,7 +215,7 @@ namespace GeradorDeProcessos.Controllers
 		{
 			if (id == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 			Unidades unidades = await db.Unidades.FindAsync(id);
 			if (unidades == null)
@@ -232,7 +233,7 @@ namespace GeradorDeProcessos.Controllers
 			Unidades unidades = await db.Unidades.FindAsync(id);
 			db.Unidades.Remove(unidades);
 			await db.SaveChangesAsync();
-			return RedirectToAction("Index");
+			return RedirectToAction("Consulta");
 		}
 
 		//GET Unidades/ListaConsulta/1
@@ -242,7 +243,7 @@ namespace GeradorDeProcessos.Controllers
 			ViewBag.NomeEmpreendimento = empreendimento.Nome.ToString();
 			if (empreendimentoID == null)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return RedirectToAction("Index", "Home", null);
 			}
 
 			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == empreendimentoID);

@@ -38,7 +38,7 @@
 				<h3>@Html.DisplayFor(modelItem => item.Nome)</h3>
 				@Html.Label("Habite-se: ") <span class="label label-primary"> @Html.Action("Habitese", "Empreendimentos", new { id = item.IDEmpreendimento })</span>
 
-				@Html.Label("Total de unidades:") <span class="badge">@Html.Action("QtdUnidades", "Empreendimentos", new { id = item.IDEmpreendimento })</span>
+				@Html.Label("Total de unidades:") <span class="badge animated flipInY">@Html.Action("QtdUnidades", "Empreendimentos", new { id = item.IDEmpreendimento })</span>
 
 			</td>
 			<td></td>

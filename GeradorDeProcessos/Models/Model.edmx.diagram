@@ -6,10 +6,10 @@
     <edmx:Diagrams>
       <Diagram DiagramId="a537447414ba4140b439032650a4475f" Name="Diagram1">
         <EntityTypeShape EntityType="GeradorDeProcessosModel.Analises" Width="1.5" PointX="7.5" PointY="3.5" />
-        <EntityTypeShape EntityType="GeradorDeProcessosModel.Clientes" Width="1.5" PointX="5.25" PointY="4.875" />
-        <EntityTypeShape EntityType="GeradorDeProcessosModel.Empreendimentos" Width="1.5" PointX="3" PointY="1.625" />
-        <EntityTypeShape EntityType="GeradorDeProcessosModel.Empresas" Width="1.5" PointX="0.75" PointY="4.375" />
-        <EntityTypeShape EntityType="GeradorDeProcessosModel.Unidades" Width="1.5" PointX="5.25" PointY="1.625" />
+        <EntityTypeShape EntityType="GeradorDeProcessosModel.Clientes" Width="1.5" PointX="5.25" PointY="4.75" />
+        <EntityTypeShape EntityType="GeradorDeProcessosModel.Empreendimentos" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="GeradorDeProcessosModel.Empresas" Width="1.5" PointX="0.75" PointY="4.25" />
+        <EntityTypeShape EntityType="GeradorDeProcessosModel.Unidades" Width="1.5" PointX="5.25" PointY="1.5" />
         <EntityTypeShape EntityType="GeradorDeProcessosModel.Usuarios" Width="1.5" PointX="3" PointY="5.625" />
         <AssociationConnector Association="GeradorDeProcessosModel.fk_analises_clientes" />
         <AssociationConnector Association="GeradorDeProcessosModel.fk_Analises_unidades" />

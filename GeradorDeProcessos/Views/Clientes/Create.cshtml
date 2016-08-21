@@ -40,7 +40,8 @@
         <div class="form-group" id="ClienteSexo">
             @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Sexo, new { htmlAttributes = new { @class = "form-control" } })
+				@*@Html.EditorFor(model => model.Sexo, new { htmlAttributes = new { @class = "form-control" } })*@
+				@Html.DropDownListFor(model => model.Sexo, ViewData["Sexo"] as SelectList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,7 +62,7 @@
             </div>
         </div>
 
-        <div class="form-group" id="Renda">
+        <div class="form-group" id="ClienteRenda">
             @Html.LabelFor(model => model.Renda, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Renda, new { htmlAttributes = new { @class = "form-control" } })
@@ -72,20 +73,22 @@
         <div class="form-group" id="ClienteEstadoCivil">
             @Html.LabelFor(model => model.EstadoCivil, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.EstadoCivil, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.EstadoCivil, new { htmlAttributes = new { @class = "form-control" } })*@
+				@Html.DropDownListFor(model => model.EstadoCivil, ViewData["EstadoCivil"] as SelectList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.EstadoCivil, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group" id="ClienteRegimeCasamento">
+        <div class="form-group" id="ClienteRegimeCasamento" hidden="hidden">
             @Html.LabelFor(model => model.RegimeCasamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.RegimeCasamento, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.EditorFor(model => model.RegimeCasamento, new { htmlAttributes = new { @class = "form-control" } })*@
+				@Html.DropDownListFor(model => model.RegimeCasamento, ViewData["RegimeCasamento"] as SelectList, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.RegimeCasamento, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group" id="ClienteConjuge_Cpf">
+        <div class="form-group" id="ClienteConjuge_Cpf" hidden="hidden">
             @Html.LabelFor(model => model.Conjuge_Cpf, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Conjuge_Cpf, new { htmlAttributes = new { @class = "form-control" } })
@@ -93,7 +96,7 @@
             </div>
         </div>
 
-        <div class="form-group" id="ClienteConjuge_Nome">
+        <div class="form-group" id="ClienteConjuge_Nome" hidden="hidden">
             @Html.LabelFor(model => model.Conjuge_Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Conjuge_Nome, new { htmlAttributes = new { @class = "form-control" } })
@@ -125,36 +128,43 @@
 {
 	<script>
 		jQuery(function ($) {
-			$("#DataNascimento").mask("99/99/9999")
-			$("#CpfCnpj").mask("999.999.999-99")
+			$("#DataNascimento").mask("99/99/9999");
+			$("#CpfCnpj").mask("999.999.999-99");
+			$("#Conjuge_Cpf").mask("999.999.999-99");
+			$("#Renda").maskMoney({ symbol: 'R$ ', showSymbol: true, thousands: '', decimal: ',', symbolStay: true });
 			if ($("#TipoPessoa").val() === "0")
 			{
-				$("#Registro").text("CPF")
+				$("#Registro").text("CPF");
 			} else {
-				$("#Registro").text("CNPJ")
+				$("#Registro").text("CNPJ");
 			}
 		});
 		$('#TipoPessoa').change(function () {
 			if ($("#TipoPessoa").val() === "0") {
-				$("#Registro").text("CPF")
-				$("#CpfCnpj").mask("999.999.999-99")
-				$("#ClienteSexo").show()
-				$("#ClienteProfissao").show()
-				$("#ClienteDataNascimento").show()
-				$("#ClienteEstadoCivil").show()
-				$("#ClienteRegimeCasamento").show()
-				$("#ClienteConjuge_Cpf").show()
-				$("#ClienteConjuge_Nome").show()
+				$("#Registro").text("CPF");
+				$("#CpfCnpj").mask("999.999.999-99");
+				$("#ClienteSexo").show();
+				$("#ClienteProfissao").show();
+				$("#ClienteDataNascimento").show();
+				$("#ClienteEstadoCivil").show();
 			} else {
-				$("#CpfCnpj").mask("99.999.999/9999-99")
-				$("#Registro").text("CNPJ")
-				$("#ClienteSexo").hide()
-				$("#ClienteProfissao").hide()
-				$("#ClienteDataNascimento").hide()
-				$("#ClienteEstadoCivil").hide()
-				$("#ClienteRegimeCasamento").hide()
-				$("#ClienteConjuge_Cpf").hide()
-				$("#ClienteConjuge_Nome").hide()
+				$("#CpfCnpj").mask("99.999.999/9999-99");
+				$("#Registro").text("CNPJ");
+				$("#ClienteSexo").hide();
+				$("#ClienteProfissao").hide();
+				$("#ClienteDataNascimento").hide();
+				$("#ClienteEstadoCivil").hide();
+			}
+		});
+		$('#EstadoCivil').change(function () {
+			if ($("#EstadoCivil").val() === "Casado(a)" || $("#EstadoCivil").val() === "União Estável") {
+				$("#ClienteRegimeCasamento").show();
+				$("#ClienteConjuge_Cpf").show();
+				$("#ClienteConjuge_Nome").show();
+			} else {
+				$("#ClienteRegimeCasamento").hide();
+				$("#ClienteConjuge_Cpf").hide();
+				$("#ClienteConjuge_Nome").hide();
 			}
 		});
 	</script>

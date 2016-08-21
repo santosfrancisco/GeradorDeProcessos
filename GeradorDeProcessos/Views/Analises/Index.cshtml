@@ -1,0 +1,75 @@
+﻿@model IEnumerable<GeradorDeProcessos.Models.Analises>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DataEntrega)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorFinanciamento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SaldoDevedor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TipoAnalise)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Clientes.CpfCnpj)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unidades.Numero)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataEntrega)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorFinanciamento)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SaldoDevedor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Observacao)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoAnalise)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Clientes.CpfCnpj)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Unidades.Numero)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDAnalise }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDAnalise }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDAnalise })
+        </td>
+    </tr>
+}
+
+</table>

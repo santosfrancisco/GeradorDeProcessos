@@ -73,11 +73,10 @@ GO
 CREATE TABLE Analises
 (
 	IDAnalise INT IDENTITY(1,1) NOT NULL,
-	Unidades varchar(50) NOT NULL,
     DataEntrega DATE NOT NULL,
 	ValorFinanciamento DECIMAL NOT NULL,
     ValorTotal DECIMAL NOT NULL,
-	SaldeDevedor DECIMAL NOT NULL,
+	SaldoDevedor DECIMAL NOT NULL,
     Observacao VARCHAR(300) NULL,
 	TipoAnalise VARCHAR(50) NOT NULL,
     IDCliente INT NOT NULL,

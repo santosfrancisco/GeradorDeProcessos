@@ -10,11 +10,10 @@
             <PropertyRef Name="IDAnalise" />
           </Key>
           <Property Name="IDAnalise" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Unidades" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DataEntrega" Type="date" Nullable="false" />
           <Property Name="ValorFinanciamento" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="ValorTotal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
-          <Property Name="SaldeDevedor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="SaldoDevedor" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Observacao" Type="varchar" MaxLength="300" />
           <Property Name="TipoAnalise" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDCliente" Type="int" Nullable="false" />
@@ -222,17 +221,16 @@
             <PropertyRef Name="IDAnalise" />
           </Key>
           <Property Name="IDAnalise" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Unidades" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DataEntrega" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="ValorFinanciamento" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="ValorTotal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
-          <Property Name="SaldeDevedor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="SaldoDevedor" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Observacao" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="TipoAnalise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDCliente" Type="Int32" Nullable="false" />
           <Property Name="IDUnidade" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="GeradorDeProcessosModel.fk_analises_clientes" FromRole="Analises" ToRole="Clientes" />
-          <NavigationProperty Name="Unidades1" Relationship="GeradorDeProcessosModel.fk_Analises_unidades" FromRole="Analises" ToRole="Unidades" />
+          <NavigationProperty Name="Unidades" Relationship="GeradorDeProcessosModel.fk_Analises_unidades" FromRole="Analises" ToRole="Unidades" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -386,11 +384,10 @@
                 <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
                 <ScalarProperty Name="TipoAnalise" ColumnName="TipoAnalise" />
                 <ScalarProperty Name="Observacao" ColumnName="Observacao" />
-                <ScalarProperty Name="SaldeDevedor" ColumnName="SaldeDevedor" />
+                <ScalarProperty Name="SaldoDevedor" ColumnName="SaldoDevedor" />
                 <ScalarProperty Name="ValorTotal" ColumnName="ValorTotal" />
                 <ScalarProperty Name="ValorFinanciamento" ColumnName="ValorFinanciamento" />
                 <ScalarProperty Name="DataEntrega" ColumnName="DataEntrega" />
-                <ScalarProperty Name="Unidades" ColumnName="Unidades" />
                 <ScalarProperty Name="IDAnalise" ColumnName="IDAnalise" />
               </MappingFragment>
             </EntityTypeMapping>
