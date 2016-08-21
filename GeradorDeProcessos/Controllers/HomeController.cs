@@ -5,47 +5,64 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+
 using System.Web.Mvc;
-using PagedList;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
-	public class HomeController : Controller
-	{
+    public class HomeController : BaseController
+    {
+<<<<<<< HEAD
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
-		public ActionResult Index(int? page, string searchString, string currentFilter)
+		public async Task<ActionResult> Index(string filtro = "")
 		{
-			var empreendimentos = db.Empreendimentos.ToList();
-
-			if (!String.IsNullOrEmpty(searchString))
+			if (filtro != "")
 			{
-				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
-			}
-
-			if (searchString != null)
-			{
-				page = 1;
+				var empreendimentos = db.Empreendimentos.Where(e => e.Nome.Contains(filtro));
+				return View(await empreendimentos.ToListAsync());
 			}
 			else
 			{
-				searchString = currentFilter;
+				var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
+				return View(await empreendimentos.ToListAsync());
 			}
-
-			ViewBag.CurrentFilter = searchString;
-
-			if (!String.IsNullOrEmpty(searchString))
-			{
-				empreendimentos = empreendimentos.Where(u => u.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
-			}
-			
-			int pageSize = 5;
-			int pageNumber = (page ?? 1);
-			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
 		}
-
 		// GET: Home/Configuracoes
 		public ActionResult Configuracoes()
+=======
+        // GET: Login
+        public ActionResult Login()
+        {
+            ViewBag.Title = "Seja Bem Vindo(a)";
+            return View();
+        }
+
+        [HttpGet]
+        public JsonResult AutenticarLogin(string Login, string Senha)
+        {
+            if (RepositorioUsuarios.AutenticarUsuario(Login, Senha))
+            {
+                return Json(new
+                {
+                    OK = true,
+                    Mensagem = "Autenticado, redirecionando..."
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    OK = false,
+                    Mensagem = "Usuário não encontrato. Tente novamente."
+                },
+                JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult Configuracoes()
+>>>>>>> origin/master
 		{
 			return View();
 		}
@@ -57,5 +74,5 @@ namespace GeradorDeProcessos.Controllers
 		//						  select new ResultadoListagem { Empreendimento = e.Nome };
 		//	return Json(empreendimentos, JsonRequestBehavior.AllowGet);
 		//}
-	}
+    }
 }
