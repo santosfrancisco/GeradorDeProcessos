@@ -75,6 +75,7 @@
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Senha" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IDEmpresa" Type="int" Nullable="false" />
+          <Property Name="TipoUsuario" Type="int" />
         </EntityType>
         <Association Name="fk_analises_clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
@@ -296,6 +297,7 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Senha" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
+          <Property Name="TipoUsuario" Type="Int32" />
           <NavigationProperty Name="Clientes" Relationship="GeradorDeProcessosModel.fk_clientes_usuarios" FromRole="Usuarios" ToRole="Clientes" />
           <NavigationProperty Name="Empresas" Relationship="GeradorDeProcessosModel.fk_usuarios_empresas" FromRole="Usuarios" ToRole="Empresas" />
         </EntityType>
@@ -446,6 +448,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
                 <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
                 <ScalarProperty Name="Senha" ColumnName="Senha" />
                 <ScalarProperty Name="Email" ColumnName="Email" />

@@ -12,7 +12,7 @@ using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
-    public class UsuariosController : Controller
+    public class UsuariosController : BaseController
     {
         private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 
@@ -73,7 +73,7 @@ namespace GeradorDeProcessos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IDUsuario,Nome,Email,Senha,IDEmpresa")] Usuarios usuarios)
+        public async Task<ActionResult> Create([Bind(Include = "IDUsuario,TipoUsuario,Nome,Email,Senha,IDEmpresa")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace GeradorDeProcessos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IDUsuario,Nome,Email,Senha,IDEmpresa")] Usuarios usuarios)
+        public async Task<ActionResult> Edit([Bind(Include = "IDUsuario,TipoUsuario,Nome,Email,Senha,IDEmpresa")] Usuarios usuarios)
         {
             if (ModelState.IsValid)
             {

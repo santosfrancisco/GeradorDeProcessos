@@ -25,6 +25,7 @@ namespace GeradorDeProcessos.Models
         public string Email { get; set; }
         public string Senha { get; set; }
         public int IDEmpresa { get; set; }
+        public Nullable<int> TipoUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Clientes> Clientes { get; set; }
