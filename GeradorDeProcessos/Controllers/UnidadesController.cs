@@ -13,7 +13,7 @@ using PagedList.Mvc;
 
 namespace GeradorDeProcessos.Controllers
 {
-	public class UnidadesController : Controller
+	public class UnidadesController : BaseController
 	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 

@@ -19,7 +19,7 @@ namespace GeradorDeProcessos.Filtros
             {
                 if (RepositorioUsuarios.VerificaSeOUsuarioEstaLogado() == null)
                 {
-                    FiltroDeContexto.RequestContext.HttpContext.Response.Redirect("/Home/Login?Url=");
+                    FiltroDeContexto.RequestContext.HttpContext.Response.Redirect("/Home/Login");
                     //+ FiltroDeContexto.HttpContext.Request.Url.LocalPath);
 
                 }

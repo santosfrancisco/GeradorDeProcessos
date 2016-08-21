@@ -11,7 +11,7 @@ using GeradorDeProcessos.Models;
 
 namespace GeradorDeProcessos.Controllers
 {
-    public class AnalisesController : Controller
+    public class AnalisesController : BaseController
     {
         private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 

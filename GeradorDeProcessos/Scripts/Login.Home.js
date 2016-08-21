@@ -1,11 +1,11 @@
 ﻿$(document).ready(function () {
     $("#status").hide();
-    $("#btLogar").click(function () {
+    $("#btnLogar").click(function () {
         $.ajax({
-            data: { Login: $("#txtLogin").val(), Senha: $("#txtSenha").val() },
+            data: { Email: $("#txtLogin").val(), Senha: $("#txtSenha").val() },
             dataType: "json",
             type: "GET",
-            url: "/Home/AutenticarLogin",
+            url: "/Usuarios/AutenticacaoDeUsuario",
             async: true,
             beforeSend: function () {
                 $("#status").html("Estamos autenticando o usuário... Só um instante.");
@@ -13,7 +13,7 @@
             },
             success: function (dados) {
                 if (dados.OK) {
-                    setTimeout(function () { window.location.href = "/Empreendimentos/Index" }, 5000);
+                    setTimeout(function () { window.location.href = "/Home/Index" }, 5000);
                 }
                 else {
                     $("#status").html(dados.Mensagem);

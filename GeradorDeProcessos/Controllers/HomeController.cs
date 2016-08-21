@@ -5,64 +5,55 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-
 using System.Web.Mvc;
-using GeradorDeProcessos.Repositorios;
+using PagedList;
 
 namespace GeradorDeProcessos.Controllers
 {
-    public class HomeController : BaseController
-    {
-<<<<<<< HEAD
+	public class HomeController : Controller
+	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
-		public async Task<ActionResult> Index(string filtro = "")
+		public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
 		{
-			if (filtro != "")
+			var empreendimentos = db.Empreendimentos.ToList();
+
+			if (!String.IsNullOrEmpty(searchString))
 			{
-				var empreendimentos = db.Empreendimentos.Where(e => e.Nome.Contains(filtro));
-				return View(await empreendimentos.ToListAsync());
+				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
+			}
+
+			if (searchString != null)
+			{
+				page = 1;
+				empreendimentos = await db.Empreendimentos.Where(e => e.Nome.Contains(searchString)).ToListAsync();
 			}
 			else
 			{
-				var empreendimentos = db.Empreendimentos.Include(e => e.Empresas);
-				return View(await empreendimentos.ToListAsync());
+				searchString = currentFilter;
+				empreendimentos = await db.Empreendimentos.Include(e => e.Empresas).ToListAsync();
 			}
-		}
-		// GET: Home/Configuracoes
-		public ActionResult Configuracoes()
-=======
-        // GET: Login
-        public ActionResult Login()
-        {
-            ViewBag.Title = "Seja Bem Vindo(a)";
-            return View();
-        }
 
-        [HttpGet]
-        public JsonResult AutenticarLogin(string Login, string Senha)
-        {
-            if (RepositorioUsuarios.AutenticarUsuario(Login, Senha))
-            {
-                return Json(new
-                {
-                    OK = true,
-                    Mensagem = "Autenticado, redirecionando..."
-                },
-                JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(new
-                {
-                    OK = false,
-                    Mensagem = "Usuário não encontrato. Tente novamente."
-                },
-                JsonRequestBehavior.AllowGet);
-            }
-        }
-        public ActionResult Configuracoes()
->>>>>>> origin/master
+			ViewBag.CurrentFilter = searchString;
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				empreendimentos = empreendimentos.Where(u => u.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
+			}
+
+			int pageSize = 5;
+			int pageNumber = (page ?? 1);
+			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
+		}
+
+		// GET: Login
+		public ActionResult Login()
+		{
+			ViewBag.Title = "Seja Bem Vindo(a)";
+			return View();
+		}
+
+		public ActionResult Configuracoes()
 		{
 			return View();
 		}
@@ -74,5 +65,5 @@ namespace GeradorDeProcessos.Controllers
 		//						  select new ResultadoListagem { Empreendimento = e.Nome };
 		//	return Json(empreendimentos, JsonRequestBehavior.AllowGet);
 		//}
-    }
+	}
 }

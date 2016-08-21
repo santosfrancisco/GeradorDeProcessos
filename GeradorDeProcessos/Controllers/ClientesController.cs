@@ -12,7 +12,7 @@ using PagedList;
 
 namespace GeradorDeProcessos.Controllers
 {
-	public class ClientesController : Controller
+	public class ClientesController : BaseController
 	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 

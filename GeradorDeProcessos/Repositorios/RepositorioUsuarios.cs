@@ -10,13 +10,12 @@ namespace GeradorDeProcessos.Repositorios
 {
     public class RepositorioUsuarios
     {
-        public static bool AutenticarUsuario(string Login, string Senha)
+        public static bool AutenticarUsuario(string Email, string Senha)
         {
-            var senhaCriptografada = FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, "sha1")
-                ;
+            var senhaCriptografada = FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, "sha1");
             using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
             {
-                var QueryAutenticaUsuario = db.Usuarios.Where(x => x.Email == Login && x.Senha == Senha).SingleOrDefault();
+                var QueryAutenticaUsuario = db.Usuarios.Where(x => x.Email == Email && x.Senha == Senha).SingleOrDefault();
                 if (QueryAutenticaUsuario == null)
                 {
                     return false;

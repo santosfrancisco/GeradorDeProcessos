@@ -1,42 +1,47 @@
-﻿@{
-    Layout = null;
+﻿@model IEnumerable<GeradorDeProcessos.Models.Usuarios>
+@{
+    ViewBag.Title = "Login";
 }
 
-<!DOCTYPE html>
+@*<form style="width: 600px;margin: 0 auto;">
+	<h2>Login</h2>
+	<div class="form-group">
+		<label for="Email">Email</label>
+		<input type="email" class="form-control" id="txtLogin" placeholder="Email">
+	</div>
+	<div class="form-group">
+		<label for="senha">Senha</label>
+		<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
+	</div>
+	<div>
+		<div id="status" class="alert alert-info"></div>
+	</div>
+	<button type="submit" id="btnLogar" class="btn btn-default">Submit</button>
+</form>*@
+<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Quem é você?</h1>
+			<p>&nbsp;</p>
+			<div id="status" class="alert alert-info"></div>
+			<p>&nbsp;</p>
+			<div>
+				<form id="form-login" name="form-login" method="get" action="javascript:function()">
+					<label for="txtLogin">Login</label>&nbsp;
+					<input type="text" id="txtLogin" name="txtLogin" />&nbsp;
+					<label for="txtSenha">Senha</label>&nbsp;
+					<input type="password" id="txtSenha" name="txtSenha" />&nbsp;
+					<a id="btnLogar" class="btn btn-primary btn-lg">Entrar</a>
+				</form>
+			</div>
+		</div>
+	</div>
+	<p style="text-align:center">
+		@Html.ActionLink("Esqueceu sua senha?", "EsqueceuSuaSenha", "Home", null, new { @style = "text-align: center;" })
+	</p>
+</div>
 
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
-    <style>
-        body {
-            padding-top: 60px;
-        }
-    </style>
-</head>
-<body>
-    <form style="width: 600px;margin: 0 auto;">
+@section scripts {
 
-        <h2>Login</h2>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="txtLogin" placeholder="Email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Senha</label>
-            <input type="password" class="form-control" id="txtSenha" placeholder="Senha">
-        </div>
-        <div>
-            <div id="status" class="alert alert-info"></div>
-        </div>
-        <button type="submit" id="btLogar" class="btn btn-default">Submit</button>
-    </form>
-
-    <script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
-    @*<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>*@
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
-</body>
-</html>
+	<script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
+}
