@@ -14,8 +14,10 @@ namespace GeradorDeProcessos.Filtros
     {
         public override void OnActionExecuting(ActionExecutingContext FiltroDeContexto)
         {
-            var Controller = FiltroDeContexto.ActionDescriptor.ControllerDescriptor.ControllerName; var Action = FiltroDeContexto.ActionDescriptor.ActionName;
-            if (Controller != "Home" || Action != "Login")
+            var Controller = FiltroDeContexto.ActionDescriptor.ControllerDescriptor.ControllerName;
+			var Action = FiltroDeContexto.ActionDescriptor.ActionName;
+
+			if (Controller != "Home" || Action != "Login")
             {
                 if (RepositorioUsuarios.VerificaSeOUsuarioEstaLogado() == null)
                 {
@@ -24,6 +26,21 @@ namespace GeradorDeProcessos.Filtros
 
                 }
             }
+
+			//if(Controller == "Usuarios" && Action == "Edit")
+			//{
+				
+			//	if (RepositorioUsuarios.VerificaSeOUsuarioEstaLogado() == null || RepositorioUsuarios.VerificaTipoUsuario() != 0)
+			//	{
+			//		FiltroDeContexto.RequestContext.HttpContext.Response.Redirect("/Home/Index");
+			//		//+ FiltroDeContexto.HttpContext.Request.Url.LocalPath);
+
+			//	} else
+			//	{
+
+			//	}
+			//}
         }
+		
     }
 }

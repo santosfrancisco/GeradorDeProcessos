@@ -22,6 +22,34 @@ namespace GeradorDeProcessos.Controllers
             var usuarios = db.Usuarios.Include(u => u.Empresas);
             return View(await usuarios.ToListAsync());
         }
+
+		public ActionResult PermissaoNegada()
+		{
+			return View();
+		}
+
+		public string TipoDeUsuario(int id)
+		{
+			var usuarios = db.Usuarios.Where(u => u.IDUsuario == id);
+			var tipo = usuarios.First().TipoUsuario.Value;
+			string TipoUsuario = "";
+
+			switch (tipo)
+			{
+				case 0:
+					TipoUsuario = "Administrador";
+					break;
+				case 1:
+					TipoUsuario = "Gestor";
+					break;
+				case 2:
+					TipoUsuario = "Usuário";
+					break;
+
+			}
+			return TipoUsuario;
+		}
+
 		// GET: Usuarios
 		[HttpGet]
 		public JsonResult AutenticacaoDeUsuario(string Email, string Senha)
@@ -64,8 +92,30 @@ namespace GeradorDeProcessos.Controllers
         // GET: Usuarios/Create
         public ActionResult Create()
         {
-            ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome");
-            return View();
+			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
+			{
+				IList<SelectListItem> ListaTipos = new List<SelectListItem>();
+				ListaTipos.Add(new SelectListItem() { Text = "Administrador", Value = "0" });
+				ListaTipos.Add(new SelectListItem() { Text = "Gestor", Value = "1" });
+				ListaTipos.Add(new SelectListItem() { Text = "Usuário", Value = "2" });
+
+				ViewBag.TipoUsuario = ListaTipos.ToList();
+				ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome");
+				return View();
+			}
+			else if (RepositorioUsuarios.VerificaTipoUsuario() == 1)
+			{
+				IList<SelectListItem> ListaTipos = new List<SelectListItem>();
+				ListaTipos.Add(new SelectListItem() { Text = "Usuário", Value = "2" });
+
+				ViewBag.TipoUsuario = ListaTipos.ToList();
+				ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome");
+				return View();
+			}
+			else
+			{
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
+			}
         }
 
         // POST: Usuarios/Create
@@ -81,8 +131,13 @@ namespace GeradorDeProcessos.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+			IList<SelectListItem> ListaTipos = new List<SelectListItem>();
+			ListaTipos.Add(new SelectListItem() { Text = "Administrador", Value = "0" });
+			ListaTipos.Add(new SelectListItem() { Text = "Gestor", Value = "1" });
+			ListaTipos.Add(new SelectListItem() { Text = "Usuário", Value = "2" });
 
-            ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
+			ViewBag.TipoUsuario = ListaTipos.ToList();
+			ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
             return View(usuarios);
         }
 
@@ -98,7 +153,13 @@ namespace GeradorDeProcessos.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
+			IList<SelectListItem> ListaTipos = new List<SelectListItem>();
+			ListaTipos.Add(new SelectListItem() { Text = "Administrador", Value = "0" });
+			ListaTipos.Add(new SelectListItem() { Text = "Gestor", Value = "1" });
+			ListaTipos.Add(new SelectListItem() { Text = "Usuário", Value = "2" });
+
+			ViewBag.TipoUsuario = ListaTipos.ToList();
+			ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
             return View(usuarios);
         }
 
@@ -115,7 +176,13 @@ namespace GeradorDeProcessos.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
+			IList<SelectListItem> ListaTipos = new List<SelectListItem>();
+			ListaTipos.Add(new SelectListItem() { Text = "Administrador", Value = "0" });
+			ListaTipos.Add(new SelectListItem() { Text = "Gestor", Value = "1" });
+			ListaTipos.Add(new SelectListItem() { Text = "Usuário", Value = "2" });
+
+			ViewBag.TipoUsuario = ListaTipos.ToList();
+			ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome", usuarios.IDEmpresa);
             return View(usuarios);
         }
 

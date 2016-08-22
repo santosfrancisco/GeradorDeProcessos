@@ -18,6 +18,9 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TipoUsuario)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Empresas.Nome)
         </th>
         <th></th>
@@ -30,6 +33,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+			<span>@Html.Action("TipoDeUsuario", "Usuarios", new { id = item.IDUsuario })</span>
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Empresas.Nome)
