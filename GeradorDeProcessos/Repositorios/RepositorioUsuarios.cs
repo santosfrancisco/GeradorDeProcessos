@@ -80,5 +80,24 @@ namespace GeradorDeProcessos.Repositorios
 				return -1;
 			}
 		}
+
+		public static int VerificaEmpresaUsuario()
+		{
+			try
+			{
+				using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
+				{
+					var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+					long ID = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+					int Empresa = db.Usuarios.Where(u => u.IDUsuario == ID).First().IDEmpresa;
+
+					return Empresa;
+				}
+			}
+			catch (Exception)
+			{
+				return -1;
+			}
+		}
 	}
 }
