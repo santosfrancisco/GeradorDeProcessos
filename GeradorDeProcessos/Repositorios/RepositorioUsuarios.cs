@@ -28,6 +28,15 @@ namespace GeradorDeProcessos.Repositorios
 			}
 		}
 
+		public static void LogOut()
+		{
+			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+			if (usuario != null)
+			{
+				RepositorioCookies.LogOut();
+			}
+		}
+
 		public static Usuarios RecuperaUsuarioPorID(long IDUsuario)
 		{
 			try
@@ -44,6 +53,15 @@ namespace GeradorDeProcessos.Repositorios
 			{
 				return null;
 			}
+		}
+
+		public static long RecuperaIDUsuario()
+		{
+			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+			long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+
+			return IDUsuario;
+			
 		}
 
 		public static Usuarios VerificaSeOUsuarioEstaLogado()

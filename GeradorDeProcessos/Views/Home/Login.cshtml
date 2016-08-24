@@ -1,47 +1,60 @@
-﻿@model IEnumerable<GeradorDeProcessos.Models.Usuarios>
-@{
-    ViewBag.Title = "Login";
+﻿@{
+	Layout = null;
 }
 
-@*<form style="width: 600px;margin: 0 auto;">
-	<h2>Login</h2>
-	<div class="form-group">
-		<label for="Email">Email</label>
-		<input type="email" class="form-control" id="txtLogin" placeholder="Email">
-	</div>
-	<div class="form-group">
-		<label for="senha">Senha</label>
-		<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
-	</div>
-	<div>
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
+	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+	<title>@ViewBag.Title</title>
+	<style>
+		body {
+			padding-top: 60px;
+		}
+	</style>
+</head>
+<body>
+	@*<div class="container">
+		<div class="panel panel-default">
+		<h1>Quem é você?</h1>
+		<p>&nbsp;</p>
 		<div id="status" class="alert alert-info"></div>
-	</div>
-	<button type="submit" id="btnLogar" class="btn btn-default">Submit</button>
-</form>*@
-<div class="container">
-	<div class="jumbotron">
-		<div class="container">
-			<h1>Quem é você?</h1>
-			<p>&nbsp;</p>
-			<div id="status" class="alert alert-info"></div>
-			<p>&nbsp;</p>
-			<div>
-				<form id="form-login" name="form-login" method="get" action="javascript:function()">
-					<label for="txtLogin">Login</label>&nbsp;
-					<input type="text" id="txtLogin" name="txtLogin" />&nbsp;
-					<label for="txtSenha">Senha</label>&nbsp;
-					<input type="password" id="txtSenha" name="txtSenha" />&nbsp;
-					<a id="btnLogar" class="btn btn-primary btn-lg">Entrar</a>
-				</form>
-			</div>
+		<p>&nbsp;</p>
+		<div>
+			<form id="form-login" name="form-login" method="get" action="javascript:function()">
+				<label for="txtLogin">Login</label>&nbsp;
+				<input type="text" id="txtLogin" name="txtLogin" />&nbsp;<br />
+				<label for="txtSenha">Senha</label>&nbsp;
+				<input type="password" id="txtSenha" name="txtSenha" />&nbsp;
+				<a id="btnLogar" class="btn btn-primary btn-lg">Entrar</a>
+			</form>
 		</div>
 	</div>
-	<p style="text-align:center">
-		@Html.ActionLink("Esqueceu sua senha?", "EsqueceuSuaSenha", "Home", null, new { @style = "text-align: center;" })
-	</p>
-</div>
+		</div>*@
+		@*<div class="container center-block">*@
+			<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="get" action="javascript:function()">
 
-@section scripts {
-
+		<h2>Login</h2>
+		<div class="form-group">
+			<label for="Email">Email</label>
+			<input type="email" class="form-control" id="txtLogin" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<label for="Password">Senha</label>
+			<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
+		</div>
+		<div>
+			<div id="status" class="alert alert-info"></div>
+		</div>
+		<button type="submit" id="btnLogar" class="btn btn-default">Entrar</button>
+	</form>
+		@*</div>*@
+	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
-}
+</body>
+</html>

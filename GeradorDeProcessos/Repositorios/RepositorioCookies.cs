@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 
 namespace GeradorDeProcessos.Repositorios
 {
@@ -21,5 +22,18 @@ namespace GeradorDeProcessos.Repositorios
             //Adicionando o cookie no contexto da aplicação
             HttpContext.Current.Response.Cookies.Add(UserCookie);
         }
+
+		public static void LogOut()
+		{
+			//Criando um objeto cookie
+			HttpCookie UserCookie = new HttpCookie("UserCookieAuthentication");
+
+			//Definindo o prazo de vida do cookie
+			UserCookie.Expires = DateTime.Now.AddDays(-1);
+
+			//Adicionando o cookie no contexto da aplicação
+			HttpContext.Current.Response.Cookies.Add(UserCookie);
+			HttpContext.Current.Response.Redirect("/Home/Login", false);
+		}
     }
 }

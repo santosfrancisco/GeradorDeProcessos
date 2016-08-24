@@ -17,14 +17,15 @@ namespace GeradorDeProcessos.Filtros
             var Controller = FiltroDeContexto.ActionDescriptor.ControllerDescriptor.ControllerName;
 			var Action = FiltroDeContexto.ActionDescriptor.ActionName;
 
-			if (Controller != "Home" || Action != "Login")
+			if (Action != "Login")
             {
                 if (RepositorioUsuarios.VerificaSeOUsuarioEstaLogado() == null)
                 {
-                    FiltroDeContexto.RequestContext.HttpContext.Response.Redirect("/Home/Login");
-                    //+ FiltroDeContexto.HttpContext.Request.Url.LocalPath);
+					FiltroDeContexto.RequestContext.HttpContext.Response.Redirect("/Home/Login", false);
 
-                }
+
+
+				}
             }
 
 			//if(Controller == "Usuarios" && Action == "Edit")

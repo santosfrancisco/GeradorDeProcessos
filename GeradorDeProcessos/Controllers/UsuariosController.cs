@@ -48,8 +48,28 @@ namespace GeradorDeProcessos.Controllers
 			else if (RepositorioUsuarios.VerificaTipoUsuario() == 1)
 			{
 				var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
-				var usuarios = db.Usuarios.Where(u => u.IDEmpresa == empresa && u.TipoUsuario == 2);
-				return View(await usuarios.ToListAsync());
+				var usuarios = await db.Usuarios.Where(u => u.IDEmpresa == empresa && u.TipoUsuario == 2).ToListAsync();
+
+				if (searchString != null)
+				{
+					page = 1;
+				}
+				else
+				{
+					searchString = currentFilter;
+				}
+
+				ViewBag.CurrentFilter = searchString;
+
+				if (!String.IsNullOrEmpty(searchString))
+				{
+					usuarios = usuarios.Where(u => u.Nome.ToUpper().Contains(searchString.ToUpper()) || u.Email.ToUpper().Contains(searchString.ToUpper())).ToList();
+				}
+
+				int pageSize = 10;
+				int pageNumber = (page ?? 1);
+
+				return View(usuarios.ToPagedList(pageNumber, pageSize));
 			}
 			else
 			{
@@ -116,6 +136,12 @@ namespace GeradorDeProcessos.Controllers
 				},
 					JsonRequestBehavior.AllowGet);
 			}
+		}
+
+		//GET: logout
+		public void LogOut()
+		{
+			RepositorioUsuarios.LogOut();
 		}
 
 		// GET: Usuarios/Details/5
