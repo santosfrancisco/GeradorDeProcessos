@@ -114,36 +114,6 @@ namespace GeradorDeProcessos.Controllers
 			}
 		}
 
-		// GET: Usuarios
-		[HttpGet]
-		public JsonResult AutenticacaoDeUsuario(string Email, string Senha)
-		{
-			if (RepositorioUsuarios.AutenticarUsuario(Email, Senha))
-			{
-				return Json(new
-				{
-					OK = true,
-					Mensagem = "Usuário autenticado. Redirecionando..."
-				},
-					JsonRequestBehavior.AllowGet);
-			}
-			else
-			{
-				return Json(new
-				{
-					OK = false,
-					Mensagem = "Usuário não encontrado. Tente novamente."
-				},
-					JsonRequestBehavior.AllowGet);
-			}
-		}
-
-		//GET: logout
-		public void LogOut()
-		{
-			RepositorioUsuarios.LogOut();
-		}
-
 		// GET: Usuarios/Details/5
 		public async Task<ActionResult> Details(int? id)
 		{

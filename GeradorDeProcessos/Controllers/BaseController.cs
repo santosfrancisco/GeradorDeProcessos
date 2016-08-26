@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using GeradorDeProcessos.Filtros;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {

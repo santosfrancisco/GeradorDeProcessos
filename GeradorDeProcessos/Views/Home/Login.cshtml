@@ -18,41 +18,24 @@
 	</style>
 </head>
 <body>
-	@*<div class="container">
-		<div class="panel panel-default">
-		<h1>Quem é você?</h1>
-		<p>&nbsp;</p>
-		<div id="status" class="alert alert-info"></div>
-		<p>&nbsp;</p>
-		<div>
-			<form id="form-login" name="form-login" method="get" action="javascript:function()">
-				<label for="txtLogin">Login</label>&nbsp;
-				<input type="text" id="txtLogin" name="txtLogin" />&nbsp;<br />
-				<label for="txtSenha">Senha</label>&nbsp;
-				<input type="password" id="txtSenha" name="txtSenha" />&nbsp;
-				<a id="btnLogar" class="btn btn-primary btn-lg">Entrar</a>
-			</form>
-		</div>
-	</div>
-		</div>*@
-		@*<div class="container center-block">*@
-			<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="get" action="javascript:function()">
+
+	<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="post" action="javascript:function()">
 
 		<h2>Login</h2>
 		<div class="form-group">
-			<label for="Email">Email</label>
+			<label for="txtLogin">Email</label>
 			<input type="email" class="form-control" id="txtLogin" placeholder="Email">
 		</div>
 		<div class="form-group">
-			<label for="Password">Senha</label>
+			<label for="txtSenha">Senha</label>
 			<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
 		</div>
 		<div>
 			<div id="status" class="alert alert-info"></div>
 		</div>
-		<button type="submit" id="btnLogar" class="btn btn-default">Entrar</button>
+		<a id="btnLogar" class="btn btn-default">Entrar</a>
 	</form>
-		@*</div>*@
+
 	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/Login.Home.js")"></script>

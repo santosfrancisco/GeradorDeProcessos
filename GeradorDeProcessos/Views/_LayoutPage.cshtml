@@ -1,9 +1,6 @@
 ﻿@{
 	Layout = null;
 }
-@{
-	ViewBag.Title = "Gerador de Processos";
-}
 
 <!DOCTYPE html>
 
@@ -14,7 +11,7 @@
 	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 	<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" />
-	<title>@ViewBag.Title</title>
+	<title>Procex - @ViewBag.Title</title>
 </head>
 <body>
 	
@@ -48,10 +45,10 @@
 									<li><a href="@Url.Action("Index", "Empreendimentos")">Gerenciar Empreendimentos</a></li>
 									<li><a href="@Url.Action("Index", "Usuarios")">Gerenciar Usuários</a></li>
 									<li class="divider"></li>
-									<li><a href="@Url.Action("Logout", "Usuarios")">Sair</a></li>
+									<li><a href="@Url.Action("Logout", "Home")">Sair</a></li>
 								</ul>
 							</li>
-							<li><a href="@Url.Action("Logout", "Usuarios")">Sair</a></li>
+							<li><a href="@Url.Action("Logout", "Home")">Sair</a></li>
 						</ul>
 					</div>
 				</div>

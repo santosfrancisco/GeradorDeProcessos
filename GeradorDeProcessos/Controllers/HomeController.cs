@@ -17,22 +17,32 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Home
 		public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
 		{
-			var empreendimentos = db.Empreendimentos.ToList();
+			List<Empreendimentos> empreendimentos;
+
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
+
+			if (tipoUsuario == 0)
+			{
+				empreendimentos = await db.Empreendimentos.ToListAsync();
+			}
+			else if (tipoUsuario == 1)
+			{
+				empreendimentos = await db.Empreendimentos.Where(e => e.IDEmpresa == empresa).ToListAsync();
+			}
+			else
+			{
+				empreendimentos = await db.Empreendimentos.Where(e => e.IDEmpresa == empresa).ToListAsync();
+			}
 
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
-			}
-
-			if (searchString != null)
-			{
 				page = 1;
-				empreendimentos = await db.Empreendimentos.Where(e => e.Nome.Contains(searchString)).ToListAsync();
+				empreendimentos = empreendimentos.Where(e => e.Nome.ToUpper().Contains(searchString.ToUpper())).ToList();
 			}
 			else
 			{
 				searchString = currentFilter;
-				empreendimentos = await db.Empreendimentos.Include(e => e.Empresas).ToListAsync();
 			}
 
 			ViewBag.CurrentFilter = searchString;
@@ -47,11 +57,41 @@ namespace GeradorDeProcessos.Controllers
 			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
 		}
 
+		//GET: logout
+		public void LogOut()
+		{
+			RepositorioUsuarios.LogOut();
+		}
+
 		// GET: Login
 		public ActionResult Login()
 		{
 			ViewBag.Title = "Seja Bem Vindo(a)";
 			return View();
+		}
+
+		// Login
+		[HttpPost]
+		public JsonResult AutenticacaoDeUsuario(string Login, string Senha)
+		{
+			if (RepositorioUsuarios.AutenticarUsuario(Login, Senha))
+			{
+				return Json(new
+				{
+					OK = true,
+					Mensagem = "Usuário autenticado. Redirecionando..."
+				},
+					JsonRequestBehavior.AllowGet);
+			}
+			else
+			{
+				return Json(new
+				{
+					OK = false,
+					Mensagem = "Usuário não encontrado. Tente novamente."
+				},
+					JsonRequestBehavior.AllowGet);
+			}
 		}
 
 		public ActionResult Configuracoes()
