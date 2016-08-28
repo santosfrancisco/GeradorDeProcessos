@@ -1,42 +1,43 @@
 ﻿@{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
-    <style>
-        body {
-            padding-top: 60px;
-        }
-    </style>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width" />
+	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
+	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+	<title>@ViewBag.Title</title>
+	<style>
+		body {
+			padding-top: 60px;
+		}
+	</style>
 </head>
 <body>
-    <form style="width: 600px;margin: 0 auto;">
 
-        <h2>Login</h2>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email</label>
-            <input type="email" class="form-control" id="txtLogin" placeholder="Email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Senha</label>
-            <input type="password" class="form-control" id="txtSenha" placeholder="Senha">
-        </div>
-        <div>
-            <div id="status" class="alert alert-info"></div>
-        </div>
-        <button type="submit" id="btLogar" class="btn btn-default">Submit</button>
-    </form>
+	<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="post" action="javascript:function()">
 
-    <script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
-    @*<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>*@
-    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-    <script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
+		<h2>Login</h2>
+		<div class="form-group">
+			<label for="txtLogin">Email</label>
+			<input type="email" class="form-control" id="txtLogin" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<label for="txtSenha">Senha</label>
+			<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
+		</div>
+		<div>
+			<div id="status" class="alert alert-info"></div>
+		</div>
+		<a id="btnLogar" class="btn btn-default">Entrar</a>
+	</form>
+
+	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
 </body>
 </html>

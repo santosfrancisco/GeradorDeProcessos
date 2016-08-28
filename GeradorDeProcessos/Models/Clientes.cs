@@ -17,10 +17,11 @@ namespace GeradorDeProcessos.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Clientes()
         {
-            this.Vendas = new HashSet<Vendas>();
+            this.Analises = new HashSet<Analises>();
         }
     
         public int IDCliente { get; set; }
+        public int TipoPessoa { get; set; }
         public string CpfCnpj { get; set; }
         public string Nome { get; set; }
         public string Sexo { get; set; }
@@ -29,10 +30,12 @@ namespace GeradorDeProcessos.Models
         public string Renda { get; set; }
         public string EstadoCivil { get; set; }
         public string RegimeCasamento { get; set; }
+        public string Conjuge_Cpf { get; set; }
+        public string Conjuge_Nome { get; set; }
         public int IDUsuario { get; set; }
     
-        public virtual Usuarios Usuarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vendas> Vendas { get; set; }
+        public virtual ICollection<Analises> Analises { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

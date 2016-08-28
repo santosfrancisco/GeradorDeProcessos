@@ -22,6 +22,9 @@ namespace GeradorDeProcessos.Models
     
         public int IDEmpreendimento { get; set; }
         public string Nome { get; set; }
+        public System.DateTime DataEntrega { get; set; }
+        public string Produto { get; set; }
+        public string Campanha { get; set; }
         public int IDEmpresa { get; set; }
     
         public virtual Empresas Empresas { get; set; }

@@ -1,29 +1,31 @@
 ﻿$(document).ready(function () {
-    $("#status").hide();
-    $("#btLogar").click(function () {
-        $.ajax({
-            data: { Login: $("#txtLogin").val(), Senha: $("#txtSenha").val() },
-            dataType: "json",
-            type: "GET",
-            url: "/Home/AutenticarLogin",
-            async: true,
-            beforeSend: function () {
-                $("#status").html("Estamos autenticando o usuário... Só um instante.");
-                $("#status").show();
-            },
-            success: function (dados) {
-                if (dados.OK) {
-                    setTimeout(function () { window.location.href = "/Empreendimentos/Index" }, 5000);
-                }
-                else {
-                    $("#status").html(dados.Mensagem);
-                    $("#status").show();
-                }
-            },
-            error: function () {
-                $("#status").html(dados.Mensagem);
-                $("#status").show()
-            }
-        });
-    });
+	$("#status").hide();
+	$("#btnLogar").click(function () {
+		$.ajax({
+			data: { Login: $("#txtLogin").val(), Senha: $("#txtSenha").val() },
+			dataType: "json",
+			type: "POST",
+			url: "/Home/AutenticacaoDeUsuario",
+			async: true,
+			beforeSend: function () {
+				$("#status").html("Estamos autenticando o usuário... Só um instante.");
+				$("#status").show();
+			},
+			success: function (dados) {
+				if (dados.OK) {
+					setTimeout(function () { window.location.href = "/Home/Index" }, 3000);
+					$("#status").html(dados.Mensagem)
+					$("#status").show();
+				}
+				else {
+					$("#status").html(dados.Mensagem);
+					$("#status").show();
+				}
+			},
+			error: function () {
+				$("#status").html(dados.Mensagem);
+				$("#status").show()
+			}
+		});
+	});
 });

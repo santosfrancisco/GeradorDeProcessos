@@ -1,13 +1,12 @@
 ﻿@model GeradorDeProcessos.Models.Empreendimentos
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
-<h2>Details</h2>
+<h3>@ViewBag.Empreendimento</h3>
 
 <div>
-    <h4>Empreendimentos</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -19,16 +18,32 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.DataEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataEntrega)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.Empresas.Nome)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Empresas.Nome)
         </dd>
+		<dt>
+			@Html.Label("Total de unidades")
+		</dt>
+
+		<dd>
+			@Html.Action("QtdUnidades", "Empreendimentos", new { id = Model.IDEmpreendimento })
+		</dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDEmpreendimento }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDEmpreendimento },htmlAttributes: new { @class = "btn btn-primary btn-sm" }) 
+
+    @Html.ActionLink("Voltar", "Index", "Home", null, htmlAttributes: new { @class = "btn btn-default btn-sm" })
 </p>

@@ -1,45 +1,72 @@
 ﻿@model GeradorDeProcessos.Models.Unidades
 
 @{
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Edit";
 }
 
-<h2>Edit</h2>
+<h3>Editar Unidade</h3>
 
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Unidades</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.IDUnidade)
+	@Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
-            </div>
-        </div>
+	<div class="form-horizontal">
+		<hr />
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		@Html.HiddenFor(model => model.IDUnidade)
+		@Html.HiddenFor(model => model.IDEmpreendimento)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.IDEmpreendimento, "IDEmpreendimento", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("IDEmpreendimento", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.IDEmpreendimento, "", new { @class = "text-danger" })
-            </div>
-        </div>
+		@*<div class="form-group" hidden="hidden">
+			@Html.LabelFor(model => model.IDEmpreendimento, htmlAttributes: new { @class = "control-label col-md-2" })
+				<div class="col-md-10">
+					@Html.DropDownListFor(model => model.IDEmpreendimento, ViewData["IDEmpreendimento"] as SelectList, null, htmlAttributes: new { @class = "form-control" })
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+
+					@Html.ValidationMessageFor(model => model.IDEmpreendimento, "", new { @class = "text-danger" })
+				</div>
+		</div>*@
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Numero, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.Numero, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Numero, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.UnidadeStatus, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.UnidadeStatus, ViewData["UnidadeStatus"] as SelectList, null, htmlAttributes: new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.UnidadeStatus, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Tipo, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.Tipo, ViewData["Tipo"] as SelectList, null, htmlAttributes: new { @class = "form-control" })
+
+				@Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.UnidadeObservacao, htmlAttributes: new { @class = "control-label col-md-2" })
+			<div class="col-md-10">
+				@Html.TextAreaFor(model => model.UnidadeObservacao, new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.UnidadeObservacao, "", new { @class = "text-danger" })
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Salvar" class="btn btn-primary" />
+			</div>
+		</div>
+	</div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Voltar", "Consulta", new { id = Model.IDEmpreendimento }, new { @class = "btn btn-default" })
 </div>

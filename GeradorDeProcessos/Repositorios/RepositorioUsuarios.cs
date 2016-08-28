@@ -8,59 +8,114 @@ using System.Web.Security;
 
 namespace GeradorDeProcessos.Repositorios
 {
-    public class RepositorioUsuarios
-    {
-        public static bool AutenticarUsuario(string Login, string Senha)
-        {
-            var senhaCriptografada = FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, "sha1")
-                ;
-            using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
-            {
-                var QueryAutenticaUsuario = db.Usuarios.Where(x => x.Email == Login && x.Senha == Senha).SingleOrDefault();
-                if (QueryAutenticaUsuario == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    RepositorioCookies.RegistraCookieAutenticacao(QueryAutenticaUsuario.IDUsuario);
-                    return true;
-                }
-            }
-        }
+	public class RepositorioUsuarios
+	{
+		public static bool AutenticarUsuario(string Login, string Senha)
+		{
+			var senhaCriptografada = FormsAuthentication.HashPasswordForStoringInConfigFile(Senha, "sha1");
+			using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
+			{
+				var QueryAutenticaUsuario = db.Usuarios.Where(x => x.Email == Login && x.Senha == Senha).SingleOrDefault();
+				if (QueryAutenticaUsuario == null)
+				{
+					return false;
+				}
+				else
+				{
+					RepositorioCookies.RegistraCookieAutenticacao(QueryAutenticaUsuario.IDUsuario);
+					return true;
+				}
+			}
+		}
 
-        public static Usuarios RecuperaUsuarioPorID(long IDUsuario)
-        {
-            try
-            {
-                using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
-                {
-                    var usuario =
-                        db.Usuarios.Where(u => u.IDUsuario == IDUsuario).SingleOrDefault();
+		public static void LogOut()
+		{
+			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+			if (usuario != null)
+			{
+				RepositorioCookies.LogOut();
+			}
+		}
 
-                    return usuario;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
+		public static Usuarios RecuperaUsuarioPorID(long IDUsuario)
+		{
+			try
+			{
+				using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
+				{
+					var usuario =
+						db.Usuarios.Where(u => u.IDUsuario == IDUsuario).SingleOrDefault();
 
-        public static Usuarios VerificaSeOUsuarioEstaLogado()
-        {
-            var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
-            if (usuario == null)
-            {
-                return null;
-            }
-            else
-            {
-                long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+					return usuario;
+				}
+			}
+			catch (Exception)
+			{
+				return null;
+			}
+		}
 
-                var usuarioRetornado = RecuperaUsuarioPorID(IDUsuario);
-                return usuarioRetornado;
-            }
-        }
-    }
+		public static long RecuperaIDUsuario()
+		{
+			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+			long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+
+			return IDUsuario;
+			
+		}
+
+		public static Usuarios VerificaSeOUsuarioEstaLogado()
+		{
+			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+			if (usuario == null)
+			{
+				return null;
+			}
+			else
+			{
+				long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+
+				var usuarioRetornado = RecuperaUsuarioPorID(IDUsuario);
+				return usuarioRetornado;
+			}
+		}
+
+		public static long VerificaTipoUsuario()
+		{
+			try
+			{
+				using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
+				{
+					var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+					long ID = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+					int Tipo = db.Usuarios.Where(u => u.IDUsuario == ID).First().TipoUsuario.Value;
+
+					return Tipo;
+				}
+			}
+			catch (Exception)
+			{
+				return -1;
+			}
+		}
+
+		public static int VerificaEmpresaUsuario()
+		{
+			try
+			{
+				using (GeradorDeProcessosEntities db = new GeradorDeProcessosEntities())
+				{
+					var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+					long ID = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+					int Empresa = db.Usuarios.Where(u => u.IDUsuario == ID).First().IDEmpresa;
+
+					return Empresa;
+				}
+			}
+			catch (Exception)
+			{
+				return -1;
+			}
+		}
+	}
 }

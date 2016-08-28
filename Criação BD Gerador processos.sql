@@ -7,6 +7,7 @@ GO
 CREATE TABLE Usuarios
 (
 	IDUsuario INT IDENTITY(1,1) NOT NULL,
+	TipoUsuario INT NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
     Email VARCHAR(100) NOT NULL,
 	Senha VARCHAR(100) NOT NULL,
@@ -19,14 +20,17 @@ GO
 CREATE TABLE Clientes
 (
 	IDCliente INT IDENTITY(1,1) NOT NULL,
-	CpfCnpj VARCHAR(30) NOT NULL,
+	TipoPessoa INT NOT NULL,
+	CpfCnpj VARCHAR(20) NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
-	Sexo VARCHAR(100) NOT NULL,
-	Profissao VARCHAR(60) NOT NULL,
+	Sexo VARCHAR(20) NULL,
+	Profissao VARCHAR(60) NULL,
 	DataNascimento DATE NULL,
-	Renda VARCHAR(80) NULL,
+	Renda VARCHAR(20) NULL,
     EstadoCivil VARCHAR(80) NULL,
     RegimeCasamento VARCHAR(80) NULL,
+    Conjuge_Cpf VARCHAR(30) NULL,
+	Conjuge_Nome VARCHAR(80) NULL,
 	IDUsuario INT NOT NULL,
 
 	PRIMARY KEY(IDCliente)
@@ -46,6 +50,9 @@ CREATE TABLE Empreendimentos
 (
 	IDEmpreendimento INT IDENTITY(1,1) NOT NULL,
 	Nome VARCHAR(100) NOT NULL,
+    DataEntrega DATE NOT NULL,
+	Produto VARCHAR(50) NOT NULL,
+	Campanha VARCHAR(50) NOT NULL,
     IDEmpresa INT NOT NULL,
 
 	PRIMARY KEY(IDEmpreendimento)
@@ -56,21 +63,27 @@ CREATE TABLE Unidades
 	IDUnidade INT IDENTITY(1,1) NOT NULL,
 	Numero VARCHAR(100) NOT NULL,
 	IDEmpreendimento INT NOT NULL,
+	UnidadeStatus VARCHAR(20) NOT NULL,
+    Tipo VARCHAR(50) NOT NULL,
+	UnidadeObservacao VARCHAR(100),
 
 	PRIMARY KEY(IDUnidade)
 );
 GO
 
-CREATE TABLE Vendas
+CREATE TABLE Analises
 (
-	IDVenda INT IDENTITY(1,1) NOT NULL,
-	Unidades varchar(50) NOT NULL,
+	IDAnalise INT IDENTITY(1,1) NOT NULL,
+    DataEntrega DATE NOT NULL,
 	ValorFinanciamento DECIMAL NOT NULL,
     ValorTotal DECIMAL NOT NULL,
+	SaldoDevedor DECIMAL NOT NULL,
+    Observacao VARCHAR(300) NULL,
+	TipoAnalise VARCHAR(50) NOT NULL,
     IDCliente INT NOT NULL,
     IDUnidade INT NOT NULL,
 
-	PRIMARY KEY(IDVenda)
+	PRIMARY KEY(IDAnalise)
 );
 GO
 
@@ -92,8 +105,8 @@ FOREIGN KEY(IDEmpresa)
 REFERENCES Empresas(IDEmpresa)
 GO
 
-ALTER TABLE Vendas
-ADD CONSTRAINT fk_vendas_clientes
+ALTER TABLE Analises
+ADD CONSTRAINT fk_analises_clientes
 FOREIGN KEY(IDCliente)
 REFERENCES Clientes(IDCliente)
 GO
@@ -103,8 +116,8 @@ FOREIGN KEY(IDUsuario)
 REFERENCES Usuarios(IDUsuario)
 GO
 
-ALTER TABLE Vendas
-ADD CONSTRAINT fk_vendas_unidades
+ALTER TABLE Analises
+ADD CONSTRAINT fk_Analises_unidades
 FOREIGN KEY(IDUnidade)
 REFERENCES Unidades(IDUnidade)
 GO

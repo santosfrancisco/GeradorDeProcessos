@@ -1,0 +1,21 @@
+﻿@model GeradorDeProcessos.Models.Empresas
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Deletar empresa</h3>
+
+<div>
+	<h4>Tem certeza que deseja deletar a empresa @ViewBag.Empreendimento ?</h4>
+    <hr />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Deletar" class="btn btn-danger" /> 
+            @Html.ActionLink("Voltar", "Index",null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

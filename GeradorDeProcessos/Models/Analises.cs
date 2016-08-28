@@ -12,17 +12,19 @@ namespace GeradorDeProcessos.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Vendas
+    public partial class Analises
     {
-        public int IDVenda { get; set; }
-        public string Unidades { get; set; }
+        public int IDAnalise { get; set; }
+        public System.DateTime DataEntrega { get; set; }
         public decimal ValorFinanciamento { get; set; }
         public decimal ValorTotal { get; set; }
+        public decimal SaldoDevedor { get; set; }
+        public string Observacao { get; set; }
+        public string TipoAnalise { get; set; }
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
-        public string VendaObservacao { get; set; }
     
         public virtual Clientes Clientes { get; set; }
-        public virtual Unidades Unidades1 { get; set; }
+        public virtual Unidades Unidades { get; set; }
     }
 }

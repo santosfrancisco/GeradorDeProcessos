@@ -1,0 +1,53 @@
+﻿@using PagedList.Mvc;
+@*@model IEnumerable<GeradorDeProcessos.Models.Empresas>*@
+@model PagedList.IPagedList<GeradorDeProcessos.Models.Empresas>
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h3>Lista de empresas</h3>
+
+<p>
+	@Html.ActionLink("Nova empresa", "Create", null, new { @class = "btn btn-primary btn-xs" })
+</p>
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	@*<div class="panel-heading">Panel heading</div>*@
+	@*<div class="panel-body">
+			<p>...</p>
+		</div>*@
+	<table class="table table-striped table-bordered">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.First().Nome)
+			</th>
+			<th>
+				@Html.Label("Ações")
+			</th>
+		</tr>
+		@if (Model.Count != 0)
+		{
+
+			foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.Nome)
+					</td>
+					<td>
+						@Html.ActionLink("Editar", "Edit", new { id = item.IDEmpresa }, new { @class = "btn btn-default btn-sm" })
+						@Html.ActionLink("Deletar", "Delete", new { id = item.IDEmpresa }, new { @class = "btn btn-danger btn-sm" })
+					</td>
+				</tr>
+
+				}
+		}
+		else
+		{
+			<tr><td colspan="4" class="text-primary">Nenhuma empresa encontrada <b>:(</b></td></tr>
+		}
+	</table>
+</div>
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
