@@ -4,10 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h3>Detalhes da análise</h3>
 
 <div>
-    <h4>Analises</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -74,9 +73,18 @@
             @Html.DisplayFor(model => model.Unidades.Numero)
         </dd>
 
+		<dt>
+			@Html.Label("Resultado")
+		</dt>
+
+		<dd>
+			@*@Html.DisplayFor(model => model.Unidades.Numero)*@
+			<span>Resultado da análise aqui!</span>
+		</dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IDAnalise }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IDAnalise }, htmlAttributes: new { @class = "btn btn-primary" }) 
+    @Html.ActionLink("Voltar", "Index",null, htmlAttributes: new { @class = "btn btn-default" })
 </p>

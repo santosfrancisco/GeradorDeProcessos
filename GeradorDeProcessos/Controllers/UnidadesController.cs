@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using GeradorDeProcessos.Models;
 using PagedList;
 using PagedList.Mvc;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -20,23 +21,42 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades
 		public ActionResult Index()
 		{
-			var unidades = db.Unidades.Include(u => u.Empreendimentos);
-			//return RedirectToAction("Index", "Empreendimentos");
-			return View(unidades);
+			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
+			{
+				var unidades = db.Unidades.Include(u => u.Empreendimentos);
+				//return RedirectToAction("Index", "Empreendimentos");
+				return View(unidades);
+			} else
+			{
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
+			}
 		}
 		// GET: Unidades/Consulta/5
-		public ActionResult Consulta(int? id, int? page, string sortOrder, string currentFilter, string searchString)
+		public async Task<ActionResult> Consulta(int? id, int? page, string sortOrder, string currentFilter, string searchString)
 		{
 			ViewBag.CurrentSort = sortOrder;
 			ViewBag.NumeroParam = String.IsNullOrEmpty(sortOrder) ? "Numero_Desc" : "";
 			ViewBag.StatusParam = sortOrder == "Status" ? "Status_Desc" : "Status";
+			List<Unidades> unidades;
 
 			if (id == null)
 			{
 				return RedirectToAction("Index", "Home", null);
 			}
-
-			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == id);
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
+			if(tipoUsuario == 0)
+			{
+				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id).ToListAsync();
+			}
+			else if (tipoUsuario == 1)
+			{
+				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id).ToListAsync();
+			}
+			else
+			{
+				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id && (u.UnidadeStatus == "Disponível" || u.Analises.First().Clientes.IDUsuario == idUsuario)).ToListAsync();
+			}
 
 			if (searchString != null)
 			{
@@ -51,22 +71,22 @@ namespace GeradorDeProcessos.Controllers
 
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				unidades = unidades.Where(u => u.Numero.ToUpper().Contains(searchString.ToUpper()));
+				unidades = unidades.Where(u => u.Numero.ToUpper().Contains(searchString.ToUpper())).ToList();
 			}
 
 			switch (sortOrder)
 			{
 				case "Numero_Desc":
-					unidades = unidades.OrderByDescending(u => u.Numero);
+					unidades = unidades.OrderByDescending(u => u.Numero).ToList();
 					break;
 				case "Status":
-					unidades = unidades.OrderBy(u => u.UnidadeStatus);
+					unidades = unidades.OrderBy(u => u.UnidadeStatus).ToList();
 					break;
 				case "Status_Desc":
-					unidades = unidades.OrderByDescending(u => u.UnidadeStatus);
+					unidades = unidades.OrderByDescending(u => u.UnidadeStatus).ToList();
 					break;
 				default:
-					unidades = unidades.OrderBy(u => u.Numero);
+					unidades = unidades.OrderBy(u => u.Numero).ToList();
 					break;
 			}
 			ViewBag.IdEmpreendimento = id;

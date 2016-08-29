@@ -11,7 +11,7 @@ using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
-	public class HomeController : Controller
+	public class HomeController : BaseController
 	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
 		// GET: Home
@@ -57,11 +57,6 @@ namespace GeradorDeProcessos.Controllers
 			return View(empreendimentos.ToPagedList(pageNumber, pageSize));
 		}
 
-		//GET: logout
-		public void LogOut()
-		{
-			RepositorioUsuarios.LogOut();
-		}
 
 		// GET: Login
 		public ActionResult Login()
@@ -70,41 +65,10 @@ namespace GeradorDeProcessos.Controllers
 			return View();
 		}
 
-		// Login
-		[HttpPost]
-		public JsonResult AutenticacaoDeUsuario(string Login, string Senha)
-		{
-			if (RepositorioUsuarios.AutenticarUsuario(Login, Senha))
-			{
-				return Json(new
-				{
-					OK = true,
-					Mensagem = "Usuário autenticado. Redirecionando..."
-				},
-					JsonRequestBehavior.AllowGet);
-			}
-			else
-			{
-				return Json(new
-				{
-					OK = false,
-					Mensagem = "Usuário não encontrado. Tente novamente."
-				},
-					JsonRequestBehavior.AllowGet);
-			}
-		}
-
 		public ActionResult Configuracoes()
 		{
 			return View();
 		}
 
-		//public ActionResult ListarEmpreendimentos(Listagem listar)
-		//{
-		//	var empreendimentos = from e in db.Empreendimentos
-		//						  where e.IDEmpresa == listar.IDEmpresa
-		//						  select new ResultadoListagem { Empreendimento = e.Nome };
-		//	return Json(empreendimentos, JsonRequestBehavior.AllowGet);
-		//}
 	}
 }

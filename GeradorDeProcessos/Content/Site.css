@@ -15,4 +15,13 @@ select,
 textarea {
     max-width: 280px;
 }
+#anapro-love {
+    position: absolute; 
+    bottom: 0; 
+    right: 0; 
+    background-color: #ffffff; 
+    padding: 5px; 
+    border-radius: 5px; 
+    position: fixed
+}
 

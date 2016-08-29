@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GeradorDeProcessos.Models;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -44,6 +45,8 @@ namespace GeradorDeProcessos.Controllers
 			{
 				return RedirectToAction("Index","Home",null);
 			}
+
+			ViewBag.TipoAnalise = RepositorioListas.TipoAnalise();
 			ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome");
 			ViewBag.IDunidade = new SelectList(db.Unidades, "IDUnidade", "Numero", id);
             return View();
@@ -63,6 +66,7 @@ namespace GeradorDeProcessos.Controllers
                 return RedirectToAction("Index");
             }
 
+			ViewBag.TipoAnalise = RepositorioListas.TipoAnalise();
             ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome", analises.IDCliente);
             ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "Numero", analises.IDUnidade);
             return View(analises);
@@ -80,7 +84,9 @@ namespace GeradorDeProcessos.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome", analises.IDCliente);
+
+			ViewBag.TipoAnalise = RepositorioListas.TipoAnalise();
+			ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome", analises.IDCliente);
             ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "Numero", analises.IDUnidade);
             return View(analises);
         }
@@ -98,7 +104,9 @@ namespace GeradorDeProcessos.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome", analises.IDCliente);
+
+			ViewBag.TipoAnalise = RepositorioListas.TipoAnalise();
+			ViewBag.IDCliente = new SelectList(db.Clientes, "IDCliente", "Nome", analises.IDCliente);
             ViewBag.IDUnidade = new SelectList(db.Unidades, "IDUnidade", "Numero", analises.IDUnidade);
             return View(analises);
         }
@@ -115,7 +123,9 @@ namespace GeradorDeProcessos.Controllers
             {
                 return HttpNotFound();
             }
-            return View(analises);
+
+			ViewBag.TipoAnalise = RepositorioListas.TipoAnalise();
+			return View(analises);
         }
 
         // POST: Analises/Delete/5

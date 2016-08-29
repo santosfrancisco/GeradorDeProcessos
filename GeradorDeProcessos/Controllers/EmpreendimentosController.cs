@@ -16,13 +16,16 @@ namespace GeradorDeProcessos.Controllers
 	public class EmpreendimentosController : BaseController
 	{
 		private GeradorDeProcessosEntities db = new GeradorDeProcessosEntities();
+		// Tipo do usuário LOGADO
+		private long tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+		// Empresa do usuário LOGADO
+		private int empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
+
 
 		// GET: Empreendimentos
 		public async Task<ActionResult> Index(int? page, string searchString, string currentFilter)
 		{
 			List<Empreendimentos> empreendimentos;
-			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
-			var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
 
 			if (tipoUsuario == 0)
 			{
@@ -122,8 +125,6 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Empreendimentos/Create
 		public ActionResult Create()
 		{
-			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
-			var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
 			if (tipoUsuario == 0)
 			{
 				ViewBag.IDEmpresa = new SelectList(db.Empresas, "IDEmpresa", "Nome");
@@ -162,8 +163,6 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Empreendimentos/Edit/5
 		public async Task<ActionResult> Edit(int? id)
 		{
-			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
-			var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
 			Empreendimentos empreendimento = await db.Empreendimentos.FindAsync(id);
 
 			if (tipoUsuario == 0)
@@ -223,7 +222,7 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Empreendimentos/Delete/5
 		public async Task<ActionResult> Delete(int? id)
 		{
-			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
+			if (tipoUsuario == 0)
 			{
 				if (id == null)
 				{
@@ -248,7 +247,7 @@ namespace GeradorDeProcessos.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteConfirmed(int id)
 		{
-			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
+			if (tipoUsuario == 0)
 			{
 				Empreendimentos empreendimentos = await db.Empreendimentos.FindAsync(id);
 				db.Empreendimentos.Remove(empreendimentos);

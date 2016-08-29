@@ -10,6 +10,7 @@ CREATE TABLE Usuarios
 	TipoUsuario INT NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
     Email VARCHAR(100) NOT NULL,
+	EmailConfirmado BIT NOT NULL,
 	Senha VARCHAR(100) NOT NULL,
     IDEmpresa INT NOT NULL,
 
@@ -61,7 +62,7 @@ GO
 CREATE TABLE Unidades
 (
 	IDUnidade INT IDENTITY(1,1) NOT NULL,
-	Numero VARCHAR(100) NOT NULL,
+	Numero VARCHAR(50) NOT NULL,
 	IDEmpreendimento INT NOT NULL,
 	UnidadeStatus VARCHAR(20) NOT NULL,
     Tipo VARCHAR(50) NOT NULL,

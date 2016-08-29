@@ -58,26 +58,41 @@ namespace GeradorDeProcessos.Repositorios
 		public static long RecuperaIDUsuario()
 		{
 			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
-			long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
-
-			return IDUsuario;
-			
+			try
+			{ 
+				long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+				return IDUsuario;
+			}
+			catch
+			{
+				HttpContext.Current.Response.Redirect("/Home/Login", false);
+				return 0;
+			}
 		}
 
 		public static Usuarios VerificaSeOUsuarioEstaLogado()
 		{
-			var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
-			if (usuario == null)
+			try
+			{
+				var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
+				if (usuario == null)
+				{
+					return null;
+				}
+				else
+				{
+					long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
+
+					var usuarioRetornado = RecuperaUsuarioPorID(IDUsuario);
+					return usuarioRetornado;
+				}
+
+			}
+			catch
 			{
 				return null;
 			}
-			else
-			{
-				long IDUsuario = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
 
-				var usuarioRetornado = RecuperaUsuarioPorID(IDUsuario);
-				return usuarioRetornado;
-			}
 		}
 
 		public static long VerificaTipoUsuario()

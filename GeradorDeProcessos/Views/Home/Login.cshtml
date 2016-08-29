@@ -9,32 +9,62 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width" />
 	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
+	<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 	<title>@ViewBag.Title</title>
 	<style>
 		body {
 			padding-top: 60px;
+			background-color: ghostwhite;
+		}
+
+		.login {
+			box-shadow: rgba(0, 0, 0, 0.65)0 5px 5px;
 		}
 	</style>
 </head>
 <body>
 
-	<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="post" action="javascript:function()">
 
-		<h2>Login</h2>
+	<form style="width:350px; padding: 20px; margin:auto" class="panel panel-collapse animated fadeInDownBig login" id="form-login" name="form-login" method="post" action="javascript:function()">
+		<div class="text-center">
+			<img src="@Url.Content("~/Content/logo.jpg")" />
+			
+		</div>
+		<br /><br />
 		<div class="form-group">
-			<label for="txtLogin">Email</label>
-			<input type="email" class="form-control" id="txtLogin" placeholder="Email">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-user"></span>
+				</span>
+
+				<input type="email" id="txtLogin" class="form-control" placeholder="Email">
+			</div>
 		</div>
 		<div class="form-group">
-			<label for="txtSenha">Senha</label>
-			<input type="password" class="form-control" id="txtSenha" placeholder="Senha">
+			<div class="input-group">
+				<span class="input-group-addon">
+					<span class="glyphicon glyphicon-lock"></span>
+				</span>
+
+				<input type="password" id="txtSenha" class="form-control" placeholder="senha">
+			</div>
 		</div>
 		<div>
-			<div id="status" class="alert alert-info"></div>
+			<div id="loading" class="text-center">
+				<img width="40" src="~/Content/Images/default.gif" />
+			</div>
+			<div id="status" class="alert text-center" style="font-size:12px">
+			</div>
 		</div>
-		<a id="btnLogar" class="btn btn-default">Entrar</a>
+		<a id="btnLogar" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Entrar</a>
+		<div class="text-right">
+			<a href="#">Esqueci minha senha</a>
+		</div>
 	</form>
+
+
+	<a href="@Url.Content("http://www.anapro.com.br")" target="_blank"><div id="anapro-love" class="btn">feito com <i style="color:red" class="glyphicon glyphicon-heart" title="Amor"></i> pela <b>ANAPRO</b></div></a>
 
 	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
