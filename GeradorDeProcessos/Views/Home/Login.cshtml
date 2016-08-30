@@ -6,20 +6,40 @@
 
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
-	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 	<title>@ViewBag.Title</title>
-	<style>
-		body {
-			padding-top: 60px;
-		}
-	</style>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   
+     <!-- CSS -->
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+    <link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link rel="stylesheet" href="@Url.Content("~/fonts/font-awesome/css/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/form-elements.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/animate.css")">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Favicon and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+
 </head>
 <body>
 
-	<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="post" action="javascript:function()">
+	@*<form style="width:400px; padding: 10px; margin:auto" class="panel panel-default" id="form-login" name="form-login" method="post" action="javascript:function()">
 
 		<h2>Login</h2>
 		<div class="form-group">
@@ -34,10 +54,65 @@
 			<div id="status" class="alert alert-info"></div>
 		</div>
 		<a id="btnLogar" class="btn btn-default">Entrar</a>
-	</form>
+	</form>*@
+
+    <div class="top-content" method="post" action="javascript:function()">
+
+        <div class="inner-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 col-sm-offset-2 text animated bounceInDown">
+                        <h1><strong>ISIbr </strong></h1>
+                        <div class="description">
+                            <p>
+                                Análise de crédito rápido, confiavél e seguro!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row animated bounceInUp">
+                    <div class="col-sm-6 col-sm-offset-3 form-box">
+                        <div class="form-top">
+                            <div class="form-top-left">
+                                <h3>Login</h3>
+                                <p>Digite seu e-mail e senha para acessar:</p>
+                            </div>
+                            <div class="form-top-right">
+                                <i class="fa fa-lock"></i>
+                            </div>
+                        </div>
+                        <div class="form-bottom">
+                            <form role="form" action="" method="post" class="login-form">
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-username">E-mail</label>
+                                    <input type="text" name="form-username" placeholder="E-mail..." class="form-username form-control" id="txtLogin">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="form-password">Senha</label>
+                                    <input type="password" name="form-password" placeholder="Senha..." class="form-password form-control" id="txtSenha">
+                                </div>
+                                <button type="submit" class="btn" id="btnLogar">Entrar!</button>
+                                <br />
+                                <br />
+                                <div id="status" class="alert alert-info"></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
 	<script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
-	<script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.backstretch.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/Login.Home.js")"></script>
+	@*<script src="@Url.Content("~/Scripts/scripts.js")"></script>*@
+
+    <!--[if lt IE 10]>
+            <script src="assets/js/placeholder.js"></script>
+        <![endif]-->
+
 </body>
 </html>
