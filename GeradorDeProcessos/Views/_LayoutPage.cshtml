@@ -11,6 +11,11 @@
 	<link href="@Url.Content("~/Content/animate.css")" rel="stylesheet" />
 	<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
 	<link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" />
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/form-elements.css")">
+    <link rel="stylesheet" href="@Url.Content("~/fonts/font-awesome/css/font-awesome.min.css")">*@
+    <link href="@Url.Content("~/Content/PagedList.css")" rel="stylesheet" />
+    
+
 	<title>Procex - @ViewBag.Title</title>
 </head>
 <body>
@@ -56,10 +61,22 @@
 			@*--------------------fim da barra superior --------------------*@
 			@RenderBody()
 		</div>
-		<div class="panel panel-collapse"  style="text-align:center">
-			<img src="~/Content/logo.jpg" /><br />
-			<span class="text-info"><b><span class="glyphicon glyphicon-phone-alt"></span> Telefone: 11-50817969</b><br /><span class="glyphicon glyphicon-envelope"></span> <b>Email: analistas@isibr.com.br<b></b></span>
-		</div>
+
+        <div class="row">
+            <div class="form-top-custom-black" style="text-align:center">
+                <address>
+                    <p>
+                        <span class="glyphicon glyphicon-phone-alt"></span>
+                        Telefone: (11) 5081-7969
+                        <br />
+                        <span class="glyphicon glyphicon-envelope"></span>
+                        Email: analistas@isibr.com.br
+                    </p>
+                </address>
+            </div>
+        </div>
+
+
 	</div>
 	<script src="@Url.Content("~/Scripts/jquery-3.1.0.min.js")"></script>
 	@*<script src="@Url.Content("~/Scripts/jquery-1.9.1.min.js")"></script>*@

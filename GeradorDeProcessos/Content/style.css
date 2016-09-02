@@ -129,6 +129,22 @@ img { max-width: 100%; }
 
 .form-top-left h3 { margin-top: 0; color: #fff; }
 .form-top-left p { opacity: 0.8; color: #fff; }
+.form-top-custom p { opacity: 0.8; color: #fff; }
+.form-top-custom-black p { opacity: 0.8; color: #000000; }
+
+.form-top-custom {
+    padding: 25px 25px 10px 25px;
+	background: #444;
+	background: rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+}
+
+.form-top-custom{
+    padding: 25px 25px 10px 25px;
+	background: #444;
+	background: rgba(0, 0, 0, 0.3);
+	-moz-border-radius: 0 0 4px 4px; -webkit-border-radius: 0 0 4px 4px; border-radius: 0 0 4px 4px;
+}
 
 .form-top-right {
 	float: left;
