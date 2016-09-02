@@ -253,9 +253,7 @@
     <Content Include="Views\Unidades\Delete.cshtml" />
     <Content Include="Views\Unidades\Details.cshtml" />
     <Content Include="Views\Unidades\Index.cshtml" />
-    <Content Include="Views\Unidades\ListarUnidades.cshtml" />
     <Content Include="Views\Home\Configuracoes.cshtml" />
-    <Content Include="Views\Unidades\ListaConsulta.cshtml" />
     <Content Include="Views\Empreendimentos\Create.cshtml" />
     <Content Include="Views\Empreendimentos\Delete.cshtml" />
     <Content Include="Views\Empreendimentos\Details.cshtml" />

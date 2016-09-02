@@ -52,7 +52,14 @@
 					</td>
 					<td>
 						<div class="btn-toolbar">
-							<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Clique para solicitár análise de crédito para esta unidade" data-original-title="Tooltip on top" onclick="location.href='@Url.Action("Create","Analises", new { id = item.IDUnidade })'">Solicitar Análise</button>
+							@if (item.Analises.Count > 0)
+							{
+								<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Clique para solicitár análise de crédito para esta unidade" data-original-title="Tooltip on top" onclick="location.href='@Url.Action("Details", "Analises", new { id = item.IDUnidade })'">Visualizar Análise</button>
+							}
+							else
+							{
+								<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Clique para solicitár análise de crédito para esta unidade" data-original-title="Tooltip on top" onclick="location.href='@Url.Action("Create", "Analises", new { id = item.IDUnidade })'">Solicitar Análise</button>
+							}
 							<button type="button" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Ver mais detalhes sobre esta unidade" data-original-title="Tooltip on top" onclick="location.href='@Url.Action("Details","Unidades", new { id = item.IDUnidade })'">Detalhes</button>
 							<div id="menuGerenciar" class="btn-group">
 								<div class="btn-group-sm">

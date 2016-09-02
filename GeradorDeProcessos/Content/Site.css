@@ -16,9 +16,10 @@ textarea {
     max-width: 280px;
 }
 #anapro-love {
+	color:#000000;
     position: absolute; 
     bottom: 0; 
-    right: 0; 
+    right: 10px; 
     background-color: #ffffff; 
     padding: 5px; 
     border-radius: 5px; 

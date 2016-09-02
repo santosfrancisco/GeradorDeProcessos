@@ -41,5 +41,15 @@ namespace GeradorDeProcessos.Models
 		public string Conjuge_Nome { get; set; }
 		[DisplayName("Usuário")]
 		public int IDUsuario { get; set; }
+
+
+
+		public string Cliente
+		{
+			get
+			{
+				return string.Format("{0} - {1}", Nome, CpfCnpj);
+			}
+		}
 	}
 }

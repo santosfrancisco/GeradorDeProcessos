@@ -26,7 +26,8 @@ namespace GeradorDeProcessos.Controllers
 				var unidades = db.Unidades.Include(u => u.Empreendimentos);
 				//return RedirectToAction("Index", "Empreendimentos");
 				return View(unidades);
-			} else
+			}
+			else
 			{
 				return RedirectToAction("PermissaoNegada", "Usuarios", null);
 			}
@@ -45,7 +46,7 @@ namespace GeradorDeProcessos.Controllers
 			}
 			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
 			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
-			if(tipoUsuario == 0)
+			if (tipoUsuario == 0)
 			{
 				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id).ToListAsync();
 			}
@@ -55,7 +56,7 @@ namespace GeradorDeProcessos.Controllers
 			}
 			else
 			{
-				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id && (u.UnidadeStatus == "Disponível" || u.Analises.First().Clientes.IDUsuario == idUsuario)).ToListAsync();
+				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id && (u.UnidadeStatus == "Disponível" || u.Analises.FirstOrDefault().Clientes.IDUsuario == idUsuario)).ToListAsync();
 			}
 
 			if (searchString != null)
@@ -98,55 +99,62 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades/Details/5
 		public async Task<ActionResult> Details(int? id)
 		{
+			Unidades unidade;
+
 			if (id == null)
 			{
 				return RedirectToAction("Index", "Home", null);
 			}
-			Unidades unidades = await db.Unidades.FindAsync(id);
-			if (unidades == null)
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
+			if (tipoUsuario == 0)
+			{
+				unidade = await db.Unidades.FindAsync(id);
+			}
+			else if (tipoUsuario == 1)
+			{
+				unidade = await db.Unidades.FindAsync(id);
+			}
+			else
+			{
+				unidade = await db.Unidades.FindAsync(id);
+				if (unidade.UnidadeStatus == "Vendida" && unidade.Analises.FirstOrDefault().Clientes.IDUsuario != idUsuario)
+				{
+					RedirectToAction("PermissaoNegada", "Usuarios", null);
+				}
+			}
+			if (unidade == null)
 			{
 				//return HttpNotFound();
 				return RedirectToAction("Consulta");
 			}
-			//ViewBag.Status = unidades.UnidadeStatus.ToString();
-			IList<SelectListItem> status = new List<SelectListItem>();
-			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
-			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
 
-			ViewBag.UnidadeStatus = status.ToList();
-			return View(unidades);
-		}
-
-		public async Task<ActionResult> ListarUnidades(int? id)
-		{
-			if (id == null)
-			{
-				return RedirectToAction("Index", "Home", null);
-			}
-
-			var unidadesEmpreendimento = db.Unidades.Where(u => u.IDEmpreendimento == id);
-			if (id == null)
-			{
-				return HttpNotFound();
-			}
-			await unidadesEmpreendimento.ToListAsync();
-			return RedirectToAction("Consulta");
+			ViewBag.UnidadeStatus = RepositorioListas.StatusUnidade();
+			ViewBag.TipoUnidade = RepositorioListas.TipoUnidade();
+			return View(unidade);
 		}
 
 		// GET: Unidades/Create
-		public ActionResult Create(int? id)
+		public ActionResult Create(int id)
 		{
-			IList<SelectListItem> status = new List<SelectListItem>();
-			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
-			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
-			ViewBag.UnidadeStatus = status.ToList();
 
-			IList<SelectListItem> tipo = new List<SelectListItem>();
-			tipo.Add(new SelectListItem() { Text = "Residencial", Value = "Residencial" });
-			tipo.Add(new SelectListItem() { Text = "Comercial", Value = "Comercial" });
-			ViewBag.Tipo = tipo.ToList();
+			ViewBag.UnidadeStatus = RepositorioListas.StatusUnidade();
+			ViewBag.Tipo = RepositorioListas.TipoUnidade();
 
-			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome");
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var empresa = RepositorioUsuarios.VerificaEmpresaUsuario();
+			if (tipoUsuario == 0)
+			{
+				ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome");
+			}
+			else if (tipoUsuario == 1)
+			{
+				ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos.Where(e => e.IDEmpresa == empresa), "IDEmpreendimento", "Nome");
+			}
+			else
+			{
+				RedirectToAction("PermissaoNegada", "Usuarios", null);
+			}
 			return View();
 		}
 
@@ -159,7 +167,7 @@ namespace GeradorDeProcessos.Controllers
 		public async Task<ActionResult> Create(FormCollection form, int id)
 		{
 			string[] novasUnidades = form["unidades"].Split(new string[] { System.Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-			
+
 			if (novasUnidades != null)
 			{
 				if (ModelState.IsValid)
@@ -189,28 +197,40 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades/Edit/5
 		public async Task<ActionResult> Edit(int? id)
 		{
-			IList<SelectListItem> status = new List<SelectListItem>();
-			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
-			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
-			ViewBag.UnidadeStatus = status.ToList();
+			ViewBag.UnidadeStatus = RepositorioListas.StatusUnidade();
 
-			IList<SelectListItem> tipo = new List<SelectListItem>();
-			tipo.Add(new SelectListItem() { Text = "Residencial", Value = "Residencial" });
-			tipo.Add(new SelectListItem() { Text = "Comercial", Value = "Comercial" });
-			ViewBag.Tipo = tipo.ToList();
+			ViewBag.Tipo = RepositorioListas.TipoUnidade();
+
+			Unidades unidade;
+
 			if (id == null)
 			{
 				return RedirectToAction("Index", "Home", null);
 			}
-			Unidades unidades = await db.Unidades.FindAsync(id);
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
+			if (tipoUsuario == 0)
+			{
+				unidade = await db.Unidades.FindAsync(id);
+				ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidade.IDEmpreendimento);
+			}
+			else if (tipoUsuario == 1)
+			{
+				unidade = await db.Unidades.FindAsync(id);
+				ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidade.IDEmpreendimento);
+			}
+			else
+			{
+				RedirectToAction("PermissaoNegada", "Usuarios", null);
+				unidade = null;
+			}
 
-			ViewBag.IDEmpreendimento = new SelectList(db.Empreendimentos, "IDEmpreendimento", "Nome", unidades.IDEmpreendimento);
-			if (unidades == null)
+			if (unidade == null)
 			{
 				return HttpNotFound();
 			}
 
-			return View(unidades);
+			return View(unidade);
 		}
 
 		// POST: Unidades/Edit/5
@@ -233,16 +253,23 @@ namespace GeradorDeProcessos.Controllers
 		// GET: Unidades/Delete/5
 		public async Task<ActionResult> Delete(int? id)
 		{
-			if (id == null)
+			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
 			{
-				return RedirectToAction("Index", "Home", null);
+				if (id == null)
+				{
+					return RedirectToAction("Index", "Home", null);
+				}
+				Unidades unidades = await db.Unidades.FindAsync(id);
+				if (unidades == null)
+				{
+					return HttpNotFound();
+				}
+				return View(unidades);
 			}
-			Unidades unidades = await db.Unidades.FindAsync(id);
-			if (unidades == null)
+			else
 			{
-				return HttpNotFound();
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
 			}
-			return View(unidades);
 		}
 
 		// POST: Unidades/Delete/5
@@ -250,28 +277,17 @@ namespace GeradorDeProcessos.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> DeleteConfirmed(int id)
 		{
-			Unidades unidades = await db.Unidades.FindAsync(id);
-			db.Unidades.Remove(unidades);
-			await db.SaveChangesAsync();
-			return RedirectToAction("Consulta");
-		}
-
-		//GET Unidades/ListaConsulta/1
-		public async Task<ActionResult> ListaConsulta(int? empreendimentoID)
-		{
-			var empreendimento = db.Empreendimentos.Find(empreendimentoID);
-			ViewBag.NomeEmpreendimento = empreendimento.Nome.ToString();
-			if (empreendimentoID == null)
+			if (RepositorioUsuarios.VerificaTipoUsuario() == 0)
 			{
-				return RedirectToAction("Index", "Home", null);
+				Unidades unidades = await db.Unidades.FindAsync(id);
+				db.Unidades.Remove(unidades);
+				await db.SaveChangesAsync();
+				return RedirectToAction("Consulta");
 			}
-
-			var unidades = db.Unidades.Where(u => u.IDEmpreendimento == empreendimentoID);
-			if (empreendimentoID == null)
+			else
 			{
-				return HttpNotFound();
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
 			}
-			return View(await unidades.ToListAsync());
 		}
 
 		protected override void Dispose(bool disposing)

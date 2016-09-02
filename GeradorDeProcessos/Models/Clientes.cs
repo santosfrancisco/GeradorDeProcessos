@@ -33,8 +33,16 @@ namespace GeradorDeProcessos.Models
         public string Conjuge_Cpf { get; set; }
         public string Conjuge_Nome { get; set; }
         public int IDUsuario { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+		public string Cliente
+		{
+			get
+			{
+				return string.Format("{0} - {1}", Nome, CpfCnpj);
+			}
+		}
+
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Analises> Analises { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }

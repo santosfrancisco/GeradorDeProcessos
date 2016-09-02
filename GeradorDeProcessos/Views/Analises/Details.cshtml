@@ -1,7 +1,7 @@
 ﻿@model GeradorDeProcessos.Models.Analises
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalhes";
 }
 
 <h3>Detalhes da análise</h3>
@@ -9,6 +9,22 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
+		<dt>
+			@Html.DisplayNameFor(model => model.Unidades.Empreendimentos.Nome)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Unidades.Empreendimentos.Nome)
+		</dd>
+
+		<dt>
+			@Html.DisplayNameFor(model => model.Unidades.Numero)
+		</dt>
+
+		<dd>
+			@Html.DisplayFor(model => model.Unidades.Numero)
+		</dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.DataEntrega)
         </dt>
@@ -42,14 +58,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Observacao)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.TipoAnalise)
         </dt>
 
@@ -65,13 +73,13 @@
             @Html.DisplayFor(model => model.Clientes.CpfCnpj)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Unidades.Numero)
-        </dt>
+		<dt>
+			@Html.DisplayNameFor(model => model.Observacao)
+		</dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Unidades.Numero)
-        </dd>
+		<dd>
+			@Html.DisplayFor(model => model.Observacao)
+		</dd>
 
 		<dt>
 			@Html.Label("Resultado")
@@ -84,7 +92,7 @@
 
     </dl>
 </div>
+
 <p>
-    @Html.ActionLink("Editar", "Edit", new { id = Model.IDAnalise }, htmlAttributes: new { @class = "btn btn-primary" }) 
     @Html.ActionLink("Voltar", "Index",null, htmlAttributes: new { @class = "btn btn-default" })
 </p>

@@ -57,6 +57,22 @@ namespace GeradorDeProcessos.Repositorios
 			tiposAnalise.Add(new SelectListItem() { Text = "Aluguel", Value = "Aluguel" });
 			return tiposAnalise.ToList();
 		}
+
+		public static List<SelectListItem> StatusUnidade()
+		{
+			IList<SelectListItem> status = new List<SelectListItem>();
+			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
+			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
+			return status.ToList();
+		}
+
+		public static List<SelectListItem> TipoUnidade()
+		{
+			IList<SelectListItem> tipo = new List<SelectListItem>();
+			tipo.Add(new SelectListItem() { Text = "Residencial", Value = "Residencial" });
+			tipo.Add(new SelectListItem() { Text = "Comercial", Value = "Comercial" });
+			return tipo.ToList();
+		}
 	}
 
 }
