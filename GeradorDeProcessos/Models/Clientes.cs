@@ -22,8 +22,8 @@ namespace GeradorDeProcessos.Models
     
         public int IDCliente { get; set; }
         public int TipoPessoa { get; set; }
-        public string CpfCnpj { get; set; }
         public string Nome { get; set; }
+        public string CpfCnpj { get; set; }
         public string Sexo { get; set; }
         public string Profissao { get; set; }
         public Nullable<System.DateTime> DataNascimento { get; set; }
@@ -33,16 +33,8 @@ namespace GeradorDeProcessos.Models
         public string Conjuge_Cpf { get; set; }
         public string Conjuge_Nome { get; set; }
         public int IDUsuario { get; set; }
-
-		public string Cliente
-		{
-			get
-			{
-				return string.Format("{0} - {1}", Nome, CpfCnpj);
-			}
-		}
-
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Analises> Analises { get; set; }
         public virtual Usuarios Usuarios { get; set; }
     }

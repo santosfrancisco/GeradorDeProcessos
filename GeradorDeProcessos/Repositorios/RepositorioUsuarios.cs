@@ -103,7 +103,7 @@ namespace GeradorDeProcessos.Repositorios
 				{
 					var usuario = HttpContext.Current.Request.Cookies["UserCookieAuthentication"];
 					long ID = Convert.ToInt64(RepositorioCriptografia.Descriptografar(usuario.Values["IDUsuario"]));
-					int Tipo = db.Usuarios.Where(u => u.IDUsuario == ID).First().TipoUsuario.Value;
+					int Tipo = db.Usuarios.Where(u => u.IDUsuario == ID).First().TipoUsuario;
 
 					return Tipo;
 				}

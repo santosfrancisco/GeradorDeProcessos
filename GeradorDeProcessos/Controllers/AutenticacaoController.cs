@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GeradorDeProcessos.Models;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -14,6 +15,19 @@ namespace GeradorDeProcessos.Controllers
         {
             return View();
         }
+
+		//Dados do usuario
+		[ChildActionOnly]
+		public string Dados()
+		{
+			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
+			Usuarios usuario = RepositorioUsuarios.RecuperaUsuarioPorID(idUsuario);
+
+			string usuarioLogado = usuario.Nome.ToString(); /*+ "(" + usuario.Empresas.Nome.ToString() + ")";*/
+
+			return usuarioLogado; 
+
+		} 
 
 		// Login
 		[HttpPost]

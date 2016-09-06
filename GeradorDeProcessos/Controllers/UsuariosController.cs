@@ -90,7 +90,7 @@ namespace GeradorDeProcessos.Controllers
 			if (id != null)
 			{
 				var usuarios = db.Usuarios.Where(u => u.IDUsuario == id);
-				var tipo = usuarios.First().TipoUsuario.Value;
+				var tipo = usuarios.First().TipoUsuario;
 				string TipoUsuario = "";
 
 				switch (tipo)

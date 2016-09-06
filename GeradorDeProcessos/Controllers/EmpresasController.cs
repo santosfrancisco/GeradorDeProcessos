@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using GeradorDeProcessos.Models;
 using PagedList;
+using GeradorDeProcessos.Repositorios;
 
 namespace GeradorDeProcessos.Controllers
 {
@@ -33,12 +34,33 @@ namespace GeradorDeProcessos.Controllers
             return View();
         }
 
-        // POST: Empresas/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+		// GET: Empresas/Details/5
+		public async Task<ActionResult> Details(int? id)
+		{
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var empresaUsuario = RepositorioUsuarios.VerificaEmpresaUsuario();
+			if (id == null)
+			{
+				return RedirectToAction("Index", "Home", null);
+			}
+			Empresas empresa = await db.Empresas.FindAsync(id);
+			if (tipoUsuario != 0 && empresa.IDEmpresa != empresaUsuario)
+			{
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
+			}
+			if (empresa == null)
+			{
+				return HttpNotFound();
+			}
+			return View(empresa);
+		}
+
+		// POST: Empresas/Create
+		// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+		// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "IDEmpresa,Nome")] Empresas empresas)
+        public async Task<ActionResult> Create([Bind(Include = "IDEmpresa,Nome,Responsavel,Responsavel_Email,Responsavel_Telefone")] Empresas empresas)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +93,7 @@ namespace GeradorDeProcessos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "IDEmpresa,Nome")] Empresas empresas)
+        public async Task<ActionResult> Edit([Bind(Include = "IDEmpresa,Nome,Responsavel,Responsavel_Email,Responsavel_Telefone")] Empresas empresas)
         {
             if (ModelState.IsValid)
             {

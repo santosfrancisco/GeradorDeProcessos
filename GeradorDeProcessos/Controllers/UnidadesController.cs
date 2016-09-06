@@ -56,7 +56,7 @@ namespace GeradorDeProcessos.Controllers
 			}
 			else
 			{
-				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id && (u.UnidadeStatus == "Disponível" || u.Analises.FirstOrDefault().Clientes.IDUsuario == idUsuario)).ToListAsync();
+				unidades = await db.Unidades.Where(u => u.IDEmpreendimento == id && (u.UnidadeStatus == 0 || u.Analises.FirstOrDefault().Clientes.IDUsuario == idUsuario)).ToListAsync();
 			}
 
 			if (searchString != null)
@@ -118,7 +118,7 @@ namespace GeradorDeProcessos.Controllers
 			else
 			{
 				unidade = await db.Unidades.FindAsync(id);
-				if (unidade.UnidadeStatus == "Vendida" && unidade.Analises.FirstOrDefault().Clientes.IDUsuario != idUsuario)
+				if (unidade.UnidadeStatus == 1 && unidade.Analises.FirstOrDefault().Clientes.IDUsuario != idUsuario)
 				{
 					RedirectToAction("PermissaoNegada", "Usuarios", null);
 				}
@@ -178,7 +178,7 @@ namespace GeradorDeProcessos.Controllers
 						unidade.Numero = u;
 						unidade.IDEmpreendimento = id;
 						unidade.Tipo = form["Tipo"].ToString();
-						unidade.UnidadeStatus = form["UnidadeStatus"].ToString();
+						unidade.UnidadeStatus = Convert.ToInt32(form["UnidadeStatus"]);
 						unidade.UnidadeObservacao = form["UnidadeObservacao"].ToString();
 						db.Unidades.Add(unidade);
 					}

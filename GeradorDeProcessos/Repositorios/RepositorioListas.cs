@@ -61,8 +61,8 @@ namespace GeradorDeProcessos.Repositorios
 		public static List<SelectListItem> StatusUnidade()
 		{
 			IList<SelectListItem> status = new List<SelectListItem>();
-			status.Add(new SelectListItem() { Text = "Disponível", Value = "Disponível" });
-			status.Add(new SelectListItem() { Text = "Vendida", Value = "Vendida" });
+			status.Add(new SelectListItem() { Text = "Disponível", Value = "0" });
+			status.Add(new SelectListItem() { Text = "Vendida", Value = "1" });
 			return status.ToList();
 		}
 

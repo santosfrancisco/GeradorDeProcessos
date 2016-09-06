@@ -17,16 +17,20 @@ namespace GeradorDeProcessos.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuarios()
         {
+            this.Analises = new HashSet<Analises>();
             this.Clientes = new HashSet<Clientes>();
         }
     
         public int IDUsuario { get; set; }
+        public int TipoUsuario { get; set; }
         public string Nome { get; set; }
         public string Email { get; set; }
+        public bool EmailConfirmado { get; set; }
         public string Senha { get; set; }
         public int IDEmpresa { get; set; }
-        public Nullable<int> TipoUsuario { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Analises> Analises { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Clientes> Clientes { get; set; }
         public virtual Empresas Empresas { get; set; }

@@ -24,7 +24,7 @@
 			</div>*@
 			@*-------------- Barra superior -------------------------*@
 			<nav class="navbar navbar-default">
-				<div class="container">
+				<div class="container-fluid">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
 							<span class="sr-only">Toggle navigation</span>
@@ -46,10 +46,14 @@
 									<li><a href="@Url.Action("Index", "Empreendimentos")">Gerenciar Empreendimentos</a></li>
 									<li><a href="@Url.Action("Index", "Usuarios")">Gerenciar Usuários</a></li>
 									<li class="divider"></li>
-									<li><a href="@Url.Action("Logout", "Autenticacao")"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+						 		<li><a href="@Url.Action("Logout", "Autenticacao")"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
 								</ul>
 							</li>
-							<li><a href="@Url.Action("Logout", "Autenticacao")"><span class="glyphicon glyphicon-log-out"></span> Sair</a></li>
+							@*<li><span class="glyphicon glyphicon-log-out">@Html.Action("Dados", "Autenticacao", null)</span></li>*@
+						</ul>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a href="@Url.Action("Logout", "Autenticacao")"><span class="glyphicon glyphicon-log-out"></span> @Html.Action("Dados", "Autenticacao", null) [Sair]</a></li>
+
 						</ul>
 					</div>
 				</div>

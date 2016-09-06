@@ -44,12 +44,12 @@ namespace GeradorDeProcessos.Models
 
 
 
-		public string Cliente
-		{
-			get
-			{
-				return string.Format("{0} - {1}", Nome, CpfCnpj);
-			}
-		}
+		//public string Cliente
+		//{
+		//	get
+		//	{
+		//		return string.Format("{0} - {1}", Nome, CpfCnpj);
+		//	}
+		//}
 	}
 }

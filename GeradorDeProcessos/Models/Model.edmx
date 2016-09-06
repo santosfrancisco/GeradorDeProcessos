@@ -18,6 +18,7 @@
           <Property Name="TipoAnalise" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDCliente" Type="int" Nullable="false" />
           <Property Name="IDUnidade" Type="int" Nullable="false" />
+          <Property Name="IDUsuario" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -25,8 +26,8 @@
           </Key>
           <Property Name="IDCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TipoPessoa" Type="int" Nullable="false" />
-          <Property Name="CpfCnpj" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="CpfCnpj" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="Sexo" Type="varchar" MaxLength="20" />
           <Property Name="Profissao" Type="varchar" MaxLength="60" />
           <Property Name="DataNascimento" Type="date" />
@@ -54,15 +55,18 @@
           </Key>
           <Property Name="IDEmpresa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Responsavel" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Responsavel_Email" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Responsavel_Telefone" Type="varchar" MaxLength="20" Nullable="false" />
         </EntityType>
         <EntityType Name="Unidades">
           <Key>
             <PropertyRef Name="IDUnidade" />
           </Key>
           <Property Name="IDUnidade" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Numero" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IDEmpreendimento" Type="int" Nullable="false" />
-          <Property Name="UnidadeStatus" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UnidadeStatus" Type="int" Nullable="false" />
           <Property Name="Tipo" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UnidadeObservacao" Type="varchar" MaxLength="100" />
         </EntityType>
@@ -71,11 +75,12 @@
             <PropertyRef Name="IDUsuario" />
           </Key>
           <Property Name="IDUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TipoUsuario" Type="int" Nullable="false" />
           <Property Name="Nome" Type="varchar" MaxLength="80" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EmailConfirmado" Type="bit" Nullable="false" />
           <Property Name="Senha" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IDEmpresa" Type="int" Nullable="false" />
-          <Property Name="TipoUsuario" Type="int" />
         </EntityType>
         <Association Name="fk_analises_clientes">
           <End Role="Clientes" Type="Self.Clientes" Multiplicity="1" />
@@ -89,7 +94,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Analises_unidades">
+        <Association Name="fk_analises_unidades">
           <End Role="Unidades" Type="Self.Unidades" Multiplicity="1" />
           <End Role="Analises" Type="Self.Analises" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,6 +103,18 @@
             </Principal>
             <Dependent Role="Analises">
               <PropertyRef Name="IDUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_analises_usuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Analises" Type="Self.Analises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Analises">
+              <PropertyRef Name="IDUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -160,8 +177,12 @@
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Analises" EntitySet="Analises" />
           </AssociationSet>
-          <AssociationSet Name="fk_Analises_unidades" Association="Self.fk_Analises_unidades">
+          <AssociationSet Name="fk_analises_unidades" Association="Self.fk_analises_unidades">
             <End Role="Unidades" EntitySet="Unidades" />
+            <End Role="Analises" EntitySet="Analises" />
+          </AssociationSet>
+          <AssociationSet Name="fk_analises_usuarios" Association="Self.fk_analises_usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Analises" EntitySet="Analises" />
           </AssociationSet>
           <AssociationSet Name="fk_clientes_usuarios" Association="Self.fk_clientes_usuarios">
@@ -196,8 +217,12 @@
             <End Role="Clientes" EntitySet="Clientes" />
             <End Role="Analises" EntitySet="Analises" />
           </AssociationSet>
-          <AssociationSet Name="fk_Analises_unidades" Association="GeradorDeProcessosModel.fk_Analises_unidades">
+          <AssociationSet Name="fk_analises_unidades" Association="GeradorDeProcessosModel.fk_analises_unidades">
             <End Role="Unidades" EntitySet="Unidades" />
+            <End Role="Analises" EntitySet="Analises" />
+          </AssociationSet>
+          <AssociationSet Name="fk_analises_usuarios" Association="GeradorDeProcessosModel.fk_analises_usuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
             <End Role="Analises" EntitySet="Analises" />
           </AssociationSet>
           <AssociationSet Name="fk_clientes_usuarios" Association="GeradorDeProcessosModel.fk_clientes_usuarios">
@@ -230,8 +255,10 @@
           <Property Name="TipoAnalise" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDCliente" Type="Int32" Nullable="false" />
           <Property Name="IDUnidade" Type="Int32" Nullable="false" />
+          <Property Name="IDUsuario" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clientes" Relationship="GeradorDeProcessosModel.fk_analises_clientes" FromRole="Analises" ToRole="Clientes" />
-          <NavigationProperty Name="Unidades" Relationship="GeradorDeProcessosModel.fk_Analises_unidades" FromRole="Analises" ToRole="Unidades" />
+          <NavigationProperty Name="Unidades" Relationship="GeradorDeProcessosModel.fk_analises_unidades" FromRole="Analises" ToRole="Unidades" />
+          <NavigationProperty Name="Usuarios" Relationship="GeradorDeProcessosModel.fk_analises_usuarios" FromRole="Analises" ToRole="Usuarios" />
         </EntityType>
         <EntityType Name="Clientes">
           <Key>
@@ -239,8 +266,8 @@
           </Key>
           <Property Name="IDCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TipoPessoa" Type="Int32" Nullable="false" />
-          <Property Name="CpfCnpj" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="CpfCnpj" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Sexo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Profissao" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="DataNascimento" Type="DateTime" Precision="0" />
@@ -272,6 +299,9 @@
           </Key>
           <Property Name="IDEmpresa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel_Email" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="Responsavel_Telefone" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Empreendimentos" Relationship="GeradorDeProcessosModel.fk_empreendimentos_empresas" FromRole="Empresas" ToRole="Empreendimentos" />
           <NavigationProperty Name="Usuarios" Relationship="GeradorDeProcessosModel.fk_usuarios_empresas" FromRole="Empresas" ToRole="Usuarios" />
         </EntityType>
@@ -280,12 +310,12 @@
             <PropertyRef Name="IDUnidade" />
           </Key>
           <Property Name="IDUnidade" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Numero" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpreendimento" Type="Int32" Nullable="false" />
-          <Property Name="UnidadeStatus" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UnidadeStatus" Type="Int32" Nullable="false" />
           <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="UnidadeObservacao" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Analises" Relationship="GeradorDeProcessosModel.fk_Analises_unidades" FromRole="Unidades" ToRole="Analises" />
+          <NavigationProperty Name="Analises" Relationship="GeradorDeProcessosModel.fk_analises_unidades" FromRole="Unidades" ToRole="Analises" />
           <NavigationProperty Name="Empreendimentos" Relationship="GeradorDeProcessosModel.fk_unidades_empreendimentos" FromRole="Unidades" ToRole="Empreendimentos" />
         </EntityType>
         <EntityType Name="Usuarios">
@@ -293,11 +323,13 @@
             <PropertyRef Name="IDUsuario" />
           </Key>
           <Property Name="IDUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TipoUsuario" Type="Int32" Nullable="false" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EmailConfirmado" Type="Boolean" Nullable="false" />
           <Property Name="Senha" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="IDEmpresa" Type="Int32" Nullable="false" />
-          <Property Name="TipoUsuario" Type="Int32" />
+          <NavigationProperty Name="Analises" Relationship="GeradorDeProcessosModel.fk_analises_usuarios" FromRole="Usuarios" ToRole="Analises" />
           <NavigationProperty Name="Clientes" Relationship="GeradorDeProcessosModel.fk_clientes_usuarios" FromRole="Usuarios" ToRole="Clientes" />
           <NavigationProperty Name="Empresas" Relationship="GeradorDeProcessosModel.fk_usuarios_empresas" FromRole="Usuarios" ToRole="Empresas" />
         </EntityType>
@@ -313,7 +345,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="fk_Analises_unidades">
+        <Association Name="fk_analises_unidades">
           <End Type="GeradorDeProcessosModel.Unidades" Role="Unidades" Multiplicity="1" />
           <End Type="GeradorDeProcessosModel.Analises" Role="Analises" Multiplicity="*" />
           <ReferentialConstraint>
@@ -322,6 +354,18 @@
             </Principal>
             <Dependent Role="Analises">
               <PropertyRef Name="IDUnidade" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_analises_usuarios">
+          <End Type="GeradorDeProcessosModel.Usuarios" Role="Usuarios" Multiplicity="1" />
+          <End Type="GeradorDeProcessosModel.Analises" Role="Analises" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="IDUsuario" />
+            </Principal>
+            <Dependent Role="Analises">
+              <PropertyRef Name="IDUsuario" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -382,6 +426,7 @@
           <EntitySetMapping Name="Analises">
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Analises">
               <MappingFragment StoreEntitySet="Analises">
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
                 <ScalarProperty Name="IDUnidade" ColumnName="IDUnidade" />
                 <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
                 <ScalarProperty Name="TipoAnalise" ColumnName="TipoAnalise" />
@@ -406,8 +451,8 @@
                 <ScalarProperty Name="DataNascimento" ColumnName="DataNascimento" />
                 <ScalarProperty Name="Profissao" ColumnName="Profissao" />
                 <ScalarProperty Name="Sexo" ColumnName="Sexo" />
-                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="CpfCnpj" ColumnName="CpfCnpj" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="TipoPessoa" ColumnName="TipoPessoa" />
                 <ScalarProperty Name="IDCliente" ColumnName="IDCliente" />
               </MappingFragment>
@@ -428,6 +473,9 @@
           <EntitySetMapping Name="Empresas">
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Empresas">
               <MappingFragment StoreEntitySet="Empresas">
+                <ScalarProperty Name="Responsavel_Telefone" ColumnName="Responsavel_Telefone" />
+                <ScalarProperty Name="Responsavel_Email" ColumnName="Responsavel_Email" />
+                <ScalarProperty Name="Responsavel" ColumnName="Responsavel" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
               </MappingFragment>
@@ -448,11 +496,12 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="GeradorDeProcessosModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
-                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
                 <ScalarProperty Name="IDEmpresa" ColumnName="IDEmpresa" />
                 <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="EmailConfirmado" ColumnName="EmailConfirmado" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="TipoUsuario" ColumnName="TipoUsuario" />
                 <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
               </MappingFragment>
             </EntityTypeMapping>

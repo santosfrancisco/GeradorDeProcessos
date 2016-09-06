@@ -23,7 +23,7 @@ namespace GeradorDeProcessos.Models
         public int IDUnidade { get; set; }
         public string Numero { get; set; }
         public int IDEmpreendimento { get; set; }
-        public string UnidadeStatus { get; set; }
+        public int UnidadeStatus { get; set; }
         public string Tipo { get; set; }
         public string UnidadeObservacao { get; set; }
     

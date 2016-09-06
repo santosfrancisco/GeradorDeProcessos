@@ -23,6 +23,9 @@ namespace GeradorDeProcessos.Models
     
         public int IDEmpresa { get; set; }
         public string Nome { get; set; }
+        public string Responsavel { get; set; }
+        public string Responsavel_Email { get; set; }
+        public string Responsavel_Telefone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Empreendimentos> Empreendimentos { get; set; }

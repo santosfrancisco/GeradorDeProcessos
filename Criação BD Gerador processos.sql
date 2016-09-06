@@ -10,7 +10,7 @@ CREATE TABLE Usuarios
 	TipoUsuario INT NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
     Email VARCHAR(100) NOT NULL,
-	EmailConfirmado BIT NOT NULL,
+	EmailConfirmado BIT DEFAULT 0 NOT NULL,
 	Senha VARCHAR(100) NOT NULL,
     IDEmpresa INT NOT NULL,
 
@@ -22,8 +22,8 @@ CREATE TABLE Clientes
 (
 	IDCliente INT IDENTITY(1,1) NOT NULL,
 	TipoPessoa INT NOT NULL,
-	CpfCnpj VARCHAR(20) NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
+	CpfCnpj VARCHAR(20) NOT NULL,
 	Sexo VARCHAR(20) NULL,
 	Profissao VARCHAR(60) NULL,
 	DataNascimento DATE NULL,
@@ -42,6 +42,9 @@ CREATE TABLE Empresas
 (
 	IDEmpresa INT IDENTITY(1,1) NOT NULL,
 	Nome VARCHAR(80) NOT NULL,
+	Responsavel VARCHAR(80) NOT NULL,
+	Responsavel_Email VARCHAR(80) NOT NULL,
+	Responsavel_Telefone VARCHAR(20) NOT NULL,
 
 	PRIMARY KEY(IDEmpresa)
 );
@@ -64,7 +67,7 @@ CREATE TABLE Unidades
 	IDUnidade INT IDENTITY(1,1) NOT NULL,
 	Numero VARCHAR(50) NOT NULL,
 	IDEmpreendimento INT NOT NULL,
-	UnidadeStatus VARCHAR(20) NOT NULL,
+	UnidadeStatus INT NOT NULL,
     Tipo VARCHAR(50) NOT NULL,
 	UnidadeObservacao VARCHAR(100),
 
@@ -83,6 +86,7 @@ CREATE TABLE Analises
 	TipoAnalise VARCHAR(50) NOT NULL,
     IDCliente INT NOT NULL,
     IDUnidade INT NOT NULL,
+	IDUsuario INT NOT NULL,
 
 	PRIMARY KEY(IDAnalise)
 );
@@ -118,15 +122,21 @@ REFERENCES Usuarios(IDUsuario)
 GO
 
 ALTER TABLE Analises
-ADD CONSTRAINT fk_Analises_unidades
+ADD CONSTRAINT fk_analises_unidades
 FOREIGN KEY(IDUnidade)
 REFERENCES Unidades(IDUnidade)
 GO
 
+ALTER TABLE Analises
+ADD CONSTRAINT fk_analises_usuarios
+FOREIGN KEY(IDUsuario)
+REFERENCES Usuarios(IDUsuario)
+GO
 
-INSERT INTO Empresas (Nome) VALUES ('Fibra')
-INSERT INTO Empresas (Nome) VALUES ('Odebrecht')
+
+INSERT INTO Empresas (Nome, Responsavel, Responsavel_Email, Responsavel_Telefone) VALUES ('Fibra','Fulano','fulano@fibra.com.br','1112341234')
+INSERT INTO Empresas (Nome, Responsavel, Responsavel_Email, Responsavel_Telefone) VALUES ('Odebrecht','Fulano','fulano@odebrecht.com.br','1112341234')
 
 GO
 
-Insert Into Usuarios (Nome, Email, Senha, IDEmpresa) Values ('Administrador','admin@anapro.com.br', '123', '1')
+Insert Into Usuarios (Nome, TipoUsuario, Email, Senha, IDEmpresa) Values ('Administrador','0','admin@anapro.com.br', '123', '1')

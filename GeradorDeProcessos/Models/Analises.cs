@@ -23,8 +23,10 @@ namespace GeradorDeProcessos.Models
         public string TipoAnalise { get; set; }
         public int IDCliente { get; set; }
         public int IDUnidade { get; set; }
+        public int IDUsuario { get; set; }
     
         public virtual Clientes Clientes { get; set; }
         public virtual Unidades Unidades { get; set; }
+        public virtual Usuarios Usuarios { get; set; }
     }
 }

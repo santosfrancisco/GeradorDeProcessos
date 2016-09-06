@@ -260,9 +260,7 @@
     <Content Include="Views\Empreendimentos\Edit.cshtml" />
     <Content Include="Views\Unidades\Consulta.cshtml" />
     <Content Include="Views\Unidades\Create.cshtml" />
-    <Content Include="Views\Empresas\Create.cshtml" />
     <Content Include="Views\Empresas\Delete.cshtml" />
-    <Content Include="Views\Empresas\Edit.cshtml" />
     <Content Include="Views\Empresas\Index.cshtml" />
     <Content Include="Views\Unidades\Edit.cshtml" />
     <Content Include="Views\Clientes\Create.cshtml" />
@@ -283,6 +281,9 @@
     <Content Include="Views\Usuarios\Delete.cshtml" />
     <Content Include="Views\Usuarios\PermissaoNegada.cshtml" />
     <Content Include="Views\Shared\_Usuario.cshtml" />
+    <Content Include="Views\Empresas\Create.cshtml" />
+    <Content Include="Views\Empresas\Edit.cshtml" />
+    <Content Include="Views\Empresas\Details.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

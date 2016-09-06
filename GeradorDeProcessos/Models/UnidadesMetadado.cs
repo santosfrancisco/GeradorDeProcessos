@@ -22,7 +22,7 @@ namespace GeradorDeProcessos.Models
 		[DisplayName("Empreendimento")]
 		public int IDEmpreendimento { get; set; }
 		[DisplayName("Status")]
-		public string UnidadeStatus { get; set; }
+		public int UnidadeStatus { get; set; }
 		[DisplayName("Tipo")]
 		public string Tipo { get; set; }
 		[DisplayName("Observação")]

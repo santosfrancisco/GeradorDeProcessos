@@ -19,9 +19,12 @@ namespace GeradorDeProcessos.Models
 		[Required(ErrorMessage = "Obrigatório informar nome do usuário")]
 		[StringLength(80, ErrorMessage = "Nome do usuário deve possuir no máximo 80 caracteres")]
 		public string Nome { get; set; }
+		[DisplayName("E-mail")]
 		[Required(ErrorMessage = "Obrigatório informar o e-mail")]
 		[DataType(DataType.EmailAddress, ErrorMessage = "Informe um e-mail válido")]
 		public string Email { get; set; }
+		[DisplayName("E-mail confirmado?")]
+		public bool EmailConfirmado { get; set; }
 		[Required(ErrorMessage = "Obrigatório informar uma senha")]
 		[DataType(DataType.Password)]
 		public string Senha { get; set; }

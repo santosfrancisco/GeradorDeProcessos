@@ -115,11 +115,22 @@ namespace GeradorDeProcessos.Controllers
         // GET: Analises/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+			var tipoUsuario = RepositorioUsuarios.VerificaTipoUsuario();
+			var empresaUsuario = RepositorioUsuarios.VerificaEmpresaUsuario();
+			var idUsuario = RepositorioUsuarios.RecuperaIDUsuario();
+
 			if (id == null)
 			{
 				return RedirectToAction("Index", "Home", null);
 			}
 			Analises analises = await db.Analises.FindAsync(id);
+			if(tipoUsuario == 1 && analises.Unidades.Empreendimentos.IDEmpresa != empresaUsuario)
+			{
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
+			} else if(tipoUsuario == 2 && analises.Clientes.IDUsuario != idUsuario)
+			{
+				return RedirectToAction("PermissaoNegada", "Usuarios", null);
+			}
 
 			ViewBag.DataEntrega = db.Unidades.Find(id).Empreendimentos.DataEntrega;
 			if (analises == null)

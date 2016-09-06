@@ -33,5 +33,7 @@ namespace GeradorDeProcessos.Models
 		public int IDCliente { get; set; }
 		[DisplayName("Unidade")]
 		public int IDUnidade { get; set; }
+		[DisplayName("Usuário")]
+		public int IDUsuario { get; set; }
 	}
 }
